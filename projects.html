@@ -2,67 +2,387 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Projects — Nexo.corp</title>
+  <title>Nexo.corp – Projects</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link rel="stylesheet" href="style.css" />
+
+  <!-- Extra styles only for this page -->
+  <style>
+    /* Layout helpers (works with your existing style.css) */
+    main {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 2rem 1rem 3rem;
+    }
+
+    header {
+      padding: 1rem 1.5rem;
+      border-bottom: 1px solid rgba(148, 163, 184, 0.4);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    header h1 {
+      font-size: 1.2rem;
+      margin: 0;
+    }
+
+    nav a {
+      margin-left: 1rem;
+      text-decoration: none;
+      font-size: 0.9rem;
+    }
+
+    /* === AI TOOLS HUB SECTION === */
+
+    .ai-tools-section {
+      padding: 2.2rem 1.7rem;
+      margin-top: 2rem;
+      border-radius: 24px;
+      background: radial-gradient(circle at top left, rgba(56, 189, 248, 0.12), transparent 55%),
+                  radial-gradient(circle at bottom right, rgba(129, 140, 248, 0.12), transparent 55%),
+                  #020617;
+      border: 1px solid rgba(148, 163, 184, 0.45);
+      box-shadow: 0 18px 40px rgba(15, 23, 42, 0.9);
+    }
+
+    .ai-tools-header h2 {
+      font-size: 1.5rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .ai-tools-header p {
+      font-size: 0.9rem;
+      color: #9ca3af;
+      max-width: 520px;
+      margin: 0;
+    }
+
+    .ai-tools-grid {
+      margin-top: 1.5rem;
+      display: grid;
+      grid-template-columns: repeat(1, minmax(0, 1fr));
+      gap: 1rem;
+    }
+
+    @media (min-width: 640px) {
+      .ai-tools-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .ai-tools-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+
+    .ai-tool-card {
+      background: radial-gradient(circle at top, rgba(15, 23, 42, 0.7), transparent 60%),
+                  #020617;
+      border-radius: 18px;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+    }
+
+    .ai-tool-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(59, 130, 246, 0.9);
+      box-shadow: 0 22px 60px rgba(15, 23, 42, 0.95);
+    }
+
+    .ai-tool-top {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+    }
+
+    .ai-tool-logo {
+      width: 32px;
+      height: 32px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #1d4ed8, #22c55e, #0ea5e9);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: #f9fafb;
+    }
+
+    .ai-logo-alt {
+      background: linear-gradient(135deg, #6366f1, #ec4899, #a855f7);
+    }
+
+    .ai-logo-neutral {
+      background: #020617;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+    }
+
+    .ai-tool-top h3 {
+      font-size: 1rem;
+      margin: 0;
+    }
+
+    .ai-badge {
+      display: inline-block;
+      margin-top: 2px;
+      padding: 2px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(129, 140, 248, 0.7);
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #a5b4fc;
+    }
+
+    .ai-tool-desc {
+      font-size: 0.85rem;
+      color: #d1d5db;
+      min-height: 40px;
+      margin: 0;
+    }
+
+    .ai-tool-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      font-size: 0.75rem;
+      color: #9ca3af;
+    }
+
+    .ai-tool-meta span {
+      padding: 2px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+    }
+
+    .ai-tool-btn {
+      margin-top: 0.4rem;
+      align-self: flex-start;
+      padding: 7px 14px;
+      border-radius: 999px;
+      border: none;
+      background: linear-gradient(to right, #38bdf8, #6366f1);
+      color: #f9fafb;
+      font-size: 0.85rem;
+      font-weight: 500;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 1.5rem 0 2rem;
+      font-size: 0.8rem;
+      color: #9ca3af;
+    }
+  </style>
 </head>
 <body>
+  <header>
+    <h1>Nexo.corp – Projects</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="projects.html">Projects</a>
+      <a href="about.html">About</a>
+    </nav>
+  </header>
 
-<header>
-  <div class="logo">Nexo.corp</div>
-  <nav>
-    <a href="index.html">Home</a>
-    <a href="projects.html">Projects</a>
-    <a href="about.html">About</a>
-    <a href="terms.html">Terms</a>
-    <a href="privacy.html">Privacy</a>
-  </nav>
-</header>
+  <main>
+    <!-- Your main project card: XO AI -->
+    <section class="card">
+      <h2>XO AI – Nexo Assistant</h2>
+      <p>
+        XO AI is the first official project by Nexo.corp.  
+        It is a personal AI assistant built by Dev to help with ideas, doubts, planning and creativity.
+      </p>
+      <p>
+        <strong>Access XO AI (web app):</strong><br />
+        <a href="https://nexobot-app-kqlgt2gwhadjvfcs2fvxbq.streamlit.app/"
+           target="_blank">Open XO AI ↗</a>
+      </p>
+      <p>
+        <strong>Access XO AI (Instagram agent):</strong><br />
+        <a href="https://aistudio.instagram.com/ai/770326939207108"
+           target="_blank">Open IG XO AI ↗</a>
+      </p>
+    </section>
 
-<main class="page">
-  <h1>Projects</h1>
+    <!-- NEW: Nexo AI Tools Hub -->
+    <section id="ai-tools" class="ai-tools-section">
+      <div class="ai-tools-header">
+        <h2>Nexo AI Tools Hub</h2>
+        <p>
+          A small but powerful hub of AI tools curated by Nexo.corp.  
+          Click any card to open the official website of that tool instantly.
+        </p>
+      </div>
 
-  <section class="card">
-    <h2>XO AI</h2>
-    <p>
-      XO AI is a conversational assistant designed to be calm, focused and
-      reliable. It is ideal for:
-    </p>
-    <ul>
-      <li>Study help and exam preparation</li>
-      <li>Maths and coding questions</li>
-      <li>Brainstorming ideas and planning routines</li>
-      <li>Light emotional support and reflection</li>
-    </ul>
-    <p>
-      XO AI is currently hosted as a web application. You can access it using
-      the link below:
-    </p>
-    <p>
-      <a class="btn"
-         href="https://nexobot-app-kqlgt2gwhadjvfcs2fvxbq.streamlit.app/"
-         target="_blank">Open XO AI</a>
-    </p>
-  </section>
+      <div class="ai-tools-grid">
+        <!-- XO AI – your app -->
+        <article class="ai-tool-card">
+          <div class="ai-tool-top">
+            <div class="ai-tool-logo ai-logo-neutral">XO</div>
+            <div>
+              <h3>XO AI – Nexo Assistant</h3>
+              <span class="ai-badge">By Nexo.corp</span>
+            </div>
+          </div>
+          <p class="ai-tool-desc">
+            Personal AI assistant built by Dev. Great for students and creators who want fast, friendly help.
+          </p>
+          <div class="ai-tool-meta">
+            <span>Chat • Multi-purpose</span>
+            <span>Best for: students &amp; creators</span>
+          </div>
+          <a class="ai-tool-btn"
+             href="https://nexobot-app-kqlgt2gwhadjvfcs2fvxbq.streamlit.app/"
+             target="_blank" rel="noopener noreferrer">
+            Open XO AI ↗
+          </a>
+        </article>
 
-  <section class="card">
-    <h2>Future tools</h2>
-    <p>
-      We are exploring additional tools such as:
-    </p>
-    <ul>
-      <li>Small utilities for productivity and focus</li>
-      <li>Learning dashboards and trackers</li>
-      <li>Simple finance and planning helpers</li>
-    </ul>
-    <p>
-      This page will be updated as new projects are released.
-    </p>
-  </section>
-</main>
+        <!-- ChatGPT -->
+        <article class="ai-tool-card">
+          <div class="ai-tool-top">
+            <div class="ai-tool-logo">G</div>
+            <div>
+              <h3>ChatGPT</h3>
+              <span class="ai-badge">Official</span>
+            </div>
+          </div>
+          <p class="ai-tool-desc">
+            General AI chat by OpenAI. Good for explanations, homework help, coding, writing and brainstorming.
+          </p>
+          <div class="ai-tool-meta">
+            <span>Chat • Code • Writing</span>
+            <span>Best for: everyone</span>
+          </div>
+          <a class="ai-tool-btn"
+             href="https://chat.openai.com"
+             target="_blank" rel="noopener noreferrer">
+            Open ChatGPT ↗
+          </a>
+        </article>
 
-<footer>
-  © 2025 Nexo.corp — Founded by Dev
-</footer>
+        <!-- Gemini -->
+        <article class="ai-tool-card">
+          <div class="ai-tool-top">
+            <div class="ai-tool-logo ai-logo-alt">G</div>
+            <div>
+              <h3>Gemini</h3>
+              <span class="ai-badge">Official</span>
+            </div>
+          </div>
+          <p class="ai-tool-desc">
+            Google’s AI, connected with search, Docs and Slides. Strong for research and studying.
+          </p>
+          <div class="ai-tool-meta">
+            <span>Chat • Research</span>
+            <span>Best for: students &amp; professionals</span>
+          </div>
+          <a class="ai-tool-btn"
+             href="https://gemini.google.com"
+             target="_blank" rel="noopener noreferrer">
+            Open Gemini ↗
+          </a>
+        </article>
 
+        <!-- Claude -->
+        <article class="ai-tool-card">
+          <div class="ai-tool-top">
+            <div class="ai-tool-logo ai-logo-alt">C</div>
+            <div>
+              <h3>Claude</h3>
+              <span class="ai-badge">Official</span>
+            </div>
+          </div>
+          <p class="ai-tool-desc">
+            AI assistant that is very good with long answers, PDFs and deep thinking tasks.
+          </p>
+          <div class="ai-tool-meta">
+            <span>Chat • Documents</span>
+            <span>Best for: long tasks</span>
+          </div>
+          <a class="ai-tool-btn"
+             href="https://claude.ai"
+             target="_blank" rel="noopener noreferrer">
+            Open Claude ↗
+          </a>
+        </article>
+
+        <!-- Perplexity -->
+        <article class="ai-tool-card">
+          <div class="ai-tool-top">
+            <div class="ai-tool-logo">P</div>
+            <div>
+              <h3>Perplexity</h3>
+              <span class="ai-badge">Search</span>
+            </div>
+          </div>
+          <p class="ai-tool-desc">
+            AI search engine with sources and links. Good for up-to-date facts and research.
+          </p>
+          <div class="ai-tool-meta">
+            <span>Search • Research</span>
+            <span>Best for: facts &amp; sources</span>
+          </div>
+          <a class="ai-tool-btn"
+             href="https://www.perplexity.ai"
+             target="_blank" rel="noopener noreferrer">
+            Open Perplexity ↗
+          </a>
+        </article>
+
+        <!-- Midjourney -->
+        <article class="ai-tool-card">
+          <div class="ai-tool-top">
+            <div class="ai-tool-logo ai-logo-alt">MJ</div>
+            <div>
+              <h3>Midjourney</h3>
+              <span class="ai-badge">Image</span>
+            </div>
+          </div>
+          <p class="ai-tool-desc">
+            Popular AI image generator for art, posters and concepts. Works via Discord.
+          </p>
+          <div class="ai-tool-meta">
+            <span>Image • Art</span>
+            <span>Best for: designers &amp; artists</span>
+          </div>
+          <a class="ai-tool-btn"
+             href="https://www.midjourney.com"
+             target="_blank" rel="noopener noreferrer">
+            Open Midjourney ↗
+          </a>
+        </article>
+      </div>
+    </section>
+
+    <!-- Optional: simple text section for future tools -->
+    <section class="card" style="margin-top: 2rem;">
+      <h2>Future tools</h2>
+      <p>
+        Nexo.corp will keep adding more tools for students and professionals:
+      </p>
+      <ul>
+        <li>Study planners and dashboards</li>
+        <li>Simple finance and SIP calculators</li>
+        <li>Productivity and focus utilities</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer>
+    © 2025 Nexo.corp — Founded by Dev
+  </footer>
 </body>
 </html>
