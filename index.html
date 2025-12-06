@@ -17,7 +17,9 @@
       --accent2: #6366f1;
     }
 
-    * { box-sizing: border-box; }
+    * {
+      box-sizing: border-box;
+    }
 
     body {
       margin: 0;
@@ -26,20 +28,23 @@
       color: var(--text-main);
     }
 
-   <header>
-  <h1>Nexo.corp</h1>
-  <nav>
-    <a href="index.html">Home</a>
-    <a href="projects.html">Projects</a>
-    <a href="terms.html">Terms</a>
-    <a href="privacy.html">Privacy</a>
-  </nav>
-</header>
-
+    header {
+      padding: 1rem 1.5rem;
+      border-bottom: 1px solid rgba(148, 163, 184, 0.4);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(18px);
+      background: linear-gradient(to right, rgba(2, 6, 23, 0.96), rgba(15, 23, 42, 0.9));
+      animation: header-slide 0.6s ease-out;
+    }
 
     header h1 {
       margin: 0;
-      font-size: 1.1rem;
+      font-size: 1.15rem;
     }
 
     nav a {
@@ -47,29 +52,47 @@
       font-size: 0.9rem;
       color: var(--text-muted);
       text-decoration: none;
+      position: relative;
+      padding-bottom: 2px;
+    }
+
+    nav a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(to right, var(--accent1), var(--accent2));
+      border-radius: 999px;
+      transition: width 0.2s ease-out;
     }
 
     nav a:hover {
       color: #f9fafb;
     }
 
+    nav a:hover::after {
+      width: 100%;
+    }
+
     main {
       max-width: 1120px;
       margin: 0 auto;
-      padding: 2.5rem 1rem 3rem;
+      padding: 2.5rem 1rem 3.5rem;
     }
 
     /* HERO */
-
     .hero {
       display: grid;
-      gap: 1.5rem;
+      gap: 1.8rem;
       align-items: center;
+      margin-bottom: 2.8rem;
     }
 
     @media (min-width: 900px) {
       .hero {
-        grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+        grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
       }
     }
 
@@ -79,6 +102,7 @@
       text-transform: uppercase;
       color: var(--text-muted);
       margin-bottom: 0.4rem;
+      animation: fade-in 0.4s ease-out;
     }
 
     .hero-title {
@@ -86,6 +110,7 @@
       line-height: 1.1;
       font-weight: 700;
       margin: 0 0 0.6rem;
+      animation: fade-up 0.55s ease-out;
     }
 
     @media (min-width: 900px) {
@@ -99,12 +124,14 @@
       color: var(--text-muted);
       max-width: 520px;
       margin: 0 0 1.2rem;
+      animation: fade-up 0.7s ease-out;
     }
 
     .hero-buttons {
       display: flex;
       flex-wrap: wrap;
       gap: 0.75rem;
+      animation: fade-up 0.8s ease-out;
     }
 
     .btn-main,
@@ -118,6 +145,7 @@
       font-size: 0.9rem;
       text-decoration: none;
       cursor: pointer;
+      transition: transform 0.15s ease-out, box-shadow 0.15s ease-out, background 0.15s ease-out;
     }
 
     .btn-main {
@@ -125,51 +153,96 @@
       background: linear-gradient(to right, var(--accent1), var(--accent2));
       color: #f9fafb;
       font-weight: 600;
+      box-shadow: 0 16px 35px rgba(37, 99, 235, 0.45);
     }
 
     .btn-main:hover {
-      filter: brightness(1.05);
+      transform: translateY(-1px);
+      box-shadow: 0 18px 45px rgba(37, 99, 235, 0.65);
     }
 
     .btn-ghost {
       border: 1px solid var(--border-subtle);
       color: var(--text-main);
-      background: transparent;
+      background: rgba(15, 23, 42, 0.9);
     }
 
     .btn-ghost:hover {
       border-color: var(--accent1);
+      background: rgba(15, 23, 42, 1);
+      transform: translateY(-1px);
     }
 
     .hero-meta {
       margin-top: 0.6rem;
       font-size: 0.8rem;
       color: var(--text-muted);
+      animation: fade-up 0.9s ease-out;
     }
 
-    .hero-highlight {
+    .hero-card {
+      position: relative;
       border-radius: 22px;
-      padding: 1.2rem 1.3rem;
+      padding: 1.4rem 1.5rem 1.3rem;
       background:
         radial-gradient(circle at top left, rgba(56, 189, 248, 0.16), transparent 60%),
-        radial-gradient(circle at bottom right, rgba(129, 140, 248, 0.18), transparent 60%),
+        radial-gradient(circle at bottom right, rgba(129, 140, 248, 0.2), transparent 60%),
         var(--bg-alt);
       border: 1px solid rgba(148, 163, 184, 0.45);
-      box-shadow: 0 18px 40px rgba(15, 23, 42, 0.9);
-      font-size: 0.85rem;
+      box-shadow: 0 20px 50px rgba(15, 23, 42, 0.95);
+      font-size: 0.88rem;
       color: var(--text-muted);
+      overflow: hidden;
+      animation: hero-glow 4.5s ease-in-out infinite alternate;
     }
 
-    .hero-highlight strong {
+    .hero-card strong {
       color: #e5e7eb;
+      font-size: 0.95rem;
     }
 
-    /* FEATURE GRID */
+    .hero-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      font-size: 0.75rem;
+      color: #c7d2fe;
+      margin-bottom: 0.4rem;
+      background: rgba(15, 23, 42, 0.85);
+    }
+
+    .hero-pill-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: #22c55e;
+      box-shadow: 0 0 10px rgba(34, 197, 94, 0.9);
+    }
+
+    .hero-card a {
+      margin-top: 0.65rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.85rem;
+      color: var(--accent1);
+      text-decoration: none;
+    }
+
+    .hero-card a:hover {
+      text-decoration: underline;
+    }
+
+    /* FEATURES */
 
     .section-title {
-      margin-top: 3rem;
+      margin-top: 2.5rem;
       margin-bottom: 1rem;
       text-align: center;
+      animation: fade-in 0.6s ease-out;
     }
 
     .section-title h2 {
@@ -184,7 +257,7 @@
     }
 
     .feature-grid {
-      margin-top: 1.5rem;
+      margin-top: 1.6rem;
       display: grid;
       grid-template-columns: repeat(1, minmax(0, 1fr));
       gap: 1rem;
@@ -198,13 +271,21 @@
 
     .feature-card {
       border-radius: 18px;
-      padding: 1.3rem 1.2rem 1.1rem;
-      background: var(--bg-alt);
+      padding: 1.3rem 1.2rem 1.15rem;
+      background: radial-gradient(circle at top, rgba(15, 23, 42, 0.8), transparent 65%), var(--bg-alt);
       border: 1px solid var(--border-subtle);
       box-shadow: 0 18px 40px rgba(15, 23, 42, 0.9);
       display: flex;
       flex-direction: column;
-      gap: 0.5rem;
+      gap: 0.55rem;
+      transform: translateY(0);
+      transition: transform 0.18s ease-out, box-shadow 0.18s ease-out, border-color 0.18s ease-out;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(59, 130, 246, 0.85);
+      box-shadow: 0 22px 60px rgba(15, 23, 42, 0.98);
     }
 
     .feature-card h3 {
@@ -214,7 +295,7 @@
 
     .feature-card p {
       margin: 0;
-      font-size: 0.85rem;
+      font-size: 0.86rem;
       color: var(--text-muted);
     }
 
@@ -235,6 +316,27 @@
       font-size: 0.8rem;
       color: var(--text-muted);
     }
+
+    /* ANIMATIONS */
+    @keyframes header-slide {
+      from { transform: translateY(-12px); opacity: 0; }
+      to   { transform: translateY(0); opacity: 1; }
+    }
+
+    @keyframes fade-in {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+
+    @keyframes fade-up {
+      from { opacity: 0; transform: translateY(8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes hero-glow {
+      from { box-shadow: 0 20px 50px rgba(15, 23, 42, 0.9); }
+      to   { box-shadow: 0 22px 70px rgba(37, 99, 235, 0.8); }
+    }
   </style>
 </head>
 <body>
@@ -252,11 +354,11 @@
     <!-- HERO -->
     <section class="hero">
       <div>
-        <div class="hero-eyebrow">Nexo.corp • Student-first AI</div>
-        <h1 class="hero-title">Building the future of intelligence for students & creators.</h1>
+        <div class="hero-eyebrow">Nexo.corp • Student-first AI Lab</div>
+        <h1 class="hero-title">Clean AI tools for learning, building and planning your future.</h1>
         <p class="hero-sub">
-          Clean, powerful and elegant AI tools – from XO AI to curated AI platforms,
-          simple finance labs and a billionaire study hub.
+          XO AI, curated AI platforms, simple finance tools and a billionaire study hub — all in one place,
+          built especially for students and young builders.
         </p>
 
         <div class="hero-buttons">
@@ -265,35 +367,40 @@
         </div>
 
         <div class="hero-meta">
-          Free access • No sign-up required for most tools • Built by Dev (Nexo.corp)
+          Free access • No sign-up for most tools • Designed and maintained by Dev (Nexo.corp)
         </div>
       </div>
 
-      <div class="hero-highlight">
-        <strong>XO AI · Nexo Assistant</strong><br />
-        Your personal AI for doubts, ideas and planning.<br />
-        <a href="https://nexobot-app-kqlgt2gwhadjvfcs2fvxbq.streamlit.app/"
-           target="_blank" rel="noopener noreferrer"
-           class="feature-link">Launch XO AI in a new tab ↗</a>
-      </div>
+      <aside class="hero-card">
+        <div class="hero-pill">
+          <span class="hero-pill-dot"></span>
+          XO AI · Nexo Assistant
+        </div>
+        <strong>Your personal AI for everyday thinking.</strong>
+        <p>
+          Ask doubts, generate ideas, plan your day, draft messages and learn new things — all in one calm,
+          focused chat. Built to feel like a friendly co-pilot, not a noisy feed.
+        </p>
+        <a href="https://nexobot-app-kqlgt2gwhadjvfcs2fvxbq.streamlit.app/" target="_blank" rel="noopener noreferrer">
+          Launch XO AI in a new tab ↗
+        </a>
+      </aside>
     </section>
 
     <!-- FEATURE GRID -->
     <section class="section-title">
       <h2>What you can do with Nexo.corp</h2>
-      <p>Three pillars that turn your browser into a small AI lab.</p>
+      <p>Three pillars that turn your browser into a small personal AI lab.</p>
     </section>
 
     <section class="feature-grid">
       <article class="feature-card">
         <h3>1. XO AI – Your Daily Assistant</h3>
         <p>
-          A calm, focused assistant built for students. Ask questions, plan your day,
-          draft messages, get ideas and keep learning.
+          A calm, focused assistant built for students. Ask questions, plan your day, draft messages,
+          get ideas and keep learning.
         </p>
-        <a class="feature-link"
-           href="https://nexobot-app-kqlgt2gwhadjvfcs2fvxbq.streamlit.app/"
-           target="_blank" rel="noopener noreferrer">
+        <a class="feature-link" href="https://nexobot-app-kqlgt2gwhadjvfcs2fvxbq.streamlit.app/" target="_blank" rel="noopener noreferrer">
           Launch XO AI ↗
         </a>
       </article>
@@ -301,8 +408,8 @@
       <article class="feature-card">
         <h3>2. Nexo AI Tools Hub</h3>
         <p>
-          One clean page with direct links to top AI tools: ChatGPT, Gemini, Claude,
-          Perplexity, image tools, coding tools and more.
+          One clean page with direct links to top AI tools: ChatGPT, Gemini, Claude, Perplexity, image tools,
+          coding tools and more — curated for students and creators.
         </p>
         <a class="feature-link" href="projects.html#ai-tools">
           Explore the AI Tools Hub →
@@ -310,13 +417,13 @@
       </article>
 
       <article class="feature-card">
-        <h3>3. Finance & Billionaire Lab</h3>
+        <h3>3. Finance &amp; Billionaire Lab</h3>
         <p>
-          Learn how SIP compounding works and read short biographies of world-class builders
-          like Musk, Bezos, Ambani, Buffett and more.
+          Learn how SIP compounding works and read short, student-friendly biographies of world-class
+          builders like Musk, Bezos, Ambani and Buffett.
         </p>
         <a class="feature-link" href="projects.html#sip">
-          Try SIP calculator & study hub →
+          Try SIP calculator &amp; study hub →
         </a>
       </article>
     </section>
