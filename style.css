@@ -194,3 +194,20 @@ footer {
     padding: 16px;
   }
 }
+/* Nexo.corp Logo Styling */
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 600;
+  font-size: 1.2rem;
+  color: #f1f5f9;
+}
+
+.logo img {
+  height: 34px;
+  width: 34px;
+  border-radius: 8px;
+  object-fit: cover;
+  box-shadow: 0 0 12px rgba(56, 189, 248, 0.5);
+}
