@@ -22,18 +22,28 @@ header {
   z-index: 50;
 }
 
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  color: #f1f5f9;
+}
+
 .logo img {
   height: 34px;
   width: 34px;
-  object-fit: cover;
   border-radius: 8px;
-  margin-right: 8px;
-  box-shadow: 0 0 12px rgba(56, 189, 248, 0.6);
-  transition: 0.3s ease;
+  object-fit: cover;
+  margin-right: 2px;
+  box-shadow: 0 0 15px rgba(56, 189, 248, 0.7);
+  transition: 0.25s;
 }
 
 .logo img:hover {
-  box-shadow: 0 0 20px rgba(99, 102, 241, 0.9);
+  box-shadow: 0 0 22px rgba(99, 102, 241, 0.9);
 }
 
 nav a {
