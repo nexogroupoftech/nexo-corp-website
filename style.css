@@ -1,12 +1,8 @@
-/* ====== NEXOCORP 2026 DESIGN SYSTEM ====== */
-
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap");
 
 :root {
-  --bg: #0b0f19;
+  --bg: #0b0f1a;
   --bg-soft: #12182b;
-  --card: rgba(255, 255, 255, 0.06);
-  --border: rgba(255, 255, 255, 0.12);
   --text: #e5e7eb;
   --muted: #9aa4b2;
   --accent: linear-gradient(135deg, #4f8cff, #7b5cff);
@@ -20,23 +16,20 @@
 
 body {
   font-family: "Inter", sans-serif;
-  background: radial-gradient(circle at top, #12182b, #0b0f19);
+  background: radial-gradient(circle at top, #12182b, #0b0f1a);
   color: var(--text);
-  line-height: 1.6;
 }
 
-/* ====== NAVBAR ====== */
+/* NAVBAR */
 nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 22px 8%;
+  padding: 20px 8%;
   position: sticky;
   top: 0;
   backdrop-filter: blur(12px);
-  background: rgba(11, 15, 25, 0.75);
-  border-bottom: 1px solid var(--border);
-  z-index: 100;
+  background: rgba(11, 15, 26, 0.7);
 }
 
 nav h1 {
@@ -51,9 +44,9 @@ nav span {
 }
 
 nav a {
-  margin-left: 24px;
-  color: var(--muted);
+  margin-left: 20px;
   text-decoration: none;
+  color: var(--muted);
   font-weight: 500;
   transition: color 0.3s;
 }
@@ -62,32 +55,32 @@ nav a:hover {
   color: #fff;
 }
 
-/* ====== HERO ====== */
+/* HERO */
 .hero {
-  padding: 120px 8% 90px;
+  min-height: 80vh;
+  padding: 120px 8%;
   text-align: center;
 }
 
 .hero h2 {
   font-size: 48px;
-  font-weight: 700;
   max-width: 900px;
   margin: auto;
 }
 
 .hero p {
   margin-top: 20px;
-  color: var(--muted);
   font-size: 18px;
+  color: var(--muted);
 }
 
-.hero .tag {
-  margin-top: 14px;
+.founder {
+  margin-top: 12px;
   font-size: 14px;
   color: var(--muted);
 }
 
-/* ====== BUTTON ====== */
+/* BUTTON */
 .btn {
   display: inline-block;
   margin-top: 40px;
@@ -95,54 +88,30 @@ nav a:hover {
   border-radius: 999px;
   background: var(--accent);
   color: #fff;
-  font-weight: 600;
   text-decoration: none;
+  font-weight: 600;
   box-shadow: 0 10px 40px rgba(79, 140, 255, 0.35);
   transition: transform 0.3s ease;
 }
 
 .btn:hover {
-  transform: translateY(-3px);
+  transform: translateY(-4px);
 }
 
-/* ====== SECTIONS ====== */
-section {
-  padding: 90px 8%;
-}
-
-section h3 {
-  font-size: 32px;
-  margin-bottom: 30px;
-}
-
-.card {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 20px;
-  padding: 30px;
-  backdrop-filter: blur(16px);
-  transition: transform 0.4s ease, box-shadow 0.4s ease;
-}
-
-.card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
-}
-
-/* ====== FOOTER ====== */
+/* FOOTER */
 footer {
-  border-top: 1px solid var(--border);
-  padding: 30px 8%;
   text-align: center;
-  color: var(--muted);
+  padding: 30px;
   font-size: 14px;
+  color: var(--muted);
+  border-top: 1px solid rgba(255,255,255,0.1);
 }
 
-/* ====== ANIMATIONS ====== */
-.fade-up {
+/* ANIMATION */
+.fade {
   opacity: 0;
   transform: translateY(20px);
-  animation: fadeUp 0.9s ease forwards;
+  animation: fadeUp 1s ease forwards;
 }
 
 @keyframes fadeUp {
