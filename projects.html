@@ -4,224 +4,78 @@
   <meta charset="UTF-8" />
   <title>NexoCorp — Projects</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="NexoCorp projects — founder-led technology studio building focused, future-ready systems." />
 
   <style>
-    :root {
-      --bg: #020617;
-      --bg-alt: #050818;
-      --text-main: #e5e7eb;
-      --text-muted: #9ca3af;
-      --border: rgba(148, 163, 184, 0.25);
-      --accent: #38bdf8;
-      --radius: 18px;
-    }
-
-    * { box-sizing: border-box; }
-
     body {
       margin: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", sans-serif;
-      background: radial-gradient(circle at top, #020617 0%, #000 65%);
-      color: var(--text-main);
-      line-height: 1.6;
+      font-family: Inter, system-ui, sans-serif;
+      background: #020617;
+      color: #e5e7eb;
     }
-
     .container {
       max-width: 1000px;
-      margin: 0 auto;
+      margin: auto;
       padding: 80px 20px;
     }
-
-    header {
-      margin-bottom: 80px;
+    h1 { font-size: 40px; margin-bottom: 12px; }
+    p { color: #9ca3af; max-width: 700px; }
+    .card {
+      border: 1px solid rgba(148,163,184,.25);
+      border-radius: 16px;
+      padding: 28px;
+      margin-top: 28px;
+      background: linear-gradient(180deg,#050818,#020617);
     }
-
-    header h1 {
-      font-size: 40px;
-      font-weight: 600;
-      margin-bottom: 14px;
-      letter-spacing: -0.02em;
-    }
-
-    header p {
-      color: var(--text-muted);
-      max-width: 650px;
-      font-size: 17px;
-    }
-
-    .section {
-      background: linear-gradient(180deg, var(--bg-alt), var(--bg));
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 36px;
-      margin-bottom: 32px;
-    }
-
-    .section h2 {
-      font-size: 24px;
-      font-weight: 500;
-      margin-bottom: 12px;
-    }
-
-    .section h3 {
-      margin-top: 26px;
-      margin-bottom: 8px;
-      font-size: 14px;
-      color: var(--accent);
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-    }
-
-    .section p {
-      color: var(--text-muted);
-      max-width: 760px;
-      margin-bottom: 14px;
-    }
-
-    ul {
-      padding-left: 18px;
-      margin-top: 10px;
-      color: var(--text-muted);
-    }
-
-    ul li {
-      margin-bottom: 8px;
-    }
-
-    a {
-      color: var(--accent);
-      text-decoration: none;
-    }
-
-    a:hover {
-      text-decoration: underline;
-    }
-
+    a { color: #38bdf8; text-decoration: none; }
+    a:hover { text-decoration: underline; }
     footer {
       margin-top: 100px;
-      padding-top: 32px;
-      border-top: 1px solid var(--border);
-      color: var(--text-muted);
-      font-size: 14px;
-    }
-
-    .founder {
-      margin-top: 10px;
-      font-weight: 500;
-      color: var(--text-main);
-    }
-
-    @media (max-width: 600px) {
-      header h1 { font-size: 32px; }
-      .section { padding: 28px; }
+      border-top: 1px solid rgba(148,163,184,.25);
+      padding-top: 24px;
+      color: #9ca3af;
     }
   </style>
 </head>
 
 <body>
   <main class="container">
+    <h1>Projects</h1>
+    <p>
+      NexoCorp is a founder-led technology studio focused on clarity,
+      intelligence, and long-term systems.
+    </p>
 
-    <!-- Header -->
-    <header>
-      <h1>Projects</h1>
+    <div class="card">
+      <h2>DarkFury AI</h2>
       <p>
-        NexoCorp is a founder-led technology studio building calm,
-        focused digital systems with long-term intent.
+        Flagship AI system built for structured thinking and disciplined output.
       </p>
-    </header>
+      <a href="https://nexobot-app-kqlgt2gwhadjvfcs2fvxbq.streamlit.app/" target="_blank">
+        Launch DarkFury →
+      </a>
+    </div>
 
-    <!-- DarkFury -->
-    <section class="section">
-      <h2>DarkFury</h2>
-      <p>
-        DarkFury is the flagship AI system developed by NexoCorp.
-        It is designed to support thinking, learning, and decision-making
-        with clarity and discipline.
-      </p>
-      <p>
-        Built as a real product—not an experiment—DarkFury prioritizes
-        structured output, minimal noise, and reliability.
-      </p>
-
-      <h3>Live System</h3>
-      <p>
-        <a href="https://nexobot-app-kqlgt2gwhadjvfcs2fvxbq.streamlit.app/" target="_blank">
-          Access DarkFury AI →
-        </a>
-      </p>
-    </section>
-
-    <!-- AI Tools -->
-    <section class="section">
+    <div class="card">
       <h2>AI Tools Hub</h2>
-      <p>
-        A curated list of high-impact AI tools selected for productivity,
-        learning, and real-world application.
-      </p>
+      <p>Curated access to powerful AI platforms used globally.</p>
+      <a href="ai-tools.html">View AI Tools →</a>
+    </div>
 
-      <h3>Top Tools</h3>
-      <ul>
-        <li><a href="#" target="_blank">AI Writing & Research Assistant</a></li>
-        <li><a href="#" target="_blank">Code Analysis & Debugging Tool</a></li>
-        <li><a href="#" target="_blank">Design & UI Generation Tool</a></li>
-        <li><a href="#" target="_blank">Data & Spreadsheet Intelligence</a></li>
-        <li><a href="#" target="_blank">AI Resume & Career Builder</a></li>
-        <li><a href="#" target="_blank">Video & Script Automation</a></li>
-        <li><a href="#" target="_blank">Marketing Copy Intelligence</a></li>
-        <li><a href="#" target="_blank">Knowledge Summarization Engine</a></li>
-        <li><a href="#" target="_blank">Startup Idea Validator</a></li>
-        <li><a href="#" target="_blank">Learning Companion AI</a></li>
-      </ul>
-    </section>
+    <div class="card">
+      <h2>Billionaire Minds</h2>
+      <p>Study of elite builders, capital thinkers, and long-term decision-makers.</p>
+      <a href="billionaires.html">Explore Biographies →</a>
+    </div>
 
-    <!-- Billionaire Minds -->
-    <section class="section">
-      <h2>Billionaire Minds & Stories</h2>
-      <p>
-        A structured study of how exceptional individuals think,
-        build, and make long-term decisions.
-      </p>
-      <p>
-        The focus is on mental models, discipline, and strategy—
-        not motivation or shortcuts.
-      </p>
+    <div class="card">
+      <h2>Founder</h2>
+      <p>Vision, philosophy, and direction behind NexoCorp.</p>
+      <a href="founder.html">Read Founder Note →</a>
+    </div>
 
-      <h3>Coverage</h3>
-      <ul>
-        <li>Decision-making frameworks</li>
-        <li>Risk and patience analysis</li>
-        <li>Business and capital thinking</li>
-        <li>Failure, resilience, and timing</li>
-      </ul>
-    </section>
-
-    <!-- Finance -->
-    <section class="section">
-      <h2>Finance & Wealth Tools</h2>
-      <p>
-        Tools and resources designed to build financial clarity,
-        especially for students and early professionals.
-      </p>
-
-      <h3>Included</h3>
-      <ul>
-        <li>SIP Calculator (long-term investment clarity)</li>
-        <li>Personal finance learning modules</li>
-        <li>Market awareness & financial reading</li>
-        <li>Time-based wealth understanding</li>
-      </ul>
-    </section>
-
-    <!-- Footer -->
     <footer>
-      <p>
-        NexoCorp is intentionally focused, vision-driven,
-        and built for durability—not noise.
-      </p>
-      <div class="founder">Founder: Devk</div>
+      Founder: Devk
     </footer>
-
   </main>
 </body>
 </html>
