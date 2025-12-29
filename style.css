@@ -1,231 +1,153 @@
-/* ---------- BASIC RESET ---------- */
+/* ====== NEXOCORP 2026 DESIGN SYSTEM ====== */
+
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap");
+
+:root {
+  --bg: #0b0f19;
+  --bg-soft: #12182b;
+  --card: rgba(255, 255, 255, 0.06);
+  --border: rgba(255, 255, 255, 0.12);
+  --text: #e5e7eb;
+  --muted: #9aa4b2;
+  --accent: linear-gradient(135deg, #4f8cff, #7b5cff);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
 body {
-  margin: 0;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  background: #0a0a0c; /* deep dark grey */
-  color: #e5e7eb; /* soft white-grey */
+  font-family: "Inter", sans-serif;
+  background: radial-gradient(circle at top, #12182b, #0b0f19);
+  color: var(--text);
   line-height: 1.6;
 }
 
-/* ---------- HEADER ---------- */
-
-header {
+/* ====== NAVBAR ====== */
+nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 18px 40px;
-  background: #0f0f12; 
-  border-bottom: 1px solid #1f1f25;
+  padding: 22px 8%;
   position: sticky;
   top: 0;
-  z-index: 50;
+  backdrop-filter: blur(12px);
+  background: rgba(11, 15, 25, 0.75);
+  border-bottom: 1px solid var(--border);
+  z-index: 100;
 }
 
-.logo {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 1.5rem;
+nav h1 {
+  font-size: 22px;
   font-weight: 700;
-  letter-spacing: 0.5px;
-  color: #f1f5f9;
 }
 
-.logo img {
-  height: 34px;
-  width: 34px;
-  border-radius: 8px;
-  object-fit: cover;
-  margin-right: 2px;
-  box-shadow: 0 0 15px rgba(56, 189, 248, 0.7);
-  transition: 0.25s;
-}
-
-.logo img:hover {
-  box-shadow: 0 0 22px rgba(99, 102, 241, 0.9);
+nav span {
+  background: var(--accent);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 nav a {
-  margin-left: 22px;
-  color: #a1a1aa;
+  margin-left: 24px;
+  color: var(--muted);
   text-decoration: none;
-  font-size: 0.95rem;
-  transition: 0.2s;
+  font-weight: 500;
+  transition: color 0.3s;
 }
+
 nav a:hover {
-  color: #ffffff;
+  color: #fff;
 }
 
-/* ---------- HERO SECTION ---------- */
-
+/* ====== HERO ====== */
 .hero {
+  padding: 120px 8% 90px;
   text-align: center;
-  padding: 90px 20px 60px;
 }
 
-.hero h1 {
-  font-size: 2.6rem;
-  margin-bottom: 10px;
+.hero h2 {
+  font-size: 48px;
+  font-weight: 700;
+  max-width: 900px;
+  margin: auto;
 }
 
 .hero p {
-  font-size: 1.15rem;
-  opacity: 0.85;
+  margin-top: 20px;
+  color: var(--muted);
+  font-size: 18px;
 }
 
-/* ---------- PROJECTS SECTION ---------- */
-
-.projects {
-  max-width: 900px;
-  margin: 0 auto;
-  padding: 20px 20px 50px;
+.hero .tag {
+  margin-top: 14px;
+  font-size: 14px;
+  color: var(--muted);
 }
 
-.projects h2 {
-  text-align: center;
-  margin-bottom: 30px;
-  font-size: 1.8rem;
-}
-
-/* ---------- CARD COMPONENT ---------- */
-
-.card {
-  background: #111114;
-  border: 1px solid #25252d;
-  border-radius: 14px;
-  padding: 20px;
-  margin-bottom: 20px;
-  transition: 0.2s ease-out;
-}
-
-.card:hover {
-  border-color: #3b3b45;
-  transform: translateY(-2px);
-}
-
-.card h3,
-.card h2 {
-  margin-top: 0;
-  margin-bottom: 10px;
-  font-size: 1.3rem;
-  color: #ffffff;
-}
-
-.card p {
-  font-size: 0.97rem;
-  opacity: 0.85;
-}
-
-/* ---------- BUTTON ---------- */
-
+/* ====== BUTTON ====== */
 .btn {
   display: inline-block;
-  margin-top: 12px;
-  padding: 9px 18px;
-  background: #4f46e5; /* indigo */
-  color: white;
-  border-radius: 6px;
+  margin-top: 40px;
+  padding: 14px 36px;
+  border-radius: 999px;
+  background: var(--accent);
+  color: #fff;
+  font-weight: 600;
   text-decoration: none;
-  font-size: 0.9rem;
-  transition: 0.2s;
+  box-shadow: 0 10px 40px rgba(79, 140, 255, 0.35);
+  transition: transform 0.3s ease;
 }
 
 .btn:hover {
-  background: #4338ca;
+  transform: translateY(-3px);
 }
 
-/* Secondary button */
-
-.btn.secondary {
-  background: #1a1a1f;
-  border: 1px solid #32323a;
-  color: #d1d1d5;
+/* ====== SECTIONS ====== */
+section {
+  padding: 90px 8%;
 }
 
-.btn.secondary:hover {
-  background: #222229;
-  border-color: #464655;
+section h3 {
+  font-size: 32px;
+  margin-bottom: 30px;
 }
 
-/* ---------- PAGE LAYOUT ---------- */
-
-.page {
-  max-width: 900px;
-  margin: 0 auto;
-  padding: 40px 20px 60px;
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 30px;
+  backdrop-filter: blur(16px);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
 }
 
-.page h1 {
-  margin-bottom: 18px;
-  font-size: 2rem;
+.card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
 }
 
-.page h2 {
-  margin-top: 28px;
-  margin-bottom: 10px;
-  font-size: 1.3rem;
-}
-
-.page p {
-  margin: 6px 0 12px;
-  font-size: 1rem;
-  opacity: 0.9;
-}
-
-.page ul {
-  padding-left: 22px;
-}
-.page ul li {
-  margin-bottom: 6px;
-}
-
-/* ---------- FOOTER ---------- */
-
+/* ====== FOOTER ====== */
 footer {
-  margin-top: 50px;
+  border-top: 1px solid var(--border);
+  padding: 30px 8%;
   text-align: center;
-  padding: 25px;
-  opacity: 0.6;
-  font-size: 0.85rem;
-  border-top: 1px solid #1f1f25;
-  background: #0f0f12;
+  color: var(--muted);
+  font-size: 14px;
 }
 
-/* ---------- MOBILE RESPONSIVE ---------- */
-
-@media (max-width: 700px) {
-  header {
-    padding: 16px 22px;
-  }
-
-  .hero h1 {
-    font-size: 2.1rem;
-  }
-
-  nav a {
-    margin-left: 14px;
-    font-size: 0.9rem;
-  }
-
-  .card {
-    padding: 16px;
-  }
-}
-/* Nexo.corp Logo Styling */
-.logo {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-weight: 600;
-  font-size: 1.2rem;
-  color: #f1f5f9;
+/* ====== ANIMATIONS ====== */
+.fade-up {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeUp 0.9s ease forwards;
 }
 
-.logo img {
-  height: 34px;
-  width: 34px;
-  border-radius: 8px;
-  object-fit: cover;
-  box-shadow: 0 0 12px rgba(56, 189, 248, 0.5);
+@keyframes fadeUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
