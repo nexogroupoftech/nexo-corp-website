@@ -1,81 +1,603 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>NexoCorp — Projects</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Projects — NexoCorp</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #080808;
+    --surface: #111115;
+    --card: #16161c;
+    --border: rgba(255,255,255,0.07);
+    --border-accent: rgba(180,150,255,0.22);
+    --text: #e8e6f0;
+    --muted: #8a8699;
+    --subtle: #3a3850;
+    --accent: #a78bfa;
+    --accent-bright: #c4b5fd;
+    --accent-glow: rgba(167,139,250,0.13);
+    --gold: #d4af7a;
+    --red: #f87171;
+    --red-glow: rgba(248,113,113,0.12);
+    --font-display: 'Syne', 'Trebuchet MS', Arial, sans-serif;
+    --font-serif: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+    --font-mono: 'DM Mono', 'Courier New', monospace;
+  }
 
-  <style>
-    body {
-      margin: 0;
-      font-family: Inter, system-ui, sans-serif;
-      background: #020617;
-      color: #e5e7eb;
-    }
-    .container {
-      max-width: 1000px;
-      margin: auto;
-      padding: 80px 20px;
-    }
-    h1 { font-size: 40px; margin-bottom: 12px; }
-    p { color: #9ca3af; max-width: 700px; }
-    .card {
-      border: 1px solid rgba(148,163,184,.25);
-      border-radius: 16px;
-      padding: 28px;
-      margin-top: 28px;
-      background: linear-gradient(180deg,#050818,#020617);
-    }
-    a { color: #38bdf8; text-decoration: none; }
-    a:hover { text-decoration: underline; }
-    footer {
-      margin-top: 100px;
-      border-top: 1px solid rgba(148,163,184,.25);
-      padding-top: 24px;
-      color: #9ca3af;
-    }
-  </style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: var(--font-display); background: var(--black); color: var(--text); overflow-x: hidden; cursor: none; -webkit-font-smoothing: antialiased; }
+
+  body::before {
+    content: ''; position: fixed; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+    pointer-events: none; z-index: 1000; opacity: 0.4;
+  }
+
+  .cursor { width: 10px; height: 10px; background: var(--accent); border-radius: 50%; position: fixed; top:0; left:0; pointer-events:none; z-index:9999; mix-blend-mode:screen; }
+  .cursor-ring { width: 36px; height: 36px; border: 1px solid rgba(167,139,250,0.45); border-radius: 50%; position: fixed; top:0; left:0; pointer-events:none; z-index:9998; transition: transform 0.22s ease, width 0.3s, height 0.3s, border-color 0.3s; }
+
+  /* NAV */
+  nav { position: fixed; top:0; left:0; right:0; display:flex; align-items:center; justify-content:space-between; padding:28px 60px; z-index:200; background:rgba(8,8,8,0.92); backdrop-filter:blur(24px); border-bottom:1px solid var(--border); }
+  .logo { font-family:var(--font-display); font-size:1.25rem; font-weight:800; letter-spacing:0.08em; color:var(--text); text-decoration:none; }
+  .logo span { color:var(--accent); }
+  .nav-links { display:flex; gap:48px; list-style:none; }
+  .nav-links a { font-family:var(--font-mono); font-size:0.68rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--muted); text-decoration:none; transition:color 0.3s; }
+  .nav-links a:hover, .nav-links a.active { color:var(--text); }
+  .nav-cta { font-family:var(--font-mono); font-size:0.68rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--accent); border:1px solid var(--border-accent); padding:10px 22px; text-decoration:none; transition:all 0.3s; position:relative; overflow:hidden; }
+  .nav-cta::before { content:''; position:absolute; inset:0; background:var(--accent-glow); transform:scaleX(0); transform-origin:left; transition:transform 0.3s; }
+  .nav-cta:hover::before { transform:scaleX(1); }
+  .nav-cta:hover { border-color:var(--accent); }
+
+  /* HERO */
+  .page-hero {
+    min-height: 52vh;
+    display: flex; flex-direction: column; justify-content: flex-end;
+    padding: 140px 60px 72px;
+    position: relative; overflow: hidden;
+  }
+  .page-hero::before {
+    content: ''; position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 55% 55% at 80% 40%, rgba(167,139,250,0.07) 0%, transparent 70%),
+      radial-gradient(ellipse 35% 50% at 10% 70%, rgba(248,113,113,0.04) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .hero-grid-line { position: absolute; top:0; left:60px; width:1px; height:100%; background:linear-gradient(to bottom, transparent, rgba(255,255,255,0.04), transparent); }
+  .hero-tag { font-family:var(--font-mono); font-size:0.62rem; letter-spacing:0.28em; text-transform:uppercase; color:var(--accent); margin-bottom:24px; opacity:0; animation:fadeUp 0.7s 0.1s forwards; }
+  .hero-tag::before { content:'//'; margin-right:10px; opacity:0.5; }
+  .page-hero h1 { font-family:var(--font-serif); font-weight:300; font-size:clamp(3rem,6.5vw,6rem); line-height:1.04; letter-spacing:-0.02em; opacity:0; animation:fadeUp 0.85s 0.3s forwards; }
+  .page-hero h1 em { font-style:italic; color:var(--accent-bright); }
+  .hero-sub { font-family:var(--font-serif); font-size:1.2rem; font-weight:300; font-style:italic; color:var(--muted); margin-top:20px; max-width:560px; line-height:1.75; opacity:0; animation:fadeUp 0.85s 0.5s forwards; }
+  .hero-divider { position:absolute; bottom:0; left:0; right:0; height:1px; background:linear-gradient(90deg,transparent,var(--border),transparent); }
+
+  /* COUNT BAR */
+  .count-bar { background:var(--surface); border-bottom:1px solid var(--border); padding:0 60px; display:flex; align-items:center; gap:0; }
+  .count-item { padding:24px 48px 24px 0; margin-right:48px; border-right:1px solid var(--border); }
+  .count-item:last-child { border-right:none; }
+  .count-num { font-family:var(--font-serif); font-size:2rem; font-weight:300; color:var(--text); }
+  .count-num span { color:var(--accent); }
+  .count-label { font-family:var(--font-mono); font-size:0.56rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--muted); margin-top:4px; }
+
+  /* MAIN */
+  .main { max-width: 1320px; margin: 0 auto; padding: 100px 60px 140px; }
+
+  /* SECTION HEADER */
+  .sec-head { display:flex; align-items:flex-end; justify-content:space-between; margin-bottom:40px; padding-bottom:20px; border-bottom:1px solid var(--border); }
+  .sec-label { font-family:var(--font-mono); font-size:0.6rem; letter-spacing:0.28em; text-transform:uppercase; color:var(--accent); margin-bottom:10px; }
+  .sec-label span { color:var(--subtle); margin-right:10px; }
+  .sec-head h2 { font-family:var(--font-serif); font-weight:300; font-size:clamp(1.8rem,3vw,2.8rem); letter-spacing:-0.02em; color:var(--text); }
+  .sec-head h2 em { font-style:italic; color:var(--accent-bright); }
+  .sec-status { font-family:var(--font-mono); font-size:0.58rem; letter-spacing:0.18em; text-transform:uppercase; padding:6px 14px; border:1px solid; }
+  .status-live { color:#4ade80; border-color:rgba(74,222,128,0.3); background:rgba(74,222,128,0.06); }
+  .status-dev { color:var(--gold); border-color:rgba(212,175,122,0.3); background:rgba(212,175,122,0.06); }
+
+  /* ════ DARKFURY CARD ════ */
+  .darkfury-wrap { margin-bottom: 100px; }
+  .darkfury-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    position: relative; overflow: hidden;
+    transition: border-color 0.4s;
+  }
+  .darkfury-card:hover { border-color: rgba(248,113,113,0.25); }
+  .darkfury-card::before {
+    content: ''; position: absolute; top:0; left:0; right:0; height:2px;
+    background: linear-gradient(90deg, transparent, var(--red), rgba(167,139,250,0.6), transparent);
+    opacity: 0; transition: opacity 0.4s;
+  }
+  .darkfury-card:hover::before { opacity: 1; }
+
+  /* Animated background orb */
+  .df-orb {
+    position: absolute; width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(248,113,113,0.06) 0%, transparent 70%);
+    right: -100px; top: -100px; border-radius: 50%;
+    animation: orbFloat 8s ease-in-out infinite;
+    pointer-events: none;
+  }
+
+  .darkfury-inner { display: grid; grid-template-columns: 1fr 1.1fr; min-height: 480px; }
+
+  /* Left — info */
+  .df-info { padding: 56px 56px; display: flex; flex-direction: column; justify-content: space-between; border-right: 1px solid var(--border); position: relative; z-index: 1; }
+  .df-top {}
+  .df-badges { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:28px; }
+  .badge { font-family:var(--font-mono); font-size:0.54rem; letter-spacing:0.18em; text-transform:uppercase; padding:5px 12px; border:1px solid; }
+  .badge-red { color:var(--red); border-color:rgba(248,113,113,0.35); background:var(--red-glow); }
+  .badge-purple { color:var(--accent); border-color:var(--border-accent); background:var(--accent-glow); }
+  .badge-green { color:#4ade80; border-color:rgba(74,222,128,0.3); background:rgba(74,222,128,0.06); }
+
+  .df-name { font-family:var(--font-display); font-size:clamp(2.2rem, 4vw, 3.2rem); font-weight:800; color:var(--text); letter-spacing:-0.02em; line-height:1; margin-bottom:12px; }
+  .df-name span { color: var(--red); }
+  .df-tagline { font-family:var(--font-serif); font-size:1.15rem; font-weight:300; font-style:italic; color:var(--muted); line-height:1.65; margin-bottom:32px; max-width:380px; }
+  .df-desc { font-family:var(--font-serif); font-size:1.05rem; font-weight:300; color:var(--muted); line-height:1.75; margin-bottom:40px; max-width:400px; }
+
+  .df-meta { display:flex; flex-direction:column; gap:12px; margin-bottom:40px; }
+  .df-meta-row { display:flex; align-items:center; gap:16px; }
+  .df-meta-key { font-family:var(--font-mono); font-size:0.56rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--subtle); width:80px; flex-shrink:0; }
+  .df-meta-val { font-family:var(--font-mono); font-size:0.7rem; color:var(--muted); letter-spacing:0.05em; }
+  .df-meta-val.highlight { color:var(--red); }
+
+  .df-actions { display:flex; gap:14px; flex-wrap:wrap; }
+  .btn-red {
+    display:inline-flex; align-items:center; gap:10px;
+    background:var(--red); color:#0a0a0a;
+    font-family:var(--font-mono); font-size:0.68rem; letter-spacing:0.15em; text-transform:uppercase;
+    padding:14px 28px; text-decoration:none; transition:all 0.3s;
+  }
+  .btn-red::after { content:'↗'; transition:transform 0.3s; }
+  .btn-red:hover { background:#fca5a5; }
+  .btn-red:hover::after { transform:translate(2px,-2px); }
+  .btn-outline-red {
+    display:inline-flex; align-items:center; gap:10px;
+    color:var(--red); font-family:var(--font-mono); font-size:0.68rem; letter-spacing:0.15em; text-transform:uppercase;
+    padding:14px 24px; text-decoration:none; border:1px solid rgba(248,113,113,0.35); transition:all 0.3s;
+  }
+  .btn-outline-red:hover { border-color:var(--red); background:var(--red-glow); }
+
+  /* Right — visual */
+  .df-visual { padding: 56px 48px; display:flex; flex-direction:column; gap:20px; position:relative; z-index:1; background: rgba(8,8,8,0.3); }
+  .df-preview-header { display:flex; align-items:center; gap:10px; margin-bottom:4px; }
+  .df-dot { width:10px; height:10px; border-radius:50%; }
+  .df-dot-red { background:var(--red); box-shadow:0 0 8px var(--red); }
+  .df-dot-yellow { background:#fbbf24; }
+  .df-dot-green { background:#4ade80; }
+  .df-preview-url { font-family:var(--font-mono); font-size:0.58rem; letter-spacing:0.1em; color:var(--subtle); margin-left:8px; }
+
+  .df-terminal {
+    background: #0d0d10; border: 1px solid rgba(248,113,113,0.15);
+    padding: 28px 32px; font-family:var(--font-mono); font-size:0.75rem;
+    line-height:2; flex:1;
+  }
+  .t-line { display:flex; gap:12px; }
+  .t-prompt { color:var(--red); opacity:0.7; }
+  .t-cmd { color:var(--text); }
+  .t-out { color:var(--muted); padding-left:24px; }
+  .t-ai { color:var(--accent-bright); padding-left:24px; font-style:italic; }
+  .t-hi { color:#4ade80; }
+  .t-blink::after { content:'█'; animation:blink 1s step-end infinite; color:var(--red); }
+
+  .df-features { display:grid; grid-template-columns:1fr 1fr; gap:2px; }
+  .df-feat { background:var(--surface); border:1px solid var(--border); padding:18px 20px; transition:border-color 0.3s; }
+  .df-feat:hover { border-color:rgba(248,113,113,0.2); }
+  .df-feat-icon { font-size:1rem; margin-bottom:8px; }
+  .df-feat-name { font-size:0.78rem; font-weight:600; color:var(--text); margin-bottom:4px; }
+  .df-feat-desc { font-family:var(--font-mono); font-size:0.56rem; letter-spacing:0.08em; color:var(--muted); }
+
+  /* ════ STACKSTRUCT CARD ════ */
+  .stackstruct-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    position: relative; overflow: hidden;
+    transition: border-color 0.4s;
+  }
+  .stackstruct-card:hover { border-color: rgba(167,139,250,0.3); }
+  .stackstruct-card::before {
+    content: ''; position: absolute; top:0; left:0; right:0; height:2px;
+    background: linear-gradient(90deg, transparent, var(--accent), var(--gold), transparent);
+    opacity: 0; transition: opacity 0.4s;
+  }
+  .stackstruct-card:hover::before { opacity: 1; }
+
+  .ss-orb {
+    position: absolute; width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(167,139,250,0.05) 0%, transparent 70%);
+    left: -150px; bottom: -150px; border-radius: 50%;
+    animation: orbFloat 10s ease-in-out infinite reverse;
+    pointer-events: none;
+  }
+
+  .ss-inner { display: grid; grid-template-columns: 1.1fr 1fr; min-height: 520px; }
+
+  /* Left — visual */
+  .ss-visual { padding:56px 48px; border-right:1px solid var(--border); display:flex; flex-direction:column; gap:16px; position:relative; z-index:1; background:rgba(8,8,8,0.3); }
+
+  .ss-tree {
+    background: #0d0d10; border: 1px solid rgba(167,139,250,0.12);
+    padding: 28px 32px; font-family:var(--font-mono); font-size:0.73rem;
+    line-height:1.9; flex:1;
+  }
+  .tr { display:flex; align-items:center; gap:8px; }
+  .tr-indent { margin-left:20px; }
+  .tr-indent2 { margin-left:40px; }
+  .tr-folder { color:var(--gold); }
+  .tr-file { color:var(--muted); }
+  .tr-file.py { color:#60a5fa; }
+  .tr-file.js { color:#fbbf24; }
+  .tr-file.md { color:#a3e635; }
+  .tr-file.css { color:#f472b6; }
+  .tr-file.env { color:#fb923c; }
+  .tr-arrow { color:var(--accent); opacity:0.5; }
+  .tr-new { color:var(--accent); font-size:0.6rem; margin-left:6px; letter-spacing:0.1em; border:1px solid var(--border-accent); padding:1px 6px; }
+
+  .ss-prompt-box { background:var(--surface); border:1px solid var(--border-accent); padding:20px 24px; }
+  .ss-prompt-label { font-family:var(--font-mono); font-size:0.54rem; letter-spacing:0.22em; text-transform:uppercase; color:var(--accent); margin-bottom:8px; }
+  .ss-prompt-text { font-family:var(--font-serif); font-size:1rem; font-style:italic; color:var(--text); line-height:1.5; }
+  .ss-prompt-text::before { content:'"'; color:var(--accent); }
+  .ss-prompt-text::after { content:'"'; color:var(--accent); }
+
+  /* Right — info */
+  .ss-info { padding:56px 56px; display:flex; flex-direction:column; justify-content:space-between; position:relative; z-index:1; }
+  .ss-name { font-family:var(--font-display); font-size:clamp(2rem,3.5vw,2.8rem); font-weight:800; color:var(--text); letter-spacing:-0.02em; line-height:1.1; margin-bottom:8px; }
+  .ss-name span { color:var(--accent); }
+  .ss-tagline { font-family:var(--font-serif); font-size:1.12rem; font-weight:300; font-style:italic; color:var(--muted); line-height:1.65; margin-bottom:28px; max-width:360px; }
+  .ss-desc { font-family:var(--font-serif); font-size:1.03rem; font-weight:300; color:var(--muted); line-height:1.75; margin-bottom:36px; }
+
+  .ss-badges { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:36px; }
+
+  .ss-stats { display:grid; grid-template-columns:1fr 1fr; gap:2px; margin-bottom:40px; }
+  .ss-stat { background:var(--surface); border:1px solid var(--border); padding:20px 22px; }
+  .ss-stat-n { font-family:var(--font-serif); font-size:2rem; font-weight:300; color:var(--text); line-height:1; }
+  .ss-stat-n span { color:var(--accent); }
+  .ss-stat-l { font-family:var(--font-mono); font-size:0.55rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--muted); margin-top:6px; }
+
+  .ss-actions { display:flex; gap:14px; flex-wrap:wrap; }
+  .btn-accent {
+    display:inline-flex; align-items:center; gap:10px;
+    background:var(--accent); color:#0a0a0a;
+    font-family:var(--font-mono); font-size:0.68rem; letter-spacing:0.15em; text-transform:uppercase;
+    padding:14px 28px; text-decoration:none; transition:all 0.3s;
+  }
+  .btn-accent::after { content:'↗'; transition:transform 0.3s; }
+  .btn-accent:hover { background:var(--accent-bright); }
+  .btn-accent:hover::after { transform:translate(2px,-2px); }
+  .btn-outline-accent {
+    display:inline-flex; align-items:center;
+    color:var(--muted); font-family:var(--font-mono); font-size:0.68rem; letter-spacing:0.15em; text-transform:uppercase;
+    padding:14px 24px; text-decoration:none; border:1px solid var(--border); transition:all 0.3s;
+  }
+  .btn-outline-accent:hover { border-color:var(--border-accent); color:var(--accent); }
+
+  /* MORE PROJECTS TEASER */
+  .more-section { margin-top: 100px; padding-top: 60px; border-top: 1px solid var(--border); }
+  .more-label { font-family:var(--font-mono); font-size:0.6rem; letter-spacing:0.28em; text-transform:uppercase; color:var(--subtle); margin-bottom:40px; }
+  .more-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:2px; }
+  .more-card { background:var(--card); border:1px solid var(--border); padding:32px; transition:all 0.3s; cursor:none; }
+  .more-card:hover { border-color:var(--border-accent); background:var(--surface); }
+  .more-tag { font-family:var(--font-mono); font-size:0.54rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--accent); border:1px solid var(--border-accent); padding:4px 10px; display:inline-block; margin-bottom:16px; }
+  .more-name { font-size:1rem; font-weight:700; color:var(--text); margin-bottom:10px; }
+  .more-desc { font-family:var(--font-serif); font-size:0.95rem; font-weight:300; color:var(--muted); line-height:1.65; margin-bottom:20px; }
+  .more-link { font-family:var(--font-mono); font-size:0.58rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--accent); text-decoration:none; display:flex; align-items:center; gap:8px; transition:gap 0.3s; }
+  .more-card:hover .more-link { gap:14px; }
+  .more-tag-gold { color:var(--gold); border-color:rgba(212,175,122,0.3); }
+
+  /* FOOTER */
+  footer { background:var(--black); border-top:1px solid var(--border); padding:36px 60px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px; }
+  .footer-logo { font-family:var(--font-display); font-size:1rem; font-weight:800; letter-spacing:0.08em; color:var(--muted); }
+  .footer-logo span { color:var(--accent); }
+  .footer-copy { font-family:var(--font-mono); font-size:0.58rem; letter-spacing:0.15em; color:var(--subtle); }
+  .back-link { font-family:var(--font-mono); font-size:0.62rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--muted); text-decoration:none; display:flex; align-items:center; gap:8px; transition:all 0.3s; }
+  .back-link:hover { color:var(--accent); gap:14px; }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp { from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);} }
+  @keyframes orbFloat { 0%,100%{transform:translate(0,0);}50%{transform:translate(-20px,20px);} }
+  @keyframes blink { 0%,100%{opacity:1;}50%{opacity:0;} }
+
+  .reveal { transition: opacity 0.8s ease, transform 0.8s ease; }
+  .js-ready .reveal { opacity:0; transform:translateY(26px); }
+  .js-ready .reveal.visible { opacity:1; transform:translateY(0); }
+  .reveal-delay-1 { transition-delay:0.1s; }
+  .reveal-delay-2 { transition-delay:0.2s; }
+
+  @media(max-width:960px){
+    nav { padding:18px 24px; } .nav-links { display:none; }
+    .page-hero, .main { padding-left:24px; padding-right:24px; }
+    .darkfury-inner, .ss-inner { grid-template-columns:1fr; }
+    .df-visual, .ss-visual { border-right:none; border-top:1px solid var(--border); }
+    .more-grid { grid-template-columns:1fr; }
+    footer { padding:28px 24px; flex-direction:column; text-align:center; }
+    .count-bar { padding:0 24px; flex-wrap:wrap; }
+  }
+</style>
 </head>
-
 <body>
-  <main class="container">
-    <h1>Projects</h1>
-    <p>
-      NexoCorp is a founder-led technology studio focused on clarity,
-      intelligence, and long-term systems.
-    </p>
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
 
-    <div class="card">
-      <h2>DarkFury AI</h2>
-      <p>
-        Flagship AI system built for structured thinking and disciplined output.
-      </p>
-      <a href="https://nexobot-app-kqlgt2gwhadjvfcs2fvxbq.streamlit.app/" target="_blank">
-        Launch DarkFury →
-      </a>
+<nav>
+  <a href="index.html" class="logo">Nexo<span>Corp</span></a>
+  <ul class="nav-links">
+    <li><a href="index.html#about">About</a></li>
+    <li><a href="projects.html" class="active">Projects</a></li>
+    <li><a href="ai-tools.html">AI Tools</a></li>
+    <li><a href="index.html#founder">Founder</a></li>
+  </ul>
+  <a href="index.html#contact" class="nav-cta">Get in Touch</a>
+</nav>
+
+<div class="page-hero">
+  <div class="hero-grid-line"></div>
+  <div class="hero-tag">NexoCorp — Projects</div>
+  <h1>Everything we've<br><em>shipped & built.</em></h1>
+  <p class="hero-sub">A collection of AI-powered tools, research projects, and digital experiences crafted with precision.</p>
+  <div class="hero-divider"></div>
+</div>
+
+<div class="count-bar">
+  <div class="count-item">
+    <div class="count-num">2<span> Live</span></div>
+    <div class="count-label">Active Projects</div>
+  </div>
+  <div class="count-item">
+    <div class="count-num">1<span> Soon</span></div>
+    <div class="count-label">In Development</div>
+  </div>
+  <div class="count-item">
+    <div class="count-num">100<span>%</span></div>
+    <div class="count-label">AI-Powered</div>
+  </div>
+</div>
+
+<div class="main">
+
+  <!-- ── DARKFURY ── -->
+  <div class="darkfury-wrap reveal">
+    <div class="sec-head">
+      <div>
+        <div class="sec-label"><span>01</span> AI Chatbot</div>
+        <h2>Dark<em>Fury</em></h2>
+      </div>
+      <span class="sec-status status-live">● Live</span>
     </div>
 
-    <div class="card">
-      <h2>AI Tools Hub</h2>
-      <p>Curated access to powerful AI platforms used globally.</p>
-      <a href="ai-tools.html">View AI Tools →</a>
+    <div class="darkfury-card">
+      <div class="df-orb"></div>
+      <div class="darkfury-inner">
+        <!-- INFO -->
+        <div class="df-info">
+          <div class="df-top">
+            <div class="df-badges">
+              <span class="badge badge-red">AI Chatbot</span>
+              <span class="badge badge-purple">Streamlit</span>
+              <span class="badge badge-green">Live</span>
+              <span class="badge badge-purple">Python</span>
+            </div>
+            <div class="df-name">Dark<span>Fury</span></div>
+            <p class="df-tagline">An AI-powered chatbot built with raw intelligence and a dark aesthetic — ready to converse, reason, and respond.</p>
+            <p class="df-desc">DarkFury is NexoCorp's first deployed AI product. A conversational AI interface built on top of state-of-the-art language models, wrapped in a sleek dark UI powered by Streamlit. Fast, sharp, and unapologetically intelligent.</p>
+
+            <div class="df-meta">
+              <div class="df-meta-row">
+                <span class="df-meta-key">Platform</span>
+                <span class="df-meta-val">Streamlit Cloud</span>
+              </div>
+              <div class="df-meta-row">
+                <span class="df-meta-key">Language</span>
+                <span class="df-meta-val">Python 3.11</span>
+              </div>
+              <div class="df-meta-row">
+                <span class="df-meta-key">AI Model</span>
+                <span class="df-meta-val highlight">Large Language Model</span>
+              </div>
+              <div class="df-meta-row">
+                <span class="df-meta-key">Status</span>
+                <span class="df-meta-val" style="color:#4ade80;">● Deployed & Live</span>
+              </div>
+              <div class="df-meta-row">
+                <span class="df-meta-key">Built by</span>
+                <span class="df-meta-val">Devk · NexoCorp</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="df-actions">
+            <a href="https://nexobot-app-kqlgt2gwhadjvfcs2fvxbq.streamlit.app" target="_blank" class="btn-red">Launch DarkFury</a>
+            <a href="index.html#contact" class="btn-outline-red">Contact Dev</a>
+          </div>
+        </div>
+
+        <!-- VISUAL -->
+        <div class="df-visual">
+          <div class="df-preview-header">
+            <div class="df-dot df-dot-red"></div>
+            <div class="df-dot df-dot-yellow"></div>
+            <div class="df-dot df-dot-green"></div>
+            <span class="df-preview-url">nexobot-app-kqlgt2gwhadjvfcs2fvxbq.streamlit.app</span>
+          </div>
+
+          <div class="df-terminal">
+            <div class="t-line"><span class="t-prompt">▸</span><span class="t-cmd">DarkFury AI — Session Started</span></div>
+            <div class="t-line" style="margin-top:8px;"><span class="t-prompt">you</span><span class="t-cmd" style="padding-left:16px;">What can you do?</span></div>
+            <div class="t-line"><span class="t-ai">I can reason through complex problems, write code, analyze text, answer questions across any domain, and engage in deep conversation. I don't sugarcoat — I'm built to be direct and useful.</span></div>
+            <div class="t-line" style="margin-top:8px;"><span class="t-prompt">you</span><span class="t-cmd" style="padding-left:16px;">Build me a Python web scraper</span></div>
+            <div class="t-line"><span class="t-ai">Sure. Here's a clean implementation using <span class="t-hi">requests</span> and <span class="t-hi">BeautifulSoup</span>...</span></div>
+            <div class="t-line" style="margin-top:12px; opacity:0.4;"><span class="t-prompt">▸</span><span class="t-cmd t-blink"> </span></div>
+          </div>
+
+          <div class="df-features">
+            <div class="df-feat">
+              <div class="df-feat-icon">🧠</div>
+              <div class="df-feat-name">Deep Reasoning</div>
+              <div class="df-feat-desc">Multi-step problem solving</div>
+            </div>
+            <div class="df-feat">
+              <div class="df-feat-icon">⚡</div>
+              <div class="df-feat-name">Fast Responses</div>
+              <div class="df-feat-desc">Optimized inference pipeline</div>
+            </div>
+            <div class="df-feat">
+              <div class="df-feat-icon">💻</div>
+              <div class="df-feat-name">Code Generation</div>
+              <div class="df-feat-desc">Any language, any framework</div>
+            </div>
+            <div class="df-feat">
+              <div class="df-feat-icon">🌑</div>
+              <div class="df-feat-name">Dark UI</div>
+              <div class="df-feat-desc">Built for long sessions</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── STACKSTRUCT ── -->
+  <div class="reveal">
+    <div class="sec-head">
+      <div>
+        <div class="sec-label"><span>02</span> Developer Tool</div>
+        <h2>Stack<em>Struct</em></h2>
+      </div>
+      <span class="sec-status status-dev">◌ In Development</span>
     </div>
 
-    <div class="card">
-      <h2>Billionaire Minds</h2>
-      <p>Study of elite builders, capital thinkers, and long-term decision-makers.</p>
-      <a href="billionaires.html">Explore Biographies →</a>
-    </div>
+    <div class="stackstruct-card">
+      <div class="ss-orb"></div>
+      <div class="ss-inner">
 
-    <div class="card">
-      <h2>Founder</h2>
-      <p>Vision, philosophy, and direction behind NexoCorp.</p>
-      <a href="founder.html">Read Founder Note →</a>
-    </div>
+        <!-- VISUAL -->
+        <div class="ss-visual">
+          <div class="df-preview-header">
+            <div class="df-dot" style="background:var(--accent);box-shadow:0 0 8px var(--accent);"></div>
+            <div class="df-dot df-dot-yellow"></div>
+            <div class="df-dot df-dot-green"></div>
+            <span class="df-preview-url">stackstruct · folder structure generator</span>
+          </div>
 
-    <footer>
-      Founder: Devk
-    </footer>
-  </main>
+          <div class="ss-prompt-box">
+            <div class="ss-prompt-label">// User Prompt</div>
+            <div class="ss-prompt-text">Create a full-stack SaaS project with React frontend, FastAPI backend, PostgreSQL, and Docker</div>
+          </div>
+
+          <div class="ss-tree">
+            <div class="tr"><span class="tr-folder">📁</span><span class="tr-folder">my-saas-app/</span><span class="tr-new">GENERATED</span></div>
+            <div class="tr tr-indent"><span class="tr-arrow">└─</span><span class="tr-folder">📁 frontend/</span></div>
+            <div class="tr tr-indent2"><span class="tr-arrow">├─</span><span class="tr-file js">📄 App.jsx</span></div>
+            <div class="tr tr-indent2"><span class="tr-arrow">├─</span><span class="tr-file css">📄 index.css</span></div>
+            <div class="tr tr-indent2"><span class="tr-arrow">└─</span><span class="tr-file js">📄 package.json</span></div>
+            <div class="tr tr-indent"><span class="tr-arrow">└─</span><span class="tr-folder">📁 backend/</span></div>
+            <div class="tr tr-indent2"><span class="tr-arrow">├─</span><span class="tr-file py">📄 main.py</span></div>
+            <div class="tr tr-indent2"><span class="tr-arrow">├─</span><span class="tr-file py">📄 models.py</span></div>
+            <div class="tr tr-indent2"><span class="tr-arrow">├─</span><span class="tr-file py">📄 database.py</span></div>
+            <div class="tr tr-indent2"><span class="tr-arrow">└─</span><span class="tr-file env">📄 .env.example</span></div>
+            <div class="tr tr-indent"><span class="tr-arrow">├─</span><span class="tr-file md">📄 README.md</span></div>
+            <div class="tr tr-indent"><span class="tr-arrow">└─</span><span class="tr-file">📄 docker-compose.yml</span></div>
+          </div>
+        </div>
+
+        <!-- INFO -->
+        <div class="ss-info">
+          <div>
+            <div class="ss-badges">
+              <span class="badge badge-purple">Dev Tool</span>
+              <span class="badge" style="color:var(--gold);border-color:rgba(212,175,122,0.3);background:rgba(212,175,122,0.06);">Coming Soon</span>
+              <span class="badge badge-purple">AI-Powered</span>
+            </div>
+            <div class="ss-name">Stack<span>Struct</span></div>
+            <p class="ss-tagline">Describe your project in plain English. Get a complete, production-ready folder structure in seconds.</p>
+            <p class="ss-desc">StackStruct eliminates the blank-slate problem every developer faces at the start of a new project. Powered by AI, it generates opinionated, best-practice folder architectures for any stack — frontend, backend, full-stack, mobile, or monorepo. One prompt. Zero setup friction.</p>
+
+            <div class="ss-stats">
+              <div class="ss-stat">
+                <div class="ss-stat-n">20<span>+</span></div>
+                <div class="ss-stat-l">Stack Templates</div>
+              </div>
+              <div class="ss-stat">
+                <div class="ss-stat-n">1<span>s</span></div>
+                <div class="ss-stat-l">Generation Time</div>
+              </div>
+              <div class="ss-stat">
+                <div class="ss-stat-n">Any</div>
+                <div class="ss-stat-l">Framework</div>
+              </div>
+              <div class="ss-stat">
+                <div class="ss-stat-n">0</div>
+                <div class="ss-stat-l">Config Needed</div>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <div class="ss-actions">
+              <span class="btn-accent" style="opacity:0.55;cursor:not-allowed;background:var(--accent);">Coming Soon</span>
+              <a href="index.html#contact" class="btn-outline-accent">Get Early Access →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MORE -->
+  <div class="more-section reveal">
+    <div class="more-label">// Also from NexoCorp</div>
+    <div class="more-grid">
+      <div class="more-card">
+        <span class="more-tag">Web App</span>
+        <div class="more-name">AI Tools Hub</div>
+        <p class="more-desc">A curated intelligence library of AI platforms organized by capability — for builders, researchers, and creators.</p>
+        <a href="ai-tools.html" class="more-link">Explore Hub →</a>
+      </div>
+      <div class="more-card">
+        <span class="more-tag">Research</span>
+        <div class="more-name">Billionaire Minds</div>
+        <p class="more-desc">Deep research into the decisions, mental models, and philosophies behind the world's most consequential fortunes.</p>
+        <a href="billionaires.html" class="more-link">Read Research →</a>
+      </div>
+      <div class="more-card" style="opacity:0.6;">
+        <span class="more-tag more-tag-gold">Upcoming</span>
+        <div class="more-name">Project 04</div>
+        <p class="more-desc">Something new is being built. Follow the founder for updates on what's coming next from NexoCorp.</p>
+        <a href="index.html#contact" class="more-link">Stay Updated →</a>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <div class="footer-logo">Nexo<span>Corp</span></div>
+  <a href="index.html" class="back-link">← Back to Home</a>
+  <div class="footer-copy">© 2026 NexoCorp · Founded by Devk</div>
+</footer>
+
+<script>
+  document.body.classList.add('js-ready');
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);} });
+  }, { threshold: 0.06, rootMargin: '0px 0px -30px 0px' });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursorRing');
+  let mx=0,my=0,rx=0,ry=0;
+  document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;});
+  (function loop(){
+    rx+=(mx-rx)*0.15; ry+=(my-ry)*0.15;
+    cursor.style.transform=`translate(${mx-5}px,${my-5}px)`;
+    ring.style.transform=`translate(${rx-18}px,${ry-18}px)`;
+    requestAnimationFrame(loop);
+  })();
+  document.querySelectorAll('a,.darkfury-card,.stackstruct-card,.more-card,.df-feat,.ss-stat').forEach(el=>{
+    el.addEventListener('mouseenter',()=>{ring.style.width='56px';ring.style.height='56px';ring.style.borderColor='rgba(167,139,250,0.65)';});
+    el.addEventListener('mouseleave',()=>{ring.style.width='36px';ring.style.height='36px';ring.style.borderColor='rgba(167,139,250,0.45)';});
+  });
+</script>
 </body>
 </html>
