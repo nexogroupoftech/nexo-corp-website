@@ -1,40 +1,465 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Billionaire Minds — NexoCorp</title>
-  <meta charset="UTF-8" />
-  <style>
-    body { background:#020617; color:#e5e7eb; font-family:Inter,sans-serif; }
-    .container { max-width:900px; margin:auto; padding:80px 20px; }
-    li { margin:10px 0; }
-    p { color:#9ca3af; }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Billionaire Minds — NexoCorp</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #080808;
+    --surface: #111115;
+    --card: #16161c;
+    --border: rgba(255,255,255,0.06);
+    --border-accent: rgba(212,175,122,0.25);
+    --text: #e8e6f0;
+    --muted: #6b6880;
+    --subtle: #3a3850;
+    --accent: #d4af7a;
+    --accent-bright: #e8cb97;
+    --accent-glow: rgba(212,175,122,0.1);
+    --violet: #a78bfa;
+    --violet-glow: rgba(167,139,250,0.1);
+  }
+  *, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
+  html { scroll-behavior: smooth; }
+  body { font-family:'Syne',sans-serif; background:var(--black); color:var(--text); overflow-x:hidden; cursor:none; }
+  body::before {
+    content:''; position:fixed; inset:0;
+    background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events:none; z-index:1000; opacity:0.35;
+  }
+  .cursor { width:10px; height:10px; background:var(--accent); border-radius:50%; position:fixed; top:0; left:0; pointer-events:none; z-index:9999; mix-blend-mode:screen; }
+  .cursor-ring { width:36px; height:36px; border:1px solid rgba(212,175,122,0.4); border-radius:50%; position:fixed; top:0; left:0; pointer-events:none; z-index:9998; transition:transform 0.25s ease, width 0.3s, height 0.3s; }
+
+  nav {
+    position:fixed; top:0; left:0; right:0;
+    display:flex; align-items:center; justify-content:space-between;
+    padding:28px 60px; z-index:100;
+    background:rgba(8,8,8,0.85); backdrop-filter:blur(20px);
+    border-bottom:1px solid var(--border);
+  }
+  .logo { font-family:'Syne',sans-serif; font-size:1.25rem; font-weight:800; letter-spacing:0.08em; color:var(--text); text-decoration:none; }
+  .logo span { color:var(--violet); }
+  .nav-links { display:flex; gap:48px; list-style:none; }
+  .nav-links a { font-family:'DM Mono',monospace; font-size:0.7rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--muted); text-decoration:none; transition:color 0.3s; }
+  .nav-links a:hover { color:var(--text); }
+  .nav-cta { font-family:'DM Mono',monospace; font-size:0.7rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--violet); border:1px solid rgba(167,139,250,0.2); padding:10px 22px; text-decoration:none; transition:all 0.3s; }
+  .nav-cta:hover { border-color:var(--violet); background:var(--violet-glow); }
+
+  /* HERO */
+  .page-hero {
+    min-height:60vh; display:flex; flex-direction:column; justify-content:flex-end;
+    padding:140px 60px 80px; position:relative; overflow:hidden;
+  }
+  .page-hero::before {
+    content:''; position:absolute; inset:0;
+    background:
+      radial-gradient(ellipse 70% 60% at 65% 50%, rgba(212,175,122,0.07) 0%, transparent 70%),
+      radial-gradient(ellipse 30% 40% at 20% 30%, rgba(167,139,250,0.04) 0%, transparent 60%);
+  }
+  .hero-tag { font-family:'DM Mono',monospace; font-size:0.62rem; letter-spacing:0.28em; text-transform:uppercase; color:var(--accent); margin-bottom:24px; opacity:0; animation:fadeUp 0.7s 0.1s forwards; }
+  .hero-tag::before { content:'//'; margin-right:10px; opacity:0.5; }
+  .page-hero h1 { font-family:'Cormorant Garamond',serif; font-weight:300; font-size:clamp(3rem,6vw,5.5rem); line-height:1.05; letter-spacing:-0.02em; opacity:0; animation:fadeUp 0.8s 0.3s forwards; }
+  .page-hero h1 em { font-style:italic; color:var(--accent-bright); }
+  .hero-sub { font-family:'Cormorant Garamond',serif; font-size:1.25rem; font-weight:300; font-style:italic; color:var(--muted); margin-top:24px; max-width:600px; line-height:1.7; opacity:0; animation:fadeUp 0.8s 0.5s forwards; }
+  .hero-disclaimer { font-family:'DM Mono',monospace; font-size:0.58rem; letter-spacing:0.15em; color:var(--subtle); margin-top:28px; padding:14px 20px; border:1px solid var(--border); display:inline-block; opacity:0; animation:fadeUp 0.8s 0.7s forwards; }
+  .hero-line { position:absolute; bottom:0; left:0; right:0; height:1px; background:linear-gradient(90deg, transparent, var(--border), transparent); }
+
+  /* PHILOSOPHY STRIP */
+  .philosophy {
+    background:var(--surface); border-bottom:1px solid var(--border);
+    padding:48px 60px; display:grid; grid-template-columns:repeat(4,1fr); gap:2px;
+  }
+  .phil-item { padding:20px 32px; border-right:1px solid var(--border); }
+  .phil-item:last-child { border-right:none; }
+  .phil-num { font-family:'Cormorant Garamond',serif; font-size:2rem; font-weight:300; color:var(--accent); line-height:1; margin-bottom:8px; }
+  .phil-text { font-family:'DM Mono',monospace; font-size:0.6rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--muted); }
+
+  /* MAIN */
+  .main-wrap { max-width:1300px; margin:0 auto; padding:100px 60px; }
+  .section-label { font-family:'DM Mono',monospace; font-size:0.6rem; letter-spacing:0.3em; text-transform:uppercase; color:var(--accent); margin-bottom:16px; }
+  .section-label span { color:var(--subtle); margin-right:10px; }
+  h2 { font-family:'Cormorant Garamond',serif; font-weight:300; font-size:clamp(2rem,4vw,3.5rem); line-height:1.1; letter-spacing:-0.02em; margin-bottom:60px; }
+  h2 em { font-style:italic; color:var(--accent-bright); }
+
+  /* PROFILE CARDS */
+  .profiles { display:flex; flex-direction:column; gap:2px; margin-bottom:80px; }
+
+  .profile-card {
+    background:var(--card); border:1px solid var(--border);
+    display:grid; grid-template-columns:80px 1fr 1fr 1fr;
+    gap:0; transition:all 0.35s; cursor:none; overflow:hidden;
+    position:relative;
+  }
+  .profile-card::before {
+    content:''; position:absolute; left:0; top:0; bottom:0; width:2px;
+    background:var(--accent); transform:scaleY(0); transform-origin:bottom;
+    transition:transform 0.35s;
+  }
+  .profile-card:hover { border-color:var(--border-accent); background:var(--surface); }
+  .profile-card:hover::before { transform:scaleY(1); }
+
+  .profile-index {
+    padding:40px 28px; display:flex; align-items:flex-start; justify-content:center;
+    border-right:1px solid var(--border);
+  }
+  .profile-index span {
+    font-family:'Cormorant Garamond',serif; font-size:1.8rem; font-weight:300;
+    color:var(--subtle); line-height:1;
+  }
+  .profile-card:hover .profile-index span { color:var(--accent); }
+
+  .profile-identity { padding:40px 40px; border-right:1px solid var(--border); }
+  .profile-name { font-size:1.2rem; font-weight:700; color:var(--text); margin-bottom:6px; letter-spacing:0.01em; }
+  .profile-domain {
+    font-family:'DM Mono',monospace; font-size:0.58rem; letter-spacing:0.18em;
+    text-transform:uppercase; color:var(--accent);
+    border:1px solid var(--border-accent); padding:4px 10px; display:inline-block; margin-bottom:16px;
+  }
+  .profile-tagline { font-family:'Cormorant Garamond',serif; font-size:1rem; font-weight:300; font-style:italic; color:var(--muted); line-height:1.5; }
+
+  .profile-mindset { padding:40px 40px; border-right:1px solid var(--border); }
+  .profile-label { font-family:'DM Mono',monospace; font-size:0.55rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--subtle); margin-bottom:12px; }
+  .profile-principle { font-family:'Cormorant Garamond',serif; font-size:1.05rem; font-weight:300; color:var(--text); line-height:1.6; }
+
+  .profile-lesson { padding:40px 40px; }
+  .profile-lesson .profile-label { margin-bottom:12px; }
+  .profile-lesson-text { font-family:'Cormorant Garamond',serif; font-size:1rem; font-weight:300; color:var(--muted); line-height:1.65; font-style:italic; }
+
+  /* INSIGHT */
+  .insight {
+    background:var(--surface); border:1px solid var(--border);
+    border-left:2px solid var(--accent); padding:40px 48px; margin:60px 0;
+  }
+  .insight-label { font-family:'DM Mono',monospace; font-size:0.58rem; letter-spacing:0.25em; text-transform:uppercase; color:var(--accent); margin-bottom:16px; }
+  .insight p { font-family:'Cormorant Garamond',serif; font-size:1.4rem; font-weight:300; font-style:italic; line-height:1.7; color:var(--text); }
+
+  /* PATTERN TABLE */
+  .pattern-section { margin-top:80px; }
+  .pattern-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:2px; margin-top:24px; }
+  .pattern-card {
+    background:var(--card); border:1px solid var(--border); padding:36px 32px;
+    transition:all 0.3s; cursor:none;
+  }
+  .pattern-card:hover { border-color:var(--border-accent); }
+  .pattern-icon { font-size:1.4rem; margin-bottom:16px; }
+  .pattern-title { font-size:0.95rem; font-weight:700; color:var(--text); margin-bottom:10px; letter-spacing:0.02em; }
+  .pattern-body { font-family:'Cormorant Garamond',serif; font-size:1rem; font-weight:300; color:var(--muted); line-height:1.65; }
+
+  footer { background:var(--black); border-top:1px solid var(--border); padding:40px 60px; display:flex; justify-content:space-between; align-items:center; }
+  .footer-logo { font-family:'Syne',sans-serif; font-size:1rem; font-weight:800; letter-spacing:0.08em; color:var(--muted); }
+  .footer-logo span { color:var(--violet); }
+  .footer-copy { font-family:'DM Mono',monospace; font-size:0.6rem; letter-spacing:0.15em; color:var(--subtle); }
+  .back-link { font-family:'DM Mono',monospace; font-size:0.62rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--muted); text-decoration:none; display:flex; align-items:center; gap:8px; transition:all 0.3s; }
+  .back-link:hover { color:var(--accent); gap:14px; }
+
+  @keyframes fadeUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
+  .reveal { opacity:0; transform:translateY(24px); transition:opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.visible { opacity:1; transform:translateY(0); }
+  .reveal-delay-1 { transition-delay:0.1s; } .reveal-delay-2 { transition-delay:0.2s; } .reveal-delay-3 { transition-delay:0.3s; }
+
+  @media(max-width:900px){
+    nav { padding:18px 24px; } .nav-links { display:none; }
+    .page-hero, .main-wrap { padding-left:24px; padding-right:24px; }
+    .profile-card { grid-template-columns:1fr; }
+    .profile-index, .profile-identity, .profile-mindset { border-right:none; border-bottom:1px solid var(--border); }
+    .philosophy { grid-template-columns:1fr 1fr; } .phil-item { border-right:none; border-bottom:1px solid var(--border); }
+    .pattern-grid { grid-template-columns:1fr; }
+    footer { flex-direction:column; gap:16px; padding:28px 24px; }
+  }
+</style>
 </head>
-
 <body>
-<div class="container">
-<h1>Billionaire Minds</h1>
-<p>Study of builders, capital allocators, and long-term thinkers.</p>
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
 
-<ul>
-  <li>Elon Musk — Engineering-driven risk taking</li>
-  <li>Warren Buffett — Patience and capital discipline</li>
-  <li>Jeff Bezos — Long-term obsession with scale</li>
-  <li>Bill Gates — Systems thinking and leverage</li>
-  <li>Charlie Munger — Mental models & rationality</li>
-  <li>Bernard Arnault — Brand and cultural capital</li>
-  <li>Ray Dalio — Principles-based decision-making</li>
-  <li>Mark Zuckerberg — Product-first execution</li>
-  <li>Steve Jobs — Taste and product intuition</li>
-  <li>Mukesh Ambani — Infrastructure & scale vision</li>
-</ul>
+<nav>
+  <a href="index.html" class="logo">Nexo<span>Corp</span></a>
+  <ul class="nav-links">
+    <li><a href="index.html#about">About</a></li>
+    <li><a href="projects.html">Projects</a></li>
+    <li><a href="ai-tools.html">AI Tools</a></li>
+    <li><a href="index.html#founder">Founder</a></li>
+  </ul>
+  <a href="index.html#contact" class="nav-cta">Get in Touch</a>
+</nav>
 
-<p>
-Focus is on decisions, mindset, failures, and time horizons —
-not motivation or worship.
-</p>
-
-<a href="projects.html">← Back to Projects</a>
+<div class="page-hero">
+  <div class="hero-tag">Billionaire Minds — Research Series</div>
+  <h1>The architecture<br>of <em>extraordinary</em> wealth.</h1>
+  <p class="hero-sub">A deep study of the decisions, mental models, and philosophies that built the world's most consequential fortunes.</p>
+  <div class="hero-disclaimer">⚠ Focus: decisions, mindset & systems — not motivation or worship</div>
+  <div class="hero-line"></div>
 </div>
+
+<div class="philosophy">
+  <div class="phil-item reveal">
+    <div class="phil-num">10</div>
+    <div class="phil-text">Minds Studied</div>
+  </div>
+  <div class="phil-item reveal reveal-delay-1">
+    <div class="phil-num">∞</div>
+    <div class="phil-text">Lessons Extracted</div>
+  </div>
+  <div class="phil-item reveal reveal-delay-2">
+    <div class="phil-num">4+</div>
+    <div class="phil-text">Decades of Data</div>
+  </div>
+  <div class="phil-item reveal reveal-delay-3">
+    <div class="phil-num">1</div>
+    <div class="phil-text">Core Truth</div>
+  </div>
+</div>
+
+<div class="main-wrap">
+  <div class="section-label reveal"><span>01</span> The Profiles</div>
+  <h2 class="reveal">Builders, allocators,<br>and <em>long-horizon thinkers.</em></h2>
+
+  <div class="profiles">
+
+    <div class="profile-card reveal">
+      <div class="profile-index"><span>01</span></div>
+      <div class="profile-identity">
+        <div class="profile-name">Elon Musk</div>
+        <div class="profile-domain">Engineering · Risk · Scale</div>
+        <p class="profile-tagline">The engineer who bets civilizations, not companies.</p>
+      </div>
+      <div class="profile-mindset">
+        <div class="profile-label">Core Principle</div>
+        <p class="profile-principle">First-principles thinking over analogy. Musk dismantles every problem to its physical limits — then rebuilds from scratch, ignoring what others declare "impossible."</p>
+      </div>
+      <div class="profile-lesson">
+        <div class="profile-label">Key Lesson</div>
+        <p class="profile-lesson-text">The willingness to risk total failure on every venture — and the engineering discipline to make failure a teacher rather than an ending.</p>
+      </div>
+    </div>
+
+    <div class="profile-card reveal">
+      <div class="profile-index"><span>02</span></div>
+      <div class="profile-identity">
+        <div class="profile-name">Warren Buffett</div>
+        <div class="profile-domain">Capital · Patience · Compounding</div>
+        <p class="profile-tagline">The master of doing less, better, for longer.</p>
+      </div>
+      <div class="profile-mindset">
+        <div class="profile-label">Core Principle</div>
+        <p class="profile-principle">Compounding requires patience that most people cannot sustain. The edge isn't intelligence — it's temperament. Not losing money is the first rule of making it.</p>
+      </div>
+      <div class="profile-lesson">
+        <div class="profile-label">Key Lesson</div>
+        <p class="profile-lesson-text">Understanding that inaction at the right price is itself a powerful action. Waiting for the fat pitch beats swinging at every ball.</p>
+      </div>
+    </div>
+
+    <div class="profile-card reveal">
+      <div class="profile-index"><span>03</span></div>
+      <div class="profile-identity">
+        <div class="profile-name">Jeff Bezos</div>
+        <div class="profile-domain">Obsession · Scale · Long-term</div>
+        <p class="profile-tagline">The man who made long-term thinking a competitive weapon.</p>
+      </div>
+      <div class="profile-mindset">
+        <div class="profile-label">Core Principle</div>
+        <p class="profile-principle">Obsessing over customers, not competitors. Building infrastructure so scalable that the platform itself becomes the moat — then charging others to stand on it.</p>
+      </div>
+      <div class="profile-lesson">
+        <div class="profile-label">Key Lesson</div>
+        <p class="profile-lesson-text">Willingness to be misunderstood for years while executing a vision competitors dismiss as irrational — until it's undeniable.</p>
+      </div>
+    </div>
+
+    <div class="profile-card reveal">
+      <div class="profile-index"><span>04</span></div>
+      <div class="profile-identity">
+        <div class="profile-name">Bill Gates</div>
+        <div class="profile-domain">Systems · Leverage · Discipline</div>
+        <p class="profile-tagline">The architect who saw software as pure leverage over reality.</p>
+      </div>
+      <div class="profile-mindset">
+        <div class="profile-label">Core Principle</div>
+        <p class="profile-principle">Systems thinking at every scale. Gates saw the OS as a chokepoint for all computing — and executed with relentless competitive aggression to own that chokepoint first.</p>
+      </div>
+      <div class="profile-lesson">
+        <div class="profile-label">Key Lesson</div>
+        <p class="profile-lesson-text">The discipline of "Think Weeks" — disconnecting to think deeply — produced more strategic clarity than any meeting room ever could.</p>
+      </div>
+    </div>
+
+    <div class="profile-card reveal">
+      <div class="profile-index"><span>05</span></div>
+      <div class="profile-identity">
+        <div class="profile-name">Charlie Munger</div>
+        <div class="profile-domain">Mental Models · Rationality · Wisdom</div>
+        <p class="profile-tagline">The philosopher of practical intelligence.</p>
+      </div>
+      <div class="profile-mindset">
+        <div class="profile-label">Core Principle</div>
+        <p class="profile-principle">A latticework of mental models from multiple disciplines — psychology, physics, economics, biology — applied ruthlessly to every decision. Inversion: always ask what could go wrong first.</p>
+      </div>
+      <div class="profile-lesson">
+        <div class="profile-label">Key Lesson</div>
+        <p class="profile-lesson-text">Avoiding stupidity is more important than being brilliant. Most great decisions are about eliminating the worst options, not finding the perfect one.</p>
+      </div>
+    </div>
+
+    <div class="profile-card reveal">
+      <div class="profile-index"><span>06</span></div>
+      <div class="profile-identity">
+        <div class="profile-name">Bernard Arnault</div>
+        <div class="profile-domain">Brand · Culture · Scarcity</div>
+        <p class="profile-tagline">The empire builder who monetized desire itself.</p>
+      </div>
+      <div class="profile-mindset">
+        <div class="profile-label">Core Principle</div>
+        <p class="profile-principle">Luxury is the art of making people feel that paying more is a privilege, not a cost. Cultural capital compounds differently than financial capital — and outlasts it.</p>
+      </div>
+      <div class="profile-lesson">
+        <div class="profile-label">Key Lesson</div>
+        <p class="profile-lesson-text">Acquiring heritage brands at distressed prices, then restoring their prestige through creative excellence and patient positioning over decades.</p>
+      </div>
+    </div>
+
+    <div class="profile-card reveal">
+      <div class="profile-index"><span>07</span></div>
+      <div class="profile-identity">
+        <div class="profile-name">Ray Dalio</div>
+        <div class="profile-domain">Principles · Systems · Radical Truth</div>
+        <p class="profile-tagline">The man who turned his failures into operating principles.</p>
+      </div>
+      <div class="profile-mindset">
+        <div class="profile-label">Core Principle</div>
+        <p class="profile-principle">Radical transparency and algorithmic decision-making. Pain plus reflection equals progress. Every failure is data — systematize your learnings before you forget the pain.</p>
+      </div>
+      <div class="profile-lesson">
+        <div class="profile-label">Key Lesson</div>
+        <p class="profile-lesson-text">The "Holy Grail of Investing" — uncorrelated returns through diversification — applies to life as much as portfolios. Bet on multiple independent drivers of success.</p>
+      </div>
+    </div>
+
+    <div class="profile-card reveal">
+      <div class="profile-index"><span>08</span></div>
+      <div class="profile-identity">
+        <div class="profile-name">Mark Zuckerberg</div>
+        <div class="profile-domain">Product · Networks · Execution</div>
+        <p class="profile-tagline">The engineer who reverse-engineered human connection.</p>
+      </div>
+      <div class="profile-mindset">
+        <div class="profile-label">Core Principle</div>
+        <p class="profile-principle">Move fast, own the network, and pivot the entire product thesis when necessary — without sentimentality. Control the infrastructure layer before anyone realizes it's the infrastructure.</p>
+      </div>
+      <div class="profile-lesson">
+        <div class="profile-label">Key Lesson</div>
+        <p class="profile-lesson-text">The willingness to destroy your own product before a competitor does — and the execution speed to make the transition before most notice.</p>
+      </div>
+    </div>
+
+    <div class="profile-card reveal">
+      <div class="profile-index"><span>09</span></div>
+      <div class="profile-identity">
+        <div class="profile-name">Steve Jobs</div>
+        <div class="profile-domain">Taste · Vision · Product Intuition</div>
+        <p class="profile-tagline">The only person who made taste a competitive moat.</p>
+      </div>
+      <div class="profile-mindset">
+        <div class="profile-label">Core Principle</div>
+        <p class="profile-principle">The intersection of technology and the liberal arts. Saying no to 1,000 things so you can say yes to one. Design is not how it looks — it's how it works, at every invisible level.</p>
+      </div>
+      <div class="profile-lesson">
+        <div class="profile-label">Key Lesson</div>
+        <p class="profile-lesson-text">Customers don't know what they want until you show them. The job of a visionary is to build the future the market hasn't imagined yet.</p>
+      </div>
+    </div>
+
+    <div class="profile-card reveal">
+      <div class="profile-index"><span>10</span></div>
+      <div class="profile-identity">
+        <div class="profile-name">Mukesh Ambani</div>
+        <div class="profile-domain">Infrastructure · Scale · Vision</div>
+        <p class="profile-tagline">The builder who rewired an entire nation's economy.</p>
+      </div>
+      <div class="profile-mindset">
+        <div class="profile-label">Core Principle</div>
+        <p class="profile-principle">Infrastructure is destiny. Control the pipes, then decide what flows through them. Ambani's Jio gave 400 million people free internet — and built the most powerful data moat in Asia.</p>
+      </div>
+      <div class="profile-lesson">
+        <div class="profile-label">Key Lesson</div>
+        <p class="profile-lesson-text">The willingness to absorb years of losses to reach the scale where the economics permanently flip in your favor — and the capital base to survive that bet.</p>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="insight reveal">
+    <div class="insight-label">The Core Truth</div>
+    <p>Every person in this index built something others said couldn't be done — not because they were smarter, but because they were <em>willing to hold the vision longer</em> than anyone thought rational.</p>
+  </div>
+
+  <!-- PATTERNS -->
+  <div class="pattern-section">
+    <div class="section-label reveal"><span>02</span> Common Patterns</div>
+    <h2 class="reveal">What they all<br><em>share.</em></h2>
+    <div class="pattern-grid">
+      <div class="pattern-card reveal">
+        <div class="pattern-icon">⏳</div>
+        <div class="pattern-title">Extreme Time Horizon</div>
+        <p class="pattern-body">Every person here thinks in decades while competitors think in quarters. The length of your time horizon is your most underrated competitive advantage.</p>
+      </div>
+      <div class="pattern-card reveal reveal-delay-1">
+        <div class="pattern-icon">🎯</div>
+        <div class="pattern-title">Asymmetric Bets</div>
+        <p class="pattern-body">They take calculated bets where the downside is capped and the upside is unlimited. They don't just take risks — they architect them to tilt the odds structurally in their favor.</p>
+      </div>
+      <div class="pattern-card reveal reveal-delay-2">
+        <div class="pattern-icon">🧩</div>
+        <div class="pattern-title">Systems Over Goals</div>
+        <p class="pattern-body">They built operating systems for decisions, not goal lists. Their playbooks outlasted their emotions — allowing them to execute with consistency through chaos and pressure.</p>
+      </div>
+      <div class="pattern-card reveal">
+        <div class="pattern-icon">📚</div>
+        <div class="pattern-title">Obsessive Learning</div>
+        <p class="pattern-body">Every single one reads voraciously across disciplines. Buffett reads 5 hours a day. Gates reads 50 books a year. Cross-disciplinary knowledge is where their edges compound quietly.</p>
+      </div>
+      <div class="pattern-card reveal reveal-delay-1">
+        <div class="pattern-icon">🔁</div>
+        <div class="pattern-title">Failure as Feedback</div>
+        <p class="pattern-body">Musk lost nearly everything twice. Jobs was fired. Dalio nearly went bankrupt. None of them treated failure as an ending — they processed it as data and rebuilt with more precision.</p>
+      </div>
+      <div class="pattern-card reveal reveal-delay-2">
+        <div class="pattern-icon">🏗️</div>
+        <div class="pattern-title">Infrastructure Thinking</div>
+        <p class="pattern-body">They build the roads, not just the cars. The real wealth isn't in the product — it's in owning the layer everyone else is forced to build on top of.</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <div class="footer-logo">Nexo<span>Corp</span></div>
+  <a href="projects.html" class="back-link">← Back to Projects</a>
+  <div class="footer-copy">© 2026 NexoCorp · Founded by Devk</div>
+</footer>
+
+<script>
+  const cursor=document.getElementById('cursor');
+  const ring=document.getElementById('cursorRing');
+  let mx=0,my=0,rx=0,ry=0;
+  document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;});
+  function animateCursor(){
+    rx+=(mx-rx)*0.15; ry+=(my-ry)*0.15;
+    cursor.style.transform=`translate(${mx-5}px,${my-5}px)`;
+    ring.style.transform=`translate(${rx-18}px,${ry-18}px)`;
+    requestAnimationFrame(animateCursor);
+  }
+  animateCursor();
+  document.querySelectorAll('a,.profile-card,.pattern-card').forEach(el=>{
+    el.addEventListener('mouseenter',()=>{ring.style.width='56px';ring.style.height='56px';ring.style.borderColor='rgba(212,175,122,0.6)';});
+    el.addEventListener('mouseleave',()=>{ring.style.width='36px';ring.style.height='36px';ring.style.borderColor='rgba(212,175,122,0.4)';});
+  });
+  const reveals=document.querySelectorAll('.reveal');
+  const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');});},{threshold:0.05});
+  reveals.forEach(el=>obs.observe(el));
+</script>
 </body>
 </html>
