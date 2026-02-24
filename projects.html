@@ -23,6 +23,9 @@
     --gold: #d4af7a;
     --red: #f87171;
     --red-glow: rgba(248,113,113,0.12);
+    --cyan: #22d3ee;
+    --cyan-glow: rgba(34,211,238,0.12);
+    --border-cyan: rgba(34,211,238,0.22);
     --font-display: 'Syne', 'Trebuchet MS', Arial, sans-serif;
     --font-serif: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
     --font-mono: 'DM Mono', 'Courier New', monospace;
@@ -41,7 +44,6 @@
   .cursor { width: 10px; height: 10px; background: var(--accent); border-radius: 50%; position: fixed; top:0; left:0; pointer-events:none; z-index:9999; mix-blend-mode:screen; }
   .cursor-ring { width: 36px; height: 36px; border: 1px solid rgba(167,139,250,0.45); border-radius: 50%; position: fixed; top:0; left:0; pointer-events:none; z-index:9998; transition: transform 0.22s ease, width 0.3s, height 0.3s, border-color 0.3s; }
 
-  /* NAV */
   nav { position: fixed; top:0; left:0; right:0; display:flex; align-items:center; justify-content:space-between; padding:28px 60px; z-index:200; background:rgba(8,8,8,0.92); backdrop-filter:blur(24px); border-bottom:1px solid var(--border); }
   .logo { font-family:var(--font-display); font-size:1.25rem; font-weight:800; letter-spacing:0.08em; color:var(--text); text-decoration:none; }
   .logo span { color:var(--accent); }
@@ -53,20 +55,8 @@
   .nav-cta:hover::before { transform:scaleX(1); }
   .nav-cta:hover { border-color:var(--accent); }
 
-  /* HERO */
-  .page-hero {
-    min-height: 52vh;
-    display: flex; flex-direction: column; justify-content: flex-end;
-    padding: 140px 60px 72px;
-    position: relative; overflow: hidden;
-  }
-  .page-hero::before {
-    content: ''; position: absolute; inset: 0;
-    background:
-      radial-gradient(ellipse 55% 55% at 80% 40%, rgba(167,139,250,0.07) 0%, transparent 70%),
-      radial-gradient(ellipse 35% 50% at 10% 70%, rgba(248,113,113,0.04) 0%, transparent 60%);
-    pointer-events: none;
-  }
+  .page-hero { min-height: 52vh; display: flex; flex-direction: column; justify-content: flex-end; padding: 140px 60px 72px; position: relative; overflow: hidden; }
+  .page-hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 55% 55% at 80% 40%, rgba(167,139,250,0.07) 0%, transparent 70%), radial-gradient(ellipse 35% 50% at 10% 70%, rgba(248,113,113,0.04) 0%, transparent 60%); pointer-events: none; }
   .hero-grid-line { position: absolute; top:0; left:60px; width:1px; height:100%; background:linear-gradient(to bottom, transparent, rgba(255,255,255,0.04), transparent); }
   .hero-tag { font-family:var(--font-mono); font-size:0.62rem; letter-spacing:0.28em; text-transform:uppercase; color:var(--accent); margin-bottom:24px; opacity:0; animation:fadeUp 0.7s 0.1s forwards; }
   .hero-tag::before { content:'//'; margin-right:10px; opacity:0.5; }
@@ -75,18 +65,15 @@
   .hero-sub { font-family:var(--font-serif); font-size:1.2rem; font-weight:300; font-style:italic; color:var(--muted); margin-top:20px; max-width:560px; line-height:1.75; opacity:0; animation:fadeUp 0.85s 0.5s forwards; }
   .hero-divider { position:absolute; bottom:0; left:0; right:0; height:1px; background:linear-gradient(90deg,transparent,var(--border),transparent); }
 
-  /* COUNT BAR */
-  .count-bar { background:var(--surface); border-bottom:1px solid var(--border); padding:0 60px; display:flex; align-items:center; gap:0; }
+  .count-bar { background:var(--surface); border-bottom:1px solid var(--border); padding:0 60px; display:flex; align-items:center; }
   .count-item { padding:24px 48px 24px 0; margin-right:48px; border-right:1px solid var(--border); }
   .count-item:last-child { border-right:none; }
   .count-num { font-family:var(--font-serif); font-size:2rem; font-weight:300; color:var(--text); }
   .count-num span { color:var(--accent); }
   .count-label { font-family:var(--font-mono); font-size:0.56rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--muted); margin-top:4px; }
 
-  /* MAIN */
   .main { max-width: 1320px; margin: 0 auto; padding: 100px 60px 140px; }
 
-  /* SECTION HEADER */
   .sec-head { display:flex; align-items:flex-end; justify-content:space-between; margin-bottom:40px; padding-bottom:20px; border-bottom:1px solid var(--border); }
   .sec-label { font-family:var(--font-mono); font-size:0.6rem; letter-spacing:0.28em; text-transform:uppercase; color:var(--accent); margin-bottom:10px; }
   .sec-label span { color:var(--subtle); margin-right:10px; }
@@ -96,132 +83,85 @@
   .status-live { color:#4ade80; border-color:rgba(74,222,128,0.3); background:rgba(74,222,128,0.06); }
   .status-dev { color:var(--gold); border-color:rgba(212,175,122,0.3); background:rgba(212,175,122,0.06); }
 
-  /* ════ DARKFURY CARD ════ */
-  .darkfury-wrap { margin-bottom: 100px; }
-  .darkfury-card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    position: relative; overflow: hidden;
-    transition: border-color 0.4s;
-  }
+  /* DARKFURY */
+  .project-wrap { margin-bottom: 100px; }
+  .darkfury-card { background: var(--card); border: 1px solid var(--border); position: relative; overflow: hidden; transition: border-color 0.4s; }
   .darkfury-card:hover { border-color: rgba(248,113,113,0.25); }
-  .darkfury-card::before {
-    content: ''; position: absolute; top:0; left:0; right:0; height:2px;
-    background: linear-gradient(90deg, transparent, var(--red), rgba(167,139,250,0.6), transparent);
-    opacity: 0; transition: opacity 0.4s;
-  }
+  .darkfury-card::before { content: ''; position: absolute; top:0; left:0; right:0; height:2px; background: linear-gradient(90deg, transparent, var(--red), rgba(167,139,250,0.6), transparent); opacity: 0; transition: opacity 0.4s; }
   .darkfury-card:hover::before { opacity: 1; }
-
-  /* Animated background orb */
-  .df-orb {
-    position: absolute; width: 500px; height: 500px;
-    background: radial-gradient(circle, rgba(248,113,113,0.06) 0%, transparent 70%);
-    right: -100px; top: -100px; border-radius: 50%;
-    animation: orbFloat 8s ease-in-out infinite;
-    pointer-events: none;
-  }
-
+  .df-orb { position: absolute; width: 500px; height: 500px; background: radial-gradient(circle, rgba(248,113,113,0.06) 0%, transparent 70%); right: -100px; top: -100px; border-radius: 50%; animation: orbFloat 8s ease-in-out infinite; pointer-events: none; }
   .darkfury-inner { display: grid; grid-template-columns: 1fr 1.1fr; min-height: 480px; }
-
-  /* Left — info */
-  .df-info { padding: 56px 56px; display: flex; flex-direction: column; justify-content: space-between; border-right: 1px solid var(--border); position: relative; z-index: 1; }
-  .df-top {}
+  .df-info { padding: 56px; display: flex; flex-direction: column; justify-content: space-between; border-right: 1px solid var(--border); position: relative; z-index: 1; }
   .df-badges { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:28px; }
   .badge { font-family:var(--font-mono); font-size:0.54rem; letter-spacing:0.18em; text-transform:uppercase; padding:5px 12px; border:1px solid; }
   .badge-red { color:var(--red); border-color:rgba(248,113,113,0.35); background:var(--red-glow); }
   .badge-purple { color:var(--accent); border-color:var(--border-accent); background:var(--accent-glow); }
   .badge-green { color:#4ade80; border-color:rgba(74,222,128,0.3); background:rgba(74,222,128,0.06); }
-
-  .df-name { font-family:var(--font-display); font-size:clamp(2.2rem, 4vw, 3.2rem); font-weight:800; color:var(--text); letter-spacing:-0.02em; line-height:1; margin-bottom:12px; }
-  .df-name span { color: var(--red); }
+  .badge-cyan { color:var(--cyan); border-color:var(--border-cyan); background:var(--cyan-glow); }
+  .df-name { font-family:var(--font-display); font-size:clamp(2.2rem,4vw,3.2rem); font-weight:800; color:var(--text); letter-spacing:-0.02em; line-height:1; margin-bottom:12px; }
+  .df-name-red span { color: var(--red); }
+  .df-name-cyan span { color: var(--cyan); }
   .df-tagline { font-family:var(--font-serif); font-size:1.15rem; font-weight:300; font-style:italic; color:var(--muted); line-height:1.65; margin-bottom:32px; max-width:380px; }
   .df-desc { font-family:var(--font-serif); font-size:1.05rem; font-weight:300; color:var(--muted); line-height:1.75; margin-bottom:40px; max-width:400px; }
-
   .df-meta { display:flex; flex-direction:column; gap:12px; margin-bottom:40px; }
   .df-meta-row { display:flex; align-items:center; gap:16px; }
   .df-meta-key { font-family:var(--font-mono); font-size:0.56rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--subtle); width:80px; flex-shrink:0; }
   .df-meta-val { font-family:var(--font-mono); font-size:0.7rem; color:var(--muted); letter-spacing:0.05em; }
-  .df-meta-val.highlight { color:var(--red); }
-
+  .df-meta-val.hi-red { color:var(--red); }
+  .df-meta-val.hi-cyan { color:var(--cyan); }
   .df-actions { display:flex; gap:14px; flex-wrap:wrap; }
-  .btn-red {
-    display:inline-flex; align-items:center; gap:10px;
-    background:var(--red); color:#0a0a0a;
-    font-family:var(--font-mono); font-size:0.68rem; letter-spacing:0.15em; text-transform:uppercase;
-    padding:14px 28px; text-decoration:none; transition:all 0.3s;
-  }
+
+  .btn-red { display:inline-flex; align-items:center; gap:10px; background:var(--red); color:#0a0a0a; font-family:var(--font-mono); font-size:0.68rem; letter-spacing:0.15em; text-transform:uppercase; padding:14px 28px; text-decoration:none; transition:all 0.3s; }
   .btn-red::after { content:'↗'; transition:transform 0.3s; }
   .btn-red:hover { background:#fca5a5; }
   .btn-red:hover::after { transform:translate(2px,-2px); }
-  .btn-outline-red {
-    display:inline-flex; align-items:center; gap:10px;
-    color:var(--red); font-family:var(--font-mono); font-size:0.68rem; letter-spacing:0.15em; text-transform:uppercase;
-    padding:14px 24px; text-decoration:none; border:1px solid rgba(248,113,113,0.35); transition:all 0.3s;
-  }
+  .btn-outline-red { display:inline-flex; align-items:center; gap:10px; color:var(--red); font-family:var(--font-mono); font-size:0.68rem; letter-spacing:0.15em; text-transform:uppercase; padding:14px 24px; text-decoration:none; border:1px solid rgba(248,113,113,0.35); transition:all 0.3s; }
   .btn-outline-red:hover { border-color:var(--red); background:var(--red-glow); }
 
-  /* Right — visual */
+  .btn-cyan { display:inline-flex; align-items:center; gap:10px; background:var(--cyan); color:#0a0a0a; font-family:var(--font-mono); font-size:0.68rem; letter-spacing:0.15em; text-transform:uppercase; padding:14px 28px; text-decoration:none; transition:all 0.3s; }
+  .btn-cyan::after { content:'↗'; transition:transform 0.3s; }
+  .btn-cyan:hover { background:#67e8f9; }
+  .btn-cyan:hover::after { transform:translate(2px,-2px); }
+  .btn-outline-cyan { display:inline-flex; align-items:center; gap:10px; color:var(--cyan); font-family:var(--font-mono); font-size:0.68rem; letter-spacing:0.15em; text-transform:uppercase; padding:14px 24px; text-decoration:none; border:1px solid var(--border-cyan); transition:all 0.3s; }
+  .btn-outline-cyan:hover { border-color:var(--cyan); background:var(--cyan-glow); }
+
   .df-visual { padding: 56px 48px; display:flex; flex-direction:column; gap:20px; position:relative; z-index:1; background: rgba(8,8,8,0.3); }
   .df-preview-header { display:flex; align-items:center; gap:10px; margin-bottom:4px; }
   .df-dot { width:10px; height:10px; border-radius:50%; }
   .df-dot-red { background:var(--red); box-shadow:0 0 8px var(--red); }
   .df-dot-yellow { background:#fbbf24; }
   .df-dot-green { background:#4ade80; }
+  .df-dot-cyan { background:var(--cyan); box-shadow:0 0 8px var(--cyan); }
   .df-preview-url { font-family:var(--font-mono); font-size:0.58rem; letter-spacing:0.1em; color:var(--subtle); margin-left:8px; }
-
-  .df-terminal {
-    background: #0d0d10; border: 1px solid rgba(248,113,113,0.15);
-    padding: 28px 32px; font-family:var(--font-mono); font-size:0.75rem;
-    line-height:2; flex:1;
-  }
-  .t-line { display:flex; gap:12px; }
+  .df-terminal { background: #0d0d10; border: 1px solid rgba(248,113,113,0.15); padding: 28px 32px; font-family:var(--font-mono); font-size:0.75rem; line-height:2; flex:1; }
+  .rl-terminal { background: #0a0d0f; border: 1px solid rgba(34,211,238,0.15); padding: 28px 32px; font-family:var(--font-mono); font-size:0.75rem; line-height:2; flex:1; }
+  .t-line { display:flex; gap:12px; flex-wrap:wrap; }
   .t-prompt { color:var(--red); opacity:0.7; }
+  .t-prompt-cyan { color:var(--cyan); opacity:0.7; }
   .t-cmd { color:var(--text); }
-  .t-out { color:var(--muted); padding-left:24px; }
   .t-ai { color:var(--accent-bright); padding-left:24px; font-style:italic; }
+  .t-ai-cyan { color:var(--cyan); padding-left:24px; font-style:italic; opacity:0.9; }
   .t-hi { color:#4ade80; }
+  .t-hi-cyan { color:var(--cyan); font-style:normal; }
   .t-blink::after { content:'█'; animation:blink 1s step-end infinite; color:var(--red); }
-
+  .t-blink-cyan::after { content:'█'; animation:blink 1s step-end infinite; color:var(--cyan); }
   .df-features { display:grid; grid-template-columns:1fr 1fr; gap:2px; }
   .df-feat { background:var(--surface); border:1px solid var(--border); padding:18px 20px; transition:border-color 0.3s; }
   .df-feat:hover { border-color:rgba(248,113,113,0.2); }
+  .df-feat-cyan:hover { border-color:rgba(34,211,238,0.2) !important; }
   .df-feat-icon { font-size:1rem; margin-bottom:8px; }
   .df-feat-name { font-size:0.78rem; font-weight:600; color:var(--text); margin-bottom:4px; }
   .df-feat-desc { font-family:var(--font-mono); font-size:0.56rem; letter-spacing:0.08em; color:var(--muted); }
 
-  /* ════ STACKSTRUCT CARD ════ */
-  .stackstruct-card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    position: relative; overflow: hidden;
-    transition: border-color 0.4s;
-  }
+  /* STACKSTRUCT */
+  .stackstruct-card { background: var(--card); border: 1px solid var(--border); position: relative; overflow: hidden; transition: border-color 0.4s; }
   .stackstruct-card:hover { border-color: rgba(167,139,250,0.3); }
-  .stackstruct-card::before {
-    content: ''; position: absolute; top:0; left:0; right:0; height:2px;
-    background: linear-gradient(90deg, transparent, var(--accent), var(--gold), transparent);
-    opacity: 0; transition: opacity 0.4s;
-  }
+  .stackstruct-card::before { content: ''; position: absolute; top:0; left:0; right:0; height:2px; background: linear-gradient(90deg, transparent, var(--accent), var(--gold), transparent); opacity: 0; transition: opacity 0.4s; }
   .stackstruct-card:hover::before { opacity: 1; }
-
-  .ss-orb {
-    position: absolute; width: 600px; height: 600px;
-    background: radial-gradient(circle, rgba(167,139,250,0.05) 0%, transparent 70%);
-    left: -150px; bottom: -150px; border-radius: 50%;
-    animation: orbFloat 10s ease-in-out infinite reverse;
-    pointer-events: none;
-  }
-
+  .ss-orb { position: absolute; width: 600px; height: 600px; background: radial-gradient(circle, rgba(167,139,250,0.05) 0%, transparent 70%); left: -150px; bottom: -150px; border-radius: 50%; animation: orbFloat 10s ease-in-out infinite reverse; pointer-events: none; }
   .ss-inner { display: grid; grid-template-columns: 1.1fr 1fr; min-height: 520px; }
-
-  /* Left — visual */
   .ss-visual { padding:56px 48px; border-right:1px solid var(--border); display:flex; flex-direction:column; gap:16px; position:relative; z-index:1; background:rgba(8,8,8,0.3); }
-
-  .ss-tree {
-    background: #0d0d10; border: 1px solid rgba(167,139,250,0.12);
-    padding: 28px 32px; font-family:var(--font-mono); font-size:0.73rem;
-    line-height:1.9; flex:1;
-  }
+  .ss-tree { background: #0d0d10; border: 1px solid rgba(167,139,250,0.12); padding: 28px 32px; font-family:var(--font-mono); font-size:0.73rem; line-height:1.9; flex:1; }
   .tr { display:flex; align-items:center; gap:8px; }
   .tr-indent { margin-left:20px; }
   .tr-indent2 { margin-left:40px; }
@@ -234,46 +174,49 @@
   .tr-file.env { color:#fb923c; }
   .tr-arrow { color:var(--accent); opacity:0.5; }
   .tr-new { color:var(--accent); font-size:0.6rem; margin-left:6px; letter-spacing:0.1em; border:1px solid var(--border-accent); padding:1px 6px; }
-
   .ss-prompt-box { background:var(--surface); border:1px solid var(--border-accent); padding:20px 24px; }
   .ss-prompt-label { font-family:var(--font-mono); font-size:0.54rem; letter-spacing:0.22em; text-transform:uppercase; color:var(--accent); margin-bottom:8px; }
   .ss-prompt-text { font-family:var(--font-serif); font-size:1rem; font-style:italic; color:var(--text); line-height:1.5; }
   .ss-prompt-text::before { content:'"'; color:var(--accent); }
   .ss-prompt-text::after { content:'"'; color:var(--accent); }
-
-  /* Right — info */
-  .ss-info { padding:56px 56px; display:flex; flex-direction:column; justify-content:space-between; position:relative; z-index:1; }
+  .ss-info { padding:56px; display:flex; flex-direction:column; justify-content:space-between; position:relative; z-index:1; }
   .ss-name { font-family:var(--font-display); font-size:clamp(2rem,3.5vw,2.8rem); font-weight:800; color:var(--text); letter-spacing:-0.02em; line-height:1.1; margin-bottom:8px; }
   .ss-name span { color:var(--accent); }
   .ss-tagline { font-family:var(--font-serif); font-size:1.12rem; font-weight:300; font-style:italic; color:var(--muted); line-height:1.65; margin-bottom:28px; max-width:360px; }
   .ss-desc { font-family:var(--font-serif); font-size:1.03rem; font-weight:300; color:var(--muted); line-height:1.75; margin-bottom:36px; }
-
   .ss-badges { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:36px; }
-
   .ss-stats { display:grid; grid-template-columns:1fr 1fr; gap:2px; margin-bottom:40px; }
   .ss-stat { background:var(--surface); border:1px solid var(--border); padding:20px 22px; }
   .ss-stat-n { font-family:var(--font-serif); font-size:2rem; font-weight:300; color:var(--text); line-height:1; }
   .ss-stat-n span { color:var(--accent); }
   .ss-stat-l { font-family:var(--font-mono); font-size:0.55rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--muted); margin-top:6px; }
-
   .ss-actions { display:flex; gap:14px; flex-wrap:wrap; }
-  .btn-accent {
-    display:inline-flex; align-items:center; gap:10px;
-    background:var(--accent); color:#0a0a0a;
-    font-family:var(--font-mono); font-size:0.68rem; letter-spacing:0.15em; text-transform:uppercase;
-    padding:14px 28px; text-decoration:none; transition:all 0.3s;
-  }
+  .btn-accent { display:inline-flex; align-items:center; gap:10px; background:var(--accent); color:#0a0a0a; font-family:var(--font-mono); font-size:0.68rem; letter-spacing:0.15em; text-transform:uppercase; padding:14px 28px; text-decoration:none; transition:all 0.3s; }
   .btn-accent::after { content:'↗'; transition:transform 0.3s; }
   .btn-accent:hover { background:var(--accent-bright); }
   .btn-accent:hover::after { transform:translate(2px,-2px); }
-  .btn-outline-accent {
-    display:inline-flex; align-items:center;
-    color:var(--muted); font-family:var(--font-mono); font-size:0.68rem; letter-spacing:0.15em; text-transform:uppercase;
-    padding:14px 24px; text-decoration:none; border:1px solid var(--border); transition:all 0.3s;
-  }
+  .btn-outline-accent { display:inline-flex; align-items:center; color:var(--muted); font-family:var(--font-mono); font-size:0.68rem; letter-spacing:0.15em; text-transform:uppercase; padding:14px 24px; text-decoration:none; border:1px solid var(--border); transition:all 0.3s; }
   .btn-outline-accent:hover { border-color:var(--border-accent); color:var(--accent); }
 
-  /* MORE PROJECTS TEASER */
+  /* ROOTLAB */
+  .rootlab-card { background: var(--card); border: 1px solid var(--border); position: relative; overflow: hidden; transition: border-color 0.4s; }
+  .rootlab-card:hover { border-color: rgba(34,211,238,0.25); }
+  .rootlab-card::before { content: ''; position: absolute; top:0; left:0; right:0; height:2px; background: linear-gradient(90deg, transparent, var(--cyan), rgba(167,139,250,0.5), transparent); opacity: 0; transition: opacity 0.4s; }
+  .rootlab-card:hover::before { opacity: 1; }
+  .rl-orb { position: absolute; width: 550px; height: 550px; background: radial-gradient(circle, rgba(34,211,238,0.05) 0%, transparent 70%); right: -100px; bottom: -100px; border-radius: 50%; animation: orbFloat 9s ease-in-out infinite; pointer-events: none; }
+  .rl-inner { display: grid; grid-template-columns: 1fr 1.1fr; min-height: 500px; }
+  .rl-info { padding: 56px; display: flex; flex-direction: column; justify-content: space-between; border-right: 1px solid var(--border); position: relative; z-index: 1; }
+  .rl-name { font-family:var(--font-display); font-size:clamp(2.2rem,4vw,3.2rem); font-weight:800; color:var(--text); letter-spacing:-0.02em; line-height:1; margin-bottom:12px; }
+  .rl-name span { color: var(--cyan); }
+  .rl-visual { padding: 56px 48px; display:flex; flex-direction:column; gap:20px; position:relative; z-index:1; background: rgba(8,8,8,0.3); }
+  .rl-sections { display:grid; grid-template-columns:1fr 1fr; gap:2px; }
+  .rl-sec { background:var(--surface); border:1px solid var(--border); padding:18px 20px; transition:border-color 0.3s; }
+  .rl-sec:hover { border-color:rgba(34,211,238,0.2); }
+  .rl-sec-emoji { font-size:1.1rem; margin-bottom:6px; }
+  .rl-sec-name { font-size:0.78rem; font-weight:600; color:var(--text); margin-bottom:3px; }
+  .rl-sec-desc { font-family:var(--font-mono); font-size:0.54rem; letter-spacing:0.06em; color:var(--muted); }
+
+  /* MORE */
   .more-section { margin-top: 100px; padding-top: 60px; border-top: 1px solid var(--border); }
   .more-label { font-family:var(--font-mono); font-size:0.6rem; letter-spacing:0.28em; text-transform:uppercase; color:var(--subtle); margin-bottom:40px; }
   .more-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:2px; }
@@ -286,7 +229,6 @@
   .more-card:hover .more-link { gap:14px; }
   .more-tag-gold { color:var(--gold); border-color:rgba(212,175,122,0.3); }
 
-  /* FOOTER */
   footer { background:var(--black); border-top:1px solid var(--border); padding:36px 60px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px; }
   .footer-logo { font-family:var(--font-display); font-size:1rem; font-weight:800; letter-spacing:0.08em; color:var(--muted); }
   .footer-logo span { color:var(--accent); }
@@ -294,7 +236,6 @@
   .back-link { font-family:var(--font-mono); font-size:0.62rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--muted); text-decoration:none; display:flex; align-items:center; gap:8px; transition:all 0.3s; }
   .back-link:hover { color:var(--accent); gap:14px; }
 
-  /* ANIMATIONS */
   @keyframes fadeUp { from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);} }
   @keyframes orbFloat { 0%,100%{transform:translate(0,0);}50%{transform:translate(-20px,20px);} }
   @keyframes blink { 0%,100%{opacity:1;}50%{opacity:0;} }
@@ -302,14 +243,12 @@
   .reveal { transition: opacity 0.8s ease, transform 0.8s ease; }
   .js-ready .reveal { opacity:0; transform:translateY(26px); }
   .js-ready .reveal.visible { opacity:1; transform:translateY(0); }
-  .reveal-delay-1 { transition-delay:0.1s; }
-  .reveal-delay-2 { transition-delay:0.2s; }
 
   @media(max-width:960px){
     nav { padding:18px 24px; } .nav-links { display:none; }
     .page-hero, .main { padding-left:24px; padding-right:24px; }
-    .darkfury-inner, .ss-inner { grid-template-columns:1fr; }
-    .df-visual, .ss-visual { border-right:none; border-top:1px solid var(--border); }
+    .darkfury-inner, .ss-inner, .rl-inner { grid-template-columns:1fr; }
+    .df-visual, .ss-visual, .rl-visual { border-right:none; border-top:1px solid var(--border); }
     .more-grid { grid-template-columns:1fr; }
     footer { padding:28px 24px; flex-direction:column; text-align:center; }
     .count-bar { padding:0 24px; flex-wrap:wrap; }
@@ -356,8 +295,8 @@
 
 <div class="main">
 
-  <!-- ── DARKFURY ── -->
-  <div class="darkfury-wrap reveal">
+  <!-- ── 01 DARKFURY ── -->
+  <div class="project-wrap reveal">
     <div class="sec-head">
       <div>
         <div class="sec-label"><span>01</span> AI Chatbot</div>
@@ -365,54 +304,33 @@
       </div>
       <span class="sec-status status-live">● Live</span>
     </div>
-
     <div class="darkfury-card">
       <div class="df-orb"></div>
       <div class="darkfury-inner">
-        <!-- INFO -->
         <div class="df-info">
-          <div class="df-top">
+          <div>
             <div class="df-badges">
               <span class="badge badge-red">AI Chatbot</span>
               <span class="badge badge-purple">Streamlit</span>
               <span class="badge badge-green">Live</span>
               <span class="badge badge-purple">Python</span>
             </div>
-            <div class="df-name">Dark<span>Fury</span></div>
+            <div class="df-name df-name-red">Dark<span>Fury</span></div>
             <p class="df-tagline">An AI-powered chatbot built with raw intelligence and a dark aesthetic — ready to converse, reason, and respond.</p>
             <p class="df-desc">DarkFury is NexoCorp's first deployed AI product. A conversational AI interface built on top of state-of-the-art language models, wrapped in a sleek dark UI powered by Streamlit. Fast, sharp, and unapologetically intelligent.</p>
-
             <div class="df-meta">
-              <div class="df-meta-row">
-                <span class="df-meta-key">Platform</span>
-                <span class="df-meta-val">Streamlit Cloud</span>
-              </div>
-              <div class="df-meta-row">
-                <span class="df-meta-key">Language</span>
-                <span class="df-meta-val">Python 3.11</span>
-              </div>
-              <div class="df-meta-row">
-                <span class="df-meta-key">AI Model</span>
-                <span class="df-meta-val highlight">Large Language Model</span>
-              </div>
-              <div class="df-meta-row">
-                <span class="df-meta-key">Status</span>
-                <span class="df-meta-val" style="color:#4ade80;">● Deployed & Live</span>
-              </div>
-              <div class="df-meta-row">
-                <span class="df-meta-key">Built by</span>
-                <span class="df-meta-val">Devk · NexoCorp</span>
-              </div>
+              <div class="df-meta-row"><span class="df-meta-key">Platform</span><span class="df-meta-val">Streamlit Cloud</span></div>
+              <div class="df-meta-row"><span class="df-meta-key">Language</span><span class="df-meta-val">Python 3.11</span></div>
+              <div class="df-meta-row"><span class="df-meta-key">AI Model</span><span class="df-meta-val hi-red">Large Language Model</span></div>
+              <div class="df-meta-row"><span class="df-meta-key">Status</span><span class="df-meta-val" style="color:#4ade80;">● Deployed & Live</span></div>
+              <div class="df-meta-row"><span class="df-meta-key">Built by</span><span class="df-meta-val">Devk · NexoCorp</span></div>
             </div>
           </div>
-
           <div class="df-actions">
             <a href="https://nexobot-app-kqlgt2gwhadjvfcs2fvxbq.streamlit.app" target="_blank" class="btn-red">Launch DarkFury</a>
             <a href="index.html#contact" class="btn-outline-red">Contact Dev</a>
           </div>
         </div>
-
-        <!-- VISUAL -->
         <div class="df-visual">
           <div class="df-preview-header">
             <div class="df-dot df-dot-red"></div>
@@ -420,45 +338,27 @@
             <div class="df-dot df-dot-green"></div>
             <span class="df-preview-url">nexobot-app-kqlgt2gwhadjvfcs2fvxbq.streamlit.app</span>
           </div>
-
           <div class="df-terminal">
             <div class="t-line"><span class="t-prompt">▸</span><span class="t-cmd">DarkFury AI — Session Started</span></div>
             <div class="t-line" style="margin-top:8px;"><span class="t-prompt">you</span><span class="t-cmd" style="padding-left:16px;">What can you do?</span></div>
-            <div class="t-line"><span class="t-ai">I can reason through complex problems, write code, analyze text, answer questions across any domain, and engage in deep conversation. I don't sugarcoat — I'm built to be direct and useful.</span></div>
+            <div class="t-line"><span class="t-ai">I can reason through complex problems, write code, analyze text, answer questions across any domain, and engage in deep conversation.</span></div>
             <div class="t-line" style="margin-top:8px;"><span class="t-prompt">you</span><span class="t-cmd" style="padding-left:16px;">Build me a Python web scraper</span></div>
             <div class="t-line"><span class="t-ai">Sure. Here's a clean implementation using <span class="t-hi">requests</span> and <span class="t-hi">BeautifulSoup</span>...</span></div>
-            <div class="t-line" style="margin-top:12px; opacity:0.4;"><span class="t-prompt">▸</span><span class="t-cmd t-blink"> </span></div>
+            <div class="t-line" style="margin-top:12px;opacity:0.4;"><span class="t-prompt">▸</span><span class="t-cmd t-blink"> </span></div>
           </div>
-
           <div class="df-features">
-            <div class="df-feat">
-              <div class="df-feat-icon">🧠</div>
-              <div class="df-feat-name">Deep Reasoning</div>
-              <div class="df-feat-desc">Multi-step problem solving</div>
-            </div>
-            <div class="df-feat">
-              <div class="df-feat-icon">⚡</div>
-              <div class="df-feat-name">Fast Responses</div>
-              <div class="df-feat-desc">Optimized inference pipeline</div>
-            </div>
-            <div class="df-feat">
-              <div class="df-feat-icon">💻</div>
-              <div class="df-feat-name">Code Generation</div>
-              <div class="df-feat-desc">Any language, any framework</div>
-            </div>
-            <div class="df-feat">
-              <div class="df-feat-icon">🌑</div>
-              <div class="df-feat-name">Dark UI</div>
-              <div class="df-feat-desc">Built for long sessions</div>
-            </div>
+            <div class="df-feat"><div class="df-feat-icon">🧠</div><div class="df-feat-name">Deep Reasoning</div><div class="df-feat-desc">Multi-step problem solving</div></div>
+            <div class="df-feat"><div class="df-feat-icon">⚡</div><div class="df-feat-name">Fast Responses</div><div class="df-feat-desc">Optimized inference pipeline</div></div>
+            <div class="df-feat"><div class="df-feat-icon">💻</div><div class="df-feat-name">Code Generation</div><div class="df-feat-desc">Any language, any framework</div></div>
+            <div class="df-feat"><div class="df-feat-icon">🌑</div><div class="df-feat-name">Dark UI</div><div class="df-feat-desc">Built for long sessions</div></div>
           </div>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- ── STACKSTRUCT ── -->
-  <div class="reveal">
+  <!-- ── 02 STACKSTRUCT ── -->
+  <div class="project-wrap reveal">
     <div class="sec-head">
       <div>
         <div class="sec-label"><span>02</span> Developer Tool</div>
@@ -466,12 +366,9 @@
       </div>
       <span class="sec-status status-live">● Live</span>
     </div>
-
     <div class="stackstruct-card">
       <div class="ss-orb"></div>
       <div class="ss-inner">
-
-        <!-- VISUAL -->
         <div class="ss-visual">
           <div class="df-preview-header">
             <div class="df-dot" style="background:var(--accent);box-shadow:0 0 8px var(--accent);"></div>
@@ -479,12 +376,10 @@
             <div class="df-dot df-dot-green"></div>
             <span class="df-preview-url">stackstruct.vercel.app</span>
           </div>
-
           <div class="ss-prompt-box">
             <div class="ss-prompt-label">// User Prompt</div>
             <div class="ss-prompt-text">Create a full-stack SaaS project with React frontend, FastAPI backend, PostgreSQL, and Docker</div>
           </div>
-
           <div class="ss-tree">
             <div class="tr"><span class="tr-folder">📁</span><span class="tr-folder">my-saas-app/</span><span class="tr-new">GENERATED</span></div>
             <div class="tr tr-indent"><span class="tr-arrow">└─</span><span class="tr-folder">📁 frontend/</span></div>
@@ -500,8 +395,6 @@
             <div class="tr tr-indent"><span class="tr-arrow">└─</span><span class="tr-file">📄 docker-compose.yml</span></div>
           </div>
         </div>
-
-        <!-- INFO -->
         <div class="ss-info">
           <div>
             <div class="ss-badges">
@@ -511,33 +404,81 @@
             </div>
             <div class="ss-name">Stack<span>Struct</span></div>
             <p class="ss-tagline">Describe your project in plain English. Get a complete, production-ready folder structure in seconds.</p>
-            <p class="ss-desc">StackStruct eliminates the blank-slate problem every developer faces at the start of a new project. Powered by AI, it generates opinionated, best-practice folder architectures for any stack — frontend, backend, full-stack, mobile, or monorepo. One prompt. Zero setup friction.</p>
-
+            <p class="ss-desc">StackStruct eliminates the blank-slate problem every developer faces at the start of a new project. Powered by AI, it generates opinionated, best-practice folder architectures for any stack — frontend, backend, full-stack, mobile, or monorepo.</p>
             <div class="ss-stats">
-              <div class="ss-stat">
-                <div class="ss-stat-n">20<span>+</span></div>
-                <div class="ss-stat-l">Stack Templates</div>
-              </div>
-              <div class="ss-stat">
-                <div class="ss-stat-n">1<span>s</span></div>
-                <div class="ss-stat-l">Generation Time</div>
-              </div>
-              <div class="ss-stat">
-                <div class="ss-stat-n">Any</div>
-                <div class="ss-stat-l">Framework</div>
-              </div>
-              <div class="ss-stat">
-                <div class="ss-stat-n">0</div>
-                <div class="ss-stat-l">Config Needed</div>
-              </div>
+              <div class="ss-stat"><div class="ss-stat-n">20<span>+</span></div><div class="ss-stat-l">Stack Templates</div></div>
+              <div class="ss-stat"><div class="ss-stat-n">1<span>s</span></div><div class="ss-stat-l">Generation Time</div></div>
+              <div class="ss-stat"><div class="ss-stat-n">Any</div><div class="ss-stat-l">Framework</div></div>
+              <div class="ss-stat"><div class="ss-stat-n">0</div><div class="ss-stat-l">Config Needed</div></div>
             </div>
           </div>
+          <div class="ss-actions">
+            <a href="https://stackstruct.vercel.app" target="_blank" class="btn-accent">Launch StackStruct</a>
+            <a href="index.html#contact" class="btn-outline-accent">View on GitHub →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
+  <!-- ── 03 ROOTLAB ── -->
+  <div class="project-wrap reveal">
+    <div class="sec-head">
+      <div>
+        <div class="sec-label"><span>03</span> Learning Engine</div>
+        <h2>Root<em>Lab</em></h2>
+      </div>
+      <span class="sec-status status-live">● Live</span>
+    </div>
+    <div class="rootlab-card">
+      <div class="rl-orb"></div>
+      <div class="rl-inner">
+        <!-- INFO LEFT -->
+        <div class="rl-info">
           <div>
-            <div class="ss-actions">
-              <a href="https://stackstruct.vercel.app" target="_blank" class="btn-accent">Launch StackStruct</a>
-              <a href="index.html#contact" class="btn-outline-accent">View on GitHub →</a>
+            <div class="df-badges">
+              <span class="badge badge-cyan">AI Learning</span>
+              <span class="badge badge-purple">Next.js</span>
+              <span class="badge badge-green">Live</span>
+              <span class="badge badge-cyan">Groq · LLaMA</span>
             </div>
+            <div class="rl-name">Root<span>Lab</span></div>
+            <p class="df-tagline">A structured AI learning engine that breaks down any topic into deep, digestible knowledge — from root to seed.</p>
+            <p class="df-desc">RootLab is NexoCorp's deep learning program. Enter any topic, choose your difficulty level, and RootLab generates a structured 5-section breakdown covering foundations, core mechanics, branches, real-world applications, and follow-up questions. Powered by LLaMA 3.3 via Groq for blazing-fast streaming.</p>
+            <div class="df-meta">
+              <div class="df-meta-row"><span class="df-meta-key">Platform</span><span class="df-meta-val">Vercel · Edge</span></div>
+              <div class="df-meta-row"><span class="df-meta-key">Framework</span><span class="df-meta-val">Next.js</span></div>
+              <div class="df-meta-row"><span class="df-meta-key">AI Model</span><span class="df-meta-val hi-cyan">LLaMA 3.3 70B · Groq</span></div>
+              <div class="df-meta-row"><span class="df-meta-key">Levels</span><span class="df-meta-val">Beginner · Intermediate · Advanced</span></div>
+              <div class="df-meta-row"><span class="df-meta-key">Status</span><span class="df-meta-val" style="color:#4ade80;">● Deployed & Live</span></div>
+              <div class="df-meta-row"><span class="df-meta-key">Built by</span><span class="df-meta-val">Devk · NexoCorp</span></div>
+            </div>
+          </div>
+          <div class="df-actions">
+            <a href="https://rootlab-38er.vercel.app" target="_blank" class="btn-cyan">Launch RootLab</a>
+            <a href="index.html#contact" class="btn-outline-cyan">Contact Dev</a>
+          </div>
+        </div>
+        <!-- VISUAL RIGHT -->
+        <div class="rl-visual">
+          <div class="df-preview-header">
+            <div class="df-dot df-dot-cyan"></div>
+            <div class="df-dot df-dot-yellow"></div>
+            <div class="df-dot df-dot-green"></div>
+            <span class="df-preview-url">rootlab-38er.vercel.app</span>
+          </div>
+          <div class="rl-terminal">
+            <div class="t-line"><span class="t-prompt-cyan">▸</span><span class="t-cmd">RootLab — Learning Engine v2.0</span></div>
+            <div class="t-line" style="margin-top:8px;"><span class="t-prompt-cyan">topic</span><span class="t-cmd" style="padding-left:12px;">Quantum Computing</span><span style="font-family:var(--font-mono);font-size:0.6rem;color:var(--cyan);border:1px solid var(--border-cyan);padding:2px 8px;margin-left:12px;">ADV</span></div>
+            <div class="t-line"><span class="t-ai-cyan">🌱 ROOT — Quantum Computing emerges from quantum mechanics, leveraging <span class="t-hi-cyan">superposition</span> and <span class="t-hi-cyan">entanglement</span> to perform computations beyond classical limits...</span></div>
+            <div class="t-line" style="margin-top:6px;"><span class="t-ai-cyan">🧠 CORE — Unlike classical bits, <span class="t-hi-cyan">qubits</span> exist in multiple states simultaneously. Quantum <span class="t-hi-cyan">gates</span> manipulate these states...</span></div>
+            <div class="t-line" style="margin-top:8px;opacity:0.5;"><span class="t-prompt-cyan">▸</span><span class="t-cmd" style="color:var(--cyan);opacity:0.6;">streaming response</span><span class="t-blink-cyan"> </span></div>
+          </div>
+          <div class="rl-sections">
+            <div class="rl-sec"><div class="rl-sec-emoji">🌱</div><div class="rl-sec-name">Root</div><div class="rl-sec-desc">Foundational explanation</div></div>
+            <div class="rl-sec"><div class="rl-sec-emoji">🧠</div><div class="rl-sec-name">Core</div><div class="rl-sec-desc">Mechanisms + ASCII diagrams</div></div>
+            <div class="rl-sec"><div class="rl-sec-emoji">🌿</div><div class="rl-sec-name">Branches</div><div class="rl-sec-desc">5 related subtopics</div></div>
+            <div class="rl-sec"><div class="rl-sec-emoji">🍎</div><div class="rl-sec-name">Fruit</div><div class="rl-sec-desc">Real-world applications</div></div>
           </div>
         </div>
       </div>
@@ -594,7 +535,7 @@
     ring.style.transform=`translate(${rx-18}px,${ry-18}px)`;
     requestAnimationFrame(loop);
   })();
-  document.querySelectorAll('a,.darkfury-card,.stackstruct-card,.more-card,.df-feat,.ss-stat').forEach(el=>{
+  document.querySelectorAll('a,.darkfury-card,.stackstruct-card,.rootlab-card,.more-card,.df-feat,.ss-stat,.rl-sec').forEach(el=>{
     el.addEventListener('mouseenter',()=>{ring.style.width='56px';ring.style.height='56px';ring.style.borderColor='rgba(167,139,250,0.65)';});
     el.addEventListener('mouseleave',()=>{ring.style.width='36px';ring.style.height='36px';ring.style.borderColor='rgba(167,139,250,0.45)';});
   });
