@@ -1,544 +1,368 @@
 <!DOCTYPE html>
-<html lang="en">
+<html class="light" lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Projects — NexoCorp</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+tailwind.config = {
+  darkMode:"class",
+  theme:{
+    extend:{
+      colors:{
+        "tertiary":"#954500","surface-container-highest":"#e2e2e2","tertiary-fixed-dim":"#ffb68b",
+        "on-surface":"#1a1c1c","primary":"#006a41","surface-container-lowest":"#ffffff",
+        "surface-container":"#eeeeee","surface":"#f9f9f9","surface-container-low":"#f3f3f3",
+        "surface-container-high":"#e8e8e8","on-primary-container":"#f6fff5","background":"#f9f9f9",
+        "primary-container":"#008653","on-background":"#1a1c1c","inverse-primary":"#6ddb9f",
+        "outline":"#6e7a70","tertiary-container":"#bb5800","on-tertiary":"#ffffff",
+        "primary-fixed":"#8af8ba","on-primary-fixed":"#002111","on-primary":"#ffffff",
+        "outline-variant":"#bdcabf","primary-fixed-dim":"#6ddb9f","surface-variant":"#e2e2e2",
+        "on-surface-variant":"#3e4a41","tertiary-fixed":"#ffdbc8","secondary":"#5f5e5e",
+      },
+      fontFamily:{
+        "headline":["Inter","system-ui","-apple-system","sans-serif"],
+        "body":["Inter","system-ui","-apple-system","sans-serif"],
+      },
+      borderRadius:{"DEFAULT":"1rem","lg":"2rem","xl":"3rem","full":"9999px"},
+    },
+  },
+}
+</script>
 <style>
-  :root {
-    --black: #080808;
-    --surface: #111115;
-    --card: #16161c;
-    --border: rgba(255,255,255,0.07);
-    --border-accent: rgba(180,150,255,0.22);
-    --text: #e8e6f0;
-    --muted: #8a8699;
-    --subtle: #3a3850;
-    --accent: #a78bfa;
-    --accent-bright: #c4b5fd;
-    --accent-glow: rgba(167,139,250,0.13);
-    --gold: #d4af7a;
-    --red: #f87171;
-    --red-glow: rgba(248,113,113,0.12);
-    --cyan: #22d3ee;
-    --cyan-glow: rgba(34,211,238,0.12);
-    --border-cyan: rgba(34,211,238,0.22);
-    --font-display: 'Syne', 'Trebuchet MS', Arial, sans-serif;
-    --font-serif: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
-    --font-mono: 'DM Mono', 'Courier New', monospace;
-  }
-
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  html { scroll-behavior: smooth; }
-  body { font-family: var(--font-display); background: var(--black); color: var(--text); overflow-x: hidden; cursor: none; -webkit-font-smoothing: antialiased; }
-
-  body::before {
-    content: ''; position: fixed; inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
-    pointer-events: none; z-index: 1000; opacity: 0.4;
-  }
-
-  .cursor { width: 10px; height: 10px; background: var(--accent); border-radius: 50%; position: fixed; top:0; left:0; pointer-events:none; z-index:9999; mix-blend-mode:screen; }
-  .cursor-ring { width: 36px; height: 36px; border: 1px solid rgba(167,139,250,0.45); border-radius: 50%; position: fixed; top:0; left:0; pointer-events:none; z-index:9998; transition: transform 0.22s ease, width 0.3s, height 0.3s, border-color 0.3s; }
-
-  nav { position: fixed; top:0; left:0; right:0; display:flex; align-items:center; justify-content:space-between; padding:28px 60px; z-index:200; background:rgba(8,8,8,0.92); backdrop-filter:blur(24px); border-bottom:1px solid var(--border); }
-  .logo { font-family:var(--font-display); font-size:1.25rem; font-weight:800; letter-spacing:0.08em; color:var(--text); text-decoration:none; }
-  .logo span { color:var(--accent); }
-  .nav-links { display:flex; gap:48px; list-style:none; }
-  .nav-links a { font-family:var(--font-mono); font-size:0.68rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--muted); text-decoration:none; transition:color 0.3s; }
-  .nav-links a:hover, .nav-links a.active { color:var(--text); }
-  .nav-cta { font-family:var(--font-mono); font-size:0.68rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--accent); border:1px solid var(--border-accent); padding:10px 22px; text-decoration:none; transition:all 0.3s; position:relative; overflow:hidden; }
-  .nav-cta::before { content:''; position:absolute; inset:0; background:var(--accent-glow); transform:scaleX(0); transform-origin:left; transition:transform 0.3s; }
-  .nav-cta:hover::before { transform:scaleX(1); }
-  .nav-cta:hover { border-color:var(--accent); }
-
-  .page-hero { min-height: 52vh; display: flex; flex-direction: column; justify-content: flex-end; padding: 140px 60px 72px; position: relative; overflow: hidden; }
-  .page-hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 55% 55% at 80% 40%, rgba(167,139,250,0.07) 0%, transparent 70%), radial-gradient(ellipse 35% 50% at 10% 70%, rgba(248,113,113,0.04) 0%, transparent 60%); pointer-events: none; }
-  .hero-grid-line { position: absolute; top:0; left:60px; width:1px; height:100%; background:linear-gradient(to bottom, transparent, rgba(255,255,255,0.04), transparent); }
-  .hero-tag { font-family:var(--font-mono); font-size:0.62rem; letter-spacing:0.28em; text-transform:uppercase; color:var(--accent); margin-bottom:24px; opacity:0; animation:fadeUp 0.7s 0.1s forwards; }
-  .hero-tag::before { content:'//'; margin-right:10px; opacity:0.5; }
-  .page-hero h1 { font-family:var(--font-serif); font-weight:300; font-size:clamp(3rem,6.5vw,6rem); line-height:1.04; letter-spacing:-0.02em; opacity:0; animation:fadeUp 0.85s 0.3s forwards; }
-  .page-hero h1 em { font-style:italic; color:var(--accent-bright); }
-  .hero-sub { font-family:var(--font-serif); font-size:1.2rem; font-weight:300; font-style:italic; color:var(--muted); margin-top:20px; max-width:560px; line-height:1.75; opacity:0; animation:fadeUp 0.85s 0.5s forwards; }
-  .hero-divider { position:absolute; bottom:0; left:0; right:0; height:1px; background:linear-gradient(90deg,transparent,var(--border),transparent); }
-
-  .count-bar { background:var(--surface); border-bottom:1px solid var(--border); padding:0 60px; display:flex; align-items:center; }
-  .count-item { padding:24px 48px 24px 0; margin-right:48px; border-right:1px solid var(--border); }
-  .count-item:last-child { border-right:none; }
-  .count-num { font-family:var(--font-serif); font-size:2rem; font-weight:300; color:var(--text); }
-  .count-num span { color:var(--accent); }
-  .count-label { font-family:var(--font-mono); font-size:0.56rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--muted); margin-top:4px; }
-
-  .main { max-width: 1320px; margin: 0 auto; padding: 100px 60px 140px; }
-
-  .sec-head { display:flex; align-items:flex-end; justify-content:space-between; margin-bottom:40px; padding-bottom:20px; border-bottom:1px solid var(--border); }
-  .sec-label { font-family:var(--font-mono); font-size:0.6rem; letter-spacing:0.28em; text-transform:uppercase; color:var(--accent); margin-bottom:10px; }
-  .sec-label span { color:var(--subtle); margin-right:10px; }
-  .sec-head h2 { font-family:var(--font-serif); font-weight:300; font-size:clamp(1.8rem,3vw,2.8rem); letter-spacing:-0.02em; color:var(--text); }
-  .sec-head h2 em { font-style:italic; color:var(--accent-bright); }
-  .sec-status { font-family:var(--font-mono); font-size:0.58rem; letter-spacing:0.18em; text-transform:uppercase; padding:6px 14px; border:1px solid; }
-  .status-live { color:#4ade80; border-color:rgba(74,222,128,0.3); background:rgba(74,222,128,0.06); }
-  .status-dev { color:var(--gold); border-color:rgba(212,175,122,0.3); background:rgba(212,175,122,0.06); }
-
-  /* DARKFURY */
-  .project-wrap { margin-bottom: 100px; }
-  .darkfury-card { background: var(--card); border: 1px solid var(--border); position: relative; overflow: hidden; transition: border-color 0.4s; }
-  .darkfury-card:hover { border-color: rgba(248,113,113,0.25); }
-  .darkfury-card::before { content: ''; position: absolute; top:0; left:0; right:0; height:2px; background: linear-gradient(90deg, transparent, var(--red), rgba(167,139,250,0.6), transparent); opacity: 0; transition: opacity 0.4s; }
-  .darkfury-card:hover::before { opacity: 1; }
-  .df-orb { position: absolute; width: 500px; height: 500px; background: radial-gradient(circle, rgba(248,113,113,0.06) 0%, transparent 70%); right: -100px; top: -100px; border-radius: 50%; animation: orbFloat 8s ease-in-out infinite; pointer-events: none; }
-  .darkfury-inner { display: grid; grid-template-columns: 1fr 1.1fr; min-height: 480px; }
-  .df-info { padding: 56px; display: flex; flex-direction: column; justify-content: space-between; border-right: 1px solid var(--border); position: relative; z-index: 1; }
-  .df-badges { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:28px; }
-  .badge { font-family:var(--font-mono); font-size:0.54rem; letter-spacing:0.18em; text-transform:uppercase; padding:5px 12px; border:1px solid; }
-  .badge-red { color:var(--red); border-color:rgba(248,113,113,0.35); background:var(--red-glow); }
-  .badge-purple { color:var(--accent); border-color:var(--border-accent); background:var(--accent-glow); }
-  .badge-green { color:#4ade80; border-color:rgba(74,222,128,0.3); background:rgba(74,222,128,0.06); }
-  .badge-cyan { color:var(--cyan); border-color:var(--border-cyan); background:var(--cyan-glow); }
-  .df-name { font-family:var(--font-display); font-size:clamp(2.2rem,4vw,3.2rem); font-weight:800; color:var(--text); letter-spacing:-0.02em; line-height:1; margin-bottom:12px; }
-  .df-name-red span { color: var(--red); }
-  .df-name-cyan span { color: var(--cyan); }
-  .df-tagline { font-family:var(--font-serif); font-size:1.15rem; font-weight:300; font-style:italic; color:var(--muted); line-height:1.65; margin-bottom:32px; max-width:380px; }
-  .df-desc { font-family:var(--font-serif); font-size:1.05rem; font-weight:300; color:var(--muted); line-height:1.75; margin-bottom:40px; max-width:400px; }
-  .df-meta { display:flex; flex-direction:column; gap:12px; margin-bottom:40px; }
-  .df-meta-row { display:flex; align-items:center; gap:16px; }
-  .df-meta-key { font-family:var(--font-mono); font-size:0.56rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--subtle); width:80px; flex-shrink:0; }
-  .df-meta-val { font-family:var(--font-mono); font-size:0.7rem; color:var(--muted); letter-spacing:0.05em; }
-  .df-meta-val.hi-red { color:var(--red); }
-  .df-meta-val.hi-cyan { color:var(--cyan); }
-  .df-actions { display:flex; gap:14px; flex-wrap:wrap; }
-
-  .btn-red { display:inline-flex; align-items:center; gap:10px; background:var(--red); color:#0a0a0a; font-family:var(--font-mono); font-size:0.68rem; letter-spacing:0.15em; text-transform:uppercase; padding:14px 28px; text-decoration:none; transition:all 0.3s; }
-  .btn-red::after { content:'↗'; transition:transform 0.3s; }
-  .btn-red:hover { background:#fca5a5; }
-  .btn-red:hover::after { transform:translate(2px,-2px); }
-  .btn-outline-red { display:inline-flex; align-items:center; gap:10px; color:var(--red); font-family:var(--font-mono); font-size:0.68rem; letter-spacing:0.15em; text-transform:uppercase; padding:14px 24px; text-decoration:none; border:1px solid rgba(248,113,113,0.35); transition:all 0.3s; }
-  .btn-outline-red:hover { border-color:var(--red); background:var(--red-glow); }
-
-  .btn-cyan { display:inline-flex; align-items:center; gap:10px; background:var(--cyan); color:#0a0a0a; font-family:var(--font-mono); font-size:0.68rem; letter-spacing:0.15em; text-transform:uppercase; padding:14px 28px; text-decoration:none; transition:all 0.3s; }
-  .btn-cyan::after { content:'↗'; transition:transform 0.3s; }
-  .btn-cyan:hover { background:#67e8f9; }
-  .btn-cyan:hover::after { transform:translate(2px,-2px); }
-  .btn-outline-cyan { display:inline-flex; align-items:center; gap:10px; color:var(--cyan); font-family:var(--font-mono); font-size:0.68rem; letter-spacing:0.15em; text-transform:uppercase; padding:14px 24px; text-decoration:none; border:1px solid var(--border-cyan); transition:all 0.3s; }
-  .btn-outline-cyan:hover { border-color:var(--cyan); background:var(--cyan-glow); }
-
-  .df-visual { padding: 56px 48px; display:flex; flex-direction:column; gap:20px; position:relative; z-index:1; background: rgba(8,8,8,0.3); }
-  .df-preview-header { display:flex; align-items:center; gap:10px; margin-bottom:4px; }
-  .df-dot { width:10px; height:10px; border-radius:50%; }
-  .df-dot-red { background:var(--red); box-shadow:0 0 8px var(--red); }
-  .df-dot-yellow { background:#fbbf24; }
-  .df-dot-green { background:#4ade80; }
-  .df-dot-cyan { background:var(--cyan); box-shadow:0 0 8px var(--cyan); }
-  .df-preview-url { font-family:var(--font-mono); font-size:0.58rem; letter-spacing:0.1em; color:var(--subtle); margin-left:8px; }
-  .df-terminal { background: #0d0d10; border: 1px solid rgba(248,113,113,0.15); padding: 28px 32px; font-family:var(--font-mono); font-size:0.75rem; line-height:2; flex:1; }
-  .rl-terminal { background: #0a0d0f; border: 1px solid rgba(34,211,238,0.15); padding: 28px 32px; font-family:var(--font-mono); font-size:0.75rem; line-height:2; flex:1; }
-  .t-line { display:flex; gap:12px; flex-wrap:wrap; }
-  .t-prompt { color:var(--red); opacity:0.7; }
-  .t-prompt-cyan { color:var(--cyan); opacity:0.7; }
-  .t-cmd { color:var(--text); }
-  .t-ai { color:var(--accent-bright); padding-left:24px; font-style:italic; }
-  .t-ai-cyan { color:var(--cyan); padding-left:24px; font-style:italic; opacity:0.9; }
-  .t-hi { color:#4ade80; }
-  .t-hi-cyan { color:var(--cyan); font-style:normal; }
-  .t-blink::after { content:'█'; animation:blink 1s step-end infinite; color:var(--red); }
-  .t-blink-cyan::after { content:'█'; animation:blink 1s step-end infinite; color:var(--cyan); }
-  .df-features { display:grid; grid-template-columns:1fr 1fr; gap:2px; }
-  .df-feat { background:var(--surface); border:1px solid var(--border); padding:18px 20px; transition:border-color 0.3s; }
-  .df-feat:hover { border-color:rgba(248,113,113,0.2); }
-  .df-feat-cyan:hover { border-color:rgba(34,211,238,0.2) !important; }
-  .df-feat-icon { font-size:1rem; margin-bottom:8px; }
-  .df-feat-name { font-size:0.78rem; font-weight:600; color:var(--text); margin-bottom:4px; }
-  .df-feat-desc { font-family:var(--font-mono); font-size:0.56rem; letter-spacing:0.08em; color:var(--muted); }
-
-  /* STACKSTRUCT */
-  .stackstruct-card { background: var(--card); border: 1px solid var(--border); position: relative; overflow: hidden; transition: border-color 0.4s; }
-  .stackstruct-card:hover { border-color: rgba(167,139,250,0.3); }
-  .stackstruct-card::before { content: ''; position: absolute; top:0; left:0; right:0; height:2px; background: linear-gradient(90deg, transparent, var(--accent), var(--gold), transparent); opacity: 0; transition: opacity 0.4s; }
-  .stackstruct-card:hover::before { opacity: 1; }
-  .ss-orb { position: absolute; width: 600px; height: 600px; background: radial-gradient(circle, rgba(167,139,250,0.05) 0%, transparent 70%); left: -150px; bottom: -150px; border-radius: 50%; animation: orbFloat 10s ease-in-out infinite reverse; pointer-events: none; }
-  .ss-inner { display: grid; grid-template-columns: 1.1fr 1fr; min-height: 520px; }
-  .ss-visual { padding:56px 48px; border-right:1px solid var(--border); display:flex; flex-direction:column; gap:16px; position:relative; z-index:1; background:rgba(8,8,8,0.3); }
-  .ss-tree { background: #0d0d10; border: 1px solid rgba(167,139,250,0.12); padding: 28px 32px; font-family:var(--font-mono); font-size:0.73rem; line-height:1.9; flex:1; }
-  .tr { display:flex; align-items:center; gap:8px; }
-  .tr-indent { margin-left:20px; }
-  .tr-indent2 { margin-left:40px; }
-  .tr-folder { color:var(--gold); }
-  .tr-file { color:var(--muted); }
-  .tr-file.py { color:#60a5fa; }
-  .tr-file.js { color:#fbbf24; }
-  .tr-file.md { color:#a3e635; }
-  .tr-file.css { color:#f472b6; }
-  .tr-file.env { color:#fb923c; }
-  .tr-arrow { color:var(--accent); opacity:0.5; }
-  .tr-new { color:var(--accent); font-size:0.6rem; margin-left:6px; letter-spacing:0.1em; border:1px solid var(--border-accent); padding:1px 6px; }
-  .ss-prompt-box { background:var(--surface); border:1px solid var(--border-accent); padding:20px 24px; }
-  .ss-prompt-label { font-family:var(--font-mono); font-size:0.54rem; letter-spacing:0.22em; text-transform:uppercase; color:var(--accent); margin-bottom:8px; }
-  .ss-prompt-text { font-family:var(--font-serif); font-size:1rem; font-style:italic; color:var(--text); line-height:1.5; }
-  .ss-prompt-text::before { content:'"'; color:var(--accent); }
-  .ss-prompt-text::after { content:'"'; color:var(--accent); }
-  .ss-info { padding:56px; display:flex; flex-direction:column; justify-content:space-between; position:relative; z-index:1; }
-  .ss-name { font-family:var(--font-display); font-size:clamp(2rem,3.5vw,2.8rem); font-weight:800; color:var(--text); letter-spacing:-0.02em; line-height:1.1; margin-bottom:8px; }
-  .ss-name span { color:var(--accent); }
-  .ss-tagline { font-family:var(--font-serif); font-size:1.12rem; font-weight:300; font-style:italic; color:var(--muted); line-height:1.65; margin-bottom:28px; max-width:360px; }
-  .ss-desc { font-family:var(--font-serif); font-size:1.03rem; font-weight:300; color:var(--muted); line-height:1.75; margin-bottom:36px; }
-  .ss-badges { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:36px; }
-  .ss-stats { display:grid; grid-template-columns:1fr 1fr; gap:2px; margin-bottom:40px; }
-  .ss-stat { background:var(--surface); border:1px solid var(--border); padding:20px 22px; }
-  .ss-stat-n { font-family:var(--font-serif); font-size:2rem; font-weight:300; color:var(--text); line-height:1; }
-  .ss-stat-n span { color:var(--accent); }
-  .ss-stat-l { font-family:var(--font-mono); font-size:0.55rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--muted); margin-top:6px; }
-  .ss-actions { display:flex; gap:14px; flex-wrap:wrap; }
-  .btn-accent { display:inline-flex; align-items:center; gap:10px; background:var(--accent); color:#0a0a0a; font-family:var(--font-mono); font-size:0.68rem; letter-spacing:0.15em; text-transform:uppercase; padding:14px 28px; text-decoration:none; transition:all 0.3s; }
-  .btn-accent::after { content:'↗'; transition:transform 0.3s; }
-  .btn-accent:hover { background:var(--accent-bright); }
-  .btn-accent:hover::after { transform:translate(2px,-2px); }
-  .btn-outline-accent { display:inline-flex; align-items:center; color:var(--muted); font-family:var(--font-mono); font-size:0.68rem; letter-spacing:0.15em; text-transform:uppercase; padding:14px 24px; text-decoration:none; border:1px solid var(--border); transition:all 0.3s; }
-  .btn-outline-accent:hover { border-color:var(--border-accent); color:var(--accent); }
-
-  /* ROOTLAB */
-  .rootlab-card { background: var(--card); border: 1px solid var(--border); position: relative; overflow: hidden; transition: border-color 0.4s; }
-  .rootlab-card:hover { border-color: rgba(34,211,238,0.25); }
-  .rootlab-card::before { content: ''; position: absolute; top:0; left:0; right:0; height:2px; background: linear-gradient(90deg, transparent, var(--cyan), rgba(167,139,250,0.5), transparent); opacity: 0; transition: opacity 0.4s; }
-  .rootlab-card:hover::before { opacity: 1; }
-  .rl-orb { position: absolute; width: 550px; height: 550px; background: radial-gradient(circle, rgba(34,211,238,0.05) 0%, transparent 70%); right: -100px; bottom: -100px; border-radius: 50%; animation: orbFloat 9s ease-in-out infinite; pointer-events: none; }
-  .rl-inner { display: grid; grid-template-columns: 1fr 1.1fr; min-height: 500px; }
-  .rl-info { padding: 56px; display: flex; flex-direction: column; justify-content: space-between; border-right: 1px solid var(--border); position: relative; z-index: 1; }
-  .rl-name { font-family:var(--font-display); font-size:clamp(2.2rem,4vw,3.2rem); font-weight:800; color:var(--text); letter-spacing:-0.02em; line-height:1; margin-bottom:12px; }
-  .rl-name span { color: var(--cyan); }
-  .rl-visual { padding: 56px 48px; display:flex; flex-direction:column; gap:20px; position:relative; z-index:1; background: rgba(8,8,8,0.3); }
-  .rl-sections { display:grid; grid-template-columns:1fr 1fr; gap:2px; }
-  .rl-sec { background:var(--surface); border:1px solid var(--border); padding:18px 20px; transition:border-color 0.3s; }
-  .rl-sec:hover { border-color:rgba(34,211,238,0.2); }
-  .rl-sec-emoji { font-size:1.1rem; margin-bottom:6px; }
-  .rl-sec-name { font-size:0.78rem; font-weight:600; color:var(--text); margin-bottom:3px; }
-  .rl-sec-desc { font-family:var(--font-mono); font-size:0.54rem; letter-spacing:0.06em; color:var(--muted); }
-
-  /* MORE */
-  .more-section { margin-top: 100px; padding-top: 60px; border-top: 1px solid var(--border); }
-  .more-label { font-family:var(--font-mono); font-size:0.6rem; letter-spacing:0.28em; text-transform:uppercase; color:var(--subtle); margin-bottom:40px; }
-  .more-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:2px; }
-  .more-card { background:var(--card); border:1px solid var(--border); padding:32px; transition:all 0.3s; cursor:none; }
-  .more-card:hover { border-color:var(--border-accent); background:var(--surface); }
-  .more-tag { font-family:var(--font-mono); font-size:0.54rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--accent); border:1px solid var(--border-accent); padding:4px 10px; display:inline-block; margin-bottom:16px; }
-  .more-name { font-size:1rem; font-weight:700; color:var(--text); margin-bottom:10px; }
-  .more-desc { font-family:var(--font-serif); font-size:0.95rem; font-weight:300; color:var(--muted); line-height:1.65; margin-bottom:20px; }
-  .more-link { font-family:var(--font-mono); font-size:0.58rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--accent); text-decoration:none; display:flex; align-items:center; gap:8px; transition:gap 0.3s; }
-  .more-card:hover .more-link { gap:14px; }
-  .more-tag-gold { color:var(--gold); border-color:rgba(212,175,122,0.3); }
-
-  footer { background:var(--black); border-top:1px solid var(--border); padding:36px 60px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px; }
-  .footer-logo { font-family:var(--font-display); font-size:1rem; font-weight:800; letter-spacing:0.08em; color:var(--muted); }
-  .footer-logo span { color:var(--accent); }
-  .footer-copy { font-family:var(--font-mono); font-size:0.58rem; letter-spacing:0.15em; color:var(--subtle); }
-  .back-link { font-family:var(--font-mono); font-size:0.62rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--muted); text-decoration:none; display:flex; align-items:center; gap:8px; transition:all 0.3s; }
-  .back-link:hover { color:var(--accent); gap:14px; }
-
-  @keyframes fadeUp { from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);} }
-  @keyframes orbFloat { 0%,100%{transform:translate(0,0);}50%{transform:translate(-20px,20px);} }
-  @keyframes blink { 0%,100%{opacity:1;}50%{opacity:0;} }
-
-  .reveal { transition: opacity 0.8s ease, transform 0.8s ease; }
-  .js-ready .reveal { opacity:0; transform:translateY(26px); }
-  .js-ready .reveal.visible { opacity:1; transform:translateY(0); }
-
-  @media(max-width:960px){
-    nav { padding:18px 24px; } .nav-links { display:none; }
-    .page-hero, .main { padding-left:24px; padding-right:24px; }
-    .darkfury-inner, .ss-inner, .rl-inner { grid-template-columns:1fr; }
-    .df-visual, .ss-visual, .rl-visual { border-right:none; border-top:1px solid var(--border); }
-    .more-grid { grid-template-columns:1fr; }
-    footer { padding:28px 24px; flex-direction:column; text-align:center; }
-    .count-bar { padding:0 24px; flex-wrap:wrap; }
-  }
+  .material-symbols-outlined{font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24;}
+  .fill-icon{font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24;}
+  .glass-nav{background:rgba(255,255,255,0.7);backdrop-filter:blur(24px);}
+  .card-hover{transition:transform 0.3s cubic-bezier(.22,.68,0,1.2),box-shadow 0.3s ease;}
+  .card-hover:hover{transform:translateY(-5px);box-shadow:0 24px 60px rgba(0,106,65,0.09);}
+  .section-label{font-size:0.68rem;letter-spacing:0.16em;text-transform:uppercase;font-weight:700;color:#006a41;}
+  .reveal{opacity:1;transform:translateY(0);transition:opacity 0.6s cubic-bezier(.22,.68,0,1.2),transform 0.6s cubic-bezier(.22,.68,0,1.2);}
+  .reveal.hidden-init{opacity:0;transform:translateY(28px);}
+  .reveal.visible{opacity:1;transform:translateY(0);}
+  .pulse{animation:pulse 2s ease-in-out infinite;}
+  @keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.3;}}
+  .progress-bar{height:3px;background:#e8e8e8;border-radius:99px;overflow:hidden;}
+  .progress-fill{height:100%;background:linear-gradient(90deg,#006a41,#6ddb9f);border-radius:99px;}
 </style>
 </head>
-<body>
-<div class="cursor" id="cursor"></div>
-<div class="cursor-ring" id="cursorRing"></div>
+<body class="bg-surface text-on-surface font-body selection:bg-primary-fixed selection:text-on-primary-fixed">
 
-<nav>
-  <a href="index.html" class="logo">Nexo<span>Corp</span></a>
-  <ul class="nav-links">
-    <li><a href="index.html#about">About</a></li>
-    <li><a href="projects.html" class="active">Projects</a></li>
-    <li><a href="ai-tools.html">AI Tools</a></li>
-    <li><a href="index.html#founder">Founder</a></li>
-  </ul>
-  <a href="index.html#contact" class="nav-cta">Get in Touch</a>
+<!-- NAV -->
+<nav class="fixed top-0 w-full z-50 glass-nav shadow-[0px_24px_80px_rgba(26,28,28,0.06)] h-20">
+  <div class="flex justify-between items-center max-w-7xl mx-auto px-8 h-full">
+    <a href="index.html" class="text-xl font-black tracking-tighter text-on-surface">NexoCorp</a>
+    <div class="hidden md:flex items-center gap-10 font-medium tracking-tight text-sm">
+      <a class="text-secondary hover:text-primary transition-colors" href="index.html">Home</a>
+      <a class="text-secondary hover:text-primary transition-colors" href="index.html#about">About</a>
+      <a class="text-primary font-semibold border-b-2 border-primary pb-0.5" href="projects.html">Projects</a>
+      <a class="text-secondary hover:text-primary transition-colors" href="index.html#founder">Founder</a>
+    </div>
+    <a href="mailto:xrpbusinessx@gmail.com" class="bg-tertiary hover:bg-tertiary-container text-on-tertiary px-6 py-2.5 rounded-full text-sm font-semibold tracking-wide transition-all duration-200 active:scale-95">
+      Get in Touch
+    </a>
+  </div>
 </nav>
 
-<div class="page-hero">
-  <div class="hero-grid-line"></div>
-  <div class="hero-tag">NexoCorp — Projects</div>
-  <h1>Everything we've<br><em>shipped & built.</em></h1>
-  <p class="hero-sub">A collection of AI-powered tools, research projects, and digital experiences crafted with precision.</p>
-  <div class="hero-divider"></div>
-</div>
+<main class="pt-20">
 
-<div class="count-bar">
-  <div class="count-item">
-    <div class="count-num">3<span> Live</span></div>
-    <div class="count-label">Active Projects</div>
-  </div>
-  <div class="count-item">
-    <div class="count-num">1<span> Soon</span></div>
-    <div class="count-label">In Development</div>
-  </div>
-  <div class="count-item">
-    <div class="count-num">100<span>%</span></div>
-    <div class="count-label">AI-Powered</div>
-  </div>
-</div>
+  <!-- HERO -->
+  <section class="relative min-h-[50vh] flex flex-col justify-end px-8 pb-16 pt-36 overflow-hidden">
+    <div class="max-w-7xl mx-auto w-full reveal">
+      <p class="section-label mb-5">NexoCorp — Projects</p>
+      <h1 class="text-6xl md:text-8xl font-bold tracking-[-0.04em] text-on-surface leading-[1.0] mb-6">
+        Everything we've<br/><span class="text-primary">shipped & built.</span>
+      </h1>
+      <p class="text-xl text-secondary font-light max-w-xl leading-relaxed">
+        A collection of AI-powered tools and digital experiences crafted with precision.
+      </p>
+    </div>
+    <div class="absolute -top-20 -right-20 w-[500px] h-[500px] bg-primary/5 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="absolute bottom-0 left-0 right-0 h-px bg-surface-container-high"></div>
+  </section>
 
-<div class="main">
+  <!-- STATS STRIP -->
+  <section class="bg-surface-container-low py-8">
+    <div class="max-w-7xl mx-auto px-8 flex flex-wrap gap-12 md:gap-20 items-center">
+      <div>
+        <div class="text-3xl font-black text-primary tracking-tighter">4 <span class="text-lg font-bold">Live</span></div>
+        <div class="text-xs uppercase tracking-widest font-bold opacity-40 mt-1">Active Projects</div>
+      </div>
+      <div>
+        <div class="text-3xl font-black text-tertiary tracking-tighter">1 <span class="text-lg font-bold">Soon</span></div>
+        <div class="text-xs uppercase tracking-widest font-bold opacity-40 mt-1">In Development</div>
+      </div>
+      <div>
+        <div class="text-3xl font-black text-primary tracking-tighter">100<span class="text-lg font-bold">%</span></div>
+        <div class="text-xs uppercase tracking-widest font-bold opacity-40 mt-1">AI-Powered</div>
+      </div>
+    </div>
+  </section>
 
   <!-- ── 01 DARKFURY ── -->
-  <div class="project-wrap reveal">
-    <div class="sec-head">
+  <section class="py-24 px-8 max-w-7xl mx-auto reveal">
+    <div class="flex items-end justify-between mb-10 pb-6 border-b border-surface-container-high">
       <div>
-        <div class="sec-label"><span>01</span> AI Chatbot</div>
-        <h2>Dark<em>Fury</em></h2>
+        <p class="section-label mb-2">01 · AI Chatbot</p>
+        <h2 class="text-4xl md:text-5xl font-bold tracking-tight">DarkFury</h2>
       </div>
-      <span class="sec-status status-live">● Live</span>
+      <span class="text-xs font-bold tracking-widest uppercase py-1.5 px-4 rounded-full bg-primary-fixed/60 text-on-primary-fixed">● Live</span>
     </div>
-    <div class="darkfury-card">
-      <div class="df-orb"></div>
-      <div class="darkfury-inner">
-        <div class="df-info">
-          <div>
-            <div class="df-badges">
-              <span class="badge badge-red">AI Chatbot</span>
-              <span class="badge badge-purple">Streamlit</span>
-              <span class="badge badge-green">Live</span>
-              <span class="badge badge-purple">Python</span>
-            </div>
-            <div class="df-name df-name-red">Dark<span>Fury</span></div>
-            <p class="df-tagline">An AI-powered chatbot built with raw intelligence and a dark aesthetic — ready to converse, reason, and respond.</p>
-            <p class="df-desc">DarkFury is NexoCorp's first deployed AI product. A conversational AI interface built on top of state-of-the-art language models, wrapped in a sleek dark UI powered by Streamlit. Fast, sharp, and unapologetically intelligent.</p>
-            <div class="df-meta">
-              <div class="df-meta-row"><span class="df-meta-key">Platform</span><span class="df-meta-val">Streamlit Cloud</span></div>
-              <div class="df-meta-row"><span class="df-meta-key">Language</span><span class="df-meta-val">Python 3.11</span></div>
-              <div class="df-meta-row"><span class="df-meta-key">AI Model</span><span class="df-meta-val hi-red">Large Language Model</span></div>
-              <div class="df-meta-row"><span class="df-meta-key">Status</span><span class="df-meta-val" style="color:#4ade80;">● Deployed & Live</span></div>
-              <div class="df-meta-row"><span class="df-meta-key">Built by</span><span class="df-meta-val">Devk · NexoCorp</span></div>
-            </div>
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <div class="bg-surface-container-lowest rounded-[20px] p-10 card-hover flex flex-col justify-between" style="min-height:420px;">
+        <div>
+          <div class="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center mb-6">
+            <span class="material-symbols-outlined text-primary">smart_toy</span>
           </div>
-          <div class="df-actions">
-            <a href="https://nexobot-app-kqlgt2gwhadjvfcs2fvxbq.streamlit.app" target="_blank" class="btn-red">Launch DarkFury</a>
-            <a href="index.html#contact" class="btn-outline-red">Contact Dev</a>
+          <div class="flex gap-2 flex-wrap mb-5">
+            <span class="text-[10px] font-bold tracking-widest uppercase px-3 py-1 rounded-full bg-surface-container text-on-surface-variant">AI Chatbot</span>
+            <span class="text-[10px] font-bold tracking-widest uppercase px-3 py-1 rounded-full bg-surface-container text-on-surface-variant">Python</span>
+            <span class="text-[10px] font-bold tracking-widest uppercase px-3 py-1 rounded-full bg-surface-container text-on-surface-variant">Streamlit</span>
+          </div>
+          <p class="text-secondary leading-relaxed">NexoCorp's first deployed AI product. A conversational AI interface built on state-of-the-art language models, wrapped in a sleek dark UI. Fast, sharp, and unapologetically intelligent.</p>
+          <div class="space-y-3 mt-6">
+            <div class="flex items-center gap-4"><span class="text-[10px] uppercase tracking-widest font-bold text-outline w-20">Platform</span><span class="text-sm text-secondary">Streamlit Cloud</span></div>
+            <div class="flex items-center gap-4"><span class="text-[10px] uppercase tracking-widest font-bold text-outline w-20">Language</span><span class="text-sm text-secondary">Python 3.11</span></div>
+            <div class="flex items-center gap-4"><span class="text-[10px] uppercase tracking-widest font-bold text-outline w-20">Status</span><span class="text-sm font-bold text-primary">● Deployed & Live</span></div>
           </div>
         </div>
-        <div class="df-visual">
-          <div class="df-preview-header">
-            <div class="df-dot df-dot-red"></div>
-            <div class="df-dot df-dot-yellow"></div>
-            <div class="df-dot df-dot-green"></div>
-            <span class="df-preview-url">nexobot-app-kqlgt2gwhadjvfcs2fvxbq.streamlit.app</span>
-          </div>
-          <div class="df-terminal">
-            <div class="t-line"><span class="t-prompt">▸</span><span class="t-cmd">DarkFury AI — Session Started</span></div>
-            <div class="t-line" style="margin-top:8px;"><span class="t-prompt">you</span><span class="t-cmd" style="padding-left:16px;">What can you do?</span></div>
-            <div class="t-line"><span class="t-ai">I can reason through complex problems, write code, analyze text, answer questions across any domain, and engage in deep conversation.</span></div>
-            <div class="t-line" style="margin-top:8px;"><span class="t-prompt">you</span><span class="t-cmd" style="padding-left:16px;">Build me a Python web scraper</span></div>
-            <div class="t-line"><span class="t-ai">Sure. Here's a clean implementation using <span class="t-hi">requests</span> and <span class="t-hi">BeautifulSoup</span>...</span></div>
-            <div class="t-line" style="margin-top:12px;opacity:0.4;"><span class="t-prompt">▸</span><span class="t-cmd t-blink"> </span></div>
-          </div>
-          <div class="df-features">
-            <div class="df-feat"><div class="df-feat-icon">🧠</div><div class="df-feat-name">Deep Reasoning</div><div class="df-feat-desc">Multi-step problem solving</div></div>
-            <div class="df-feat"><div class="df-feat-icon">⚡</div><div class="df-feat-name">Fast Responses</div><div class="df-feat-desc">Optimized inference pipeline</div></div>
-            <div class="df-feat"><div class="df-feat-icon">💻</div><div class="df-feat-name">Code Generation</div><div class="df-feat-desc">Any language, any framework</div></div>
-            <div class="df-feat"><div class="df-feat-icon">🌑</div><div class="df-feat-name">Dark UI</div><div class="df-feat-desc">Built for long sessions</div></div>
-          </div>
+        <div class="flex gap-4 mt-8 flex-wrap">
+          <a href="https://nexobot-app-kqlgt2gwhadjvfcs2fvxbq.streamlit.app" target="_blank" class="bg-tertiary text-on-tertiary px-7 py-3 rounded-full text-sm font-bold hover:scale-105 transition-transform active:scale-95">Launch DarkFury</a>
+          <a href="mailto:xrpbusinessx@gmail.com" class="border border-outline-variant/30 text-on-surface px-7 py-3 rounded-full text-sm font-medium hover:bg-surface-container-low transition-colors">Contact Dev</a>
         </div>
       </div>
+      <div class="grid grid-cols-2 gap-4">
+        <div class="bg-surface-container-lowest rounded-[20px] p-8 card-hover"><div class="text-2xl mb-3">🧠</div><div class="font-bold text-base mb-2">Deep Reasoning</div><div class="text-secondary text-sm leading-relaxed">Multi-step problem solving across any domain</div></div>
+        <div class="bg-surface-container-lowest rounded-[20px] p-8 card-hover"><div class="text-2xl mb-3">⚡</div><div class="font-bold text-base mb-2">Fast Responses</div><div class="text-secondary text-sm leading-relaxed">Optimized inference pipeline</div></div>
+        <div class="bg-surface-container-lowest rounded-[20px] p-8 card-hover"><div class="text-2xl mb-3">💻</div><div class="font-bold text-base mb-2">Code Generation</div><div class="text-secondary text-sm leading-relaxed">Any language, any framework</div></div>
+        <div class="bg-primary rounded-[20px] p-8 card-hover"><div class="text-2xl mb-3">🌑</div><div class="font-bold text-base mb-2 text-white">Dark UI</div><div class="text-primary-fixed/70 text-sm leading-relaxed">Built for long focused sessions</div></div>
+      </div>
     </div>
-  </div>
+  </section>
 
   <!-- ── 02 STACKSTRUCT ── -->
-  <div class="project-wrap reveal">
-    <div class="sec-head">
-      <div>
-        <div class="sec-label"><span>02</span> Developer Tool</div>
-        <h2>Stack<em>Struct</em></h2>
+  <section class="py-24 px-8 bg-surface-container-low reveal">
+    <div class="max-w-7xl mx-auto">
+      <div class="flex items-end justify-between mb-10 pb-6 border-b border-surface-container-high">
+        <div>
+          <p class="section-label mb-2">02 · Developer Tool</p>
+          <h2 class="text-4xl md:text-5xl font-bold tracking-tight">StackStruct</h2>
+        </div>
+        <span class="text-xs font-bold tracking-widest uppercase py-1.5 px-4 rounded-full bg-primary-fixed/60 text-on-primary-fixed">● Live</span>
       </div>
-      <span class="sec-status status-live">● Live</span>
-    </div>
-    <div class="stackstruct-card">
-      <div class="ss-orb"></div>
-      <div class="ss-inner">
-        <div class="ss-visual">
-          <div class="df-preview-header">
-            <div class="df-dot" style="background:var(--accent);box-shadow:0 0 8px var(--accent);"></div>
-            <div class="df-dot df-dot-yellow"></div>
-            <div class="df-dot df-dot-green"></div>
-            <span class="df-preview-url">stackstruct.vercel.app</span>
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+        <!-- Dark code visual -->
+        <div class="bg-on-surface rounded-[20px] p-8 card-hover" style="min-height:380px;">
+          <div class="flex items-center gap-2 mb-5">
+            <div class="w-3 h-3 rounded-full bg-red-400"></div>
+            <div class="w-3 h-3 rounded-full bg-yellow-400"></div>
+            <div class="w-3 h-3 rounded-full bg-green-400"></div>
+            <span class="text-[10px] font-mono text-white/30 ml-2 tracking-wider">stackstruct.vercel.app</span>
           </div>
-          <div class="ss-prompt-box">
-            <div class="ss-prompt-label">// User Prompt</div>
-            <div class="ss-prompt-text">Create a full-stack SaaS project with React frontend, FastAPI backend, PostgreSQL, and Docker</div>
+          <div class="bg-white/5 rounded-xl p-4 mb-5">
+            <p class="text-[10px] uppercase tracking-widest font-bold text-primary-fixed/50 mb-2">// Prompt</p>
+            <p class="text-white/80 font-light italic text-sm leading-relaxed">"Create a full-stack SaaS with React, FastAPI, PostgreSQL, Docker"</p>
           </div>
-          <div class="ss-tree">
-            <div class="tr"><span class="tr-folder">📁</span><span class="tr-folder">my-saas-app/</span><span class="tr-new">GENERATED</span></div>
-            <div class="tr tr-indent"><span class="tr-arrow">└─</span><span class="tr-folder">📁 frontend/</span></div>
-            <div class="tr tr-indent2"><span class="tr-arrow">├─</span><span class="tr-file js">📄 App.jsx</span></div>
-            <div class="tr tr-indent2"><span class="tr-arrow">├─</span><span class="tr-file css">📄 index.css</span></div>
-            <div class="tr tr-indent2"><span class="tr-arrow">└─</span><span class="tr-file js">📄 package.json</span></div>
-            <div class="tr tr-indent"><span class="tr-arrow">└─</span><span class="tr-folder">📁 backend/</span></div>
-            <div class="tr tr-indent2"><span class="tr-arrow">├─</span><span class="tr-file py">📄 main.py</span></div>
-            <div class="tr tr-indent2"><span class="tr-arrow">├─</span><span class="tr-file py">📄 models.py</span></div>
-            <div class="tr tr-indent2"><span class="tr-arrow">├─</span><span class="tr-file py">📄 database.py</span></div>
-            <div class="tr tr-indent2"><span class="tr-arrow">└─</span><span class="tr-file env">📄 .env.example</span></div>
-            <div class="tr tr-indent"><span class="tr-arrow">├─</span><span class="tr-file md">📄 README.md</span></div>
-            <div class="tr tr-indent"><span class="tr-arrow">└─</span><span class="tr-file">📄 docker-compose.yml</span></div>
+          <div class="font-mono text-sm leading-loose text-white/70">
+            <div class="text-yellow-400">📁 my-saas-app/ <span class="text-primary-fixed text-[10px] border border-primary-fixed/30 px-1.5 py-0.5 ml-2">GENERATED</span></div>
+            <div class="ml-4 text-white/50">└─ <span class="text-yellow-400">📁 frontend/</span></div>
+            <div class="ml-8">├─ 📄 <span class="text-blue-300">App.jsx</span></div>
+            <div class="ml-8">└─ 📄 <span class="text-yellow-300">package.json</span></div>
+            <div class="ml-4 text-white/50">└─ <span class="text-yellow-400">📁 backend/</span></div>
+            <div class="ml-8">├─ 📄 <span class="text-blue-400">main.py</span></div>
+            <div class="ml-8">├─ 📄 <span class="text-blue-400">models.py</span></div>
+            <div class="ml-8">└─ 📄 <span class="text-orange-400">.env.example</span></div>
+            <div class="ml-4 text-white/50">└─ 📄 docker-compose.yml</div>
           </div>
         </div>
-        <div class="ss-info">
+        <!-- Info -->
+        <div class="flex flex-col justify-between" style="min-height:380px;">
           <div>
-            <div class="ss-badges">
-              <span class="badge badge-purple">Dev Tool</span>
-              <span class="badge badge-green">● Live</span>
-              <span class="badge badge-purple">AI-Powered</span>
+            <div class="flex gap-2 flex-wrap mb-5">
+              <span class="text-[10px] font-bold tracking-widest uppercase px-3 py-1 rounded-full bg-surface-container text-on-surface-variant">Dev Tool</span>
+              <span class="text-[10px] font-bold tracking-widest uppercase px-3 py-1 rounded-full bg-surface-container text-on-surface-variant">AI-Powered</span>
             </div>
-            <div class="ss-name">Stack<span>Struct</span></div>
-            <p class="ss-tagline">Describe your project in plain English. Get a complete, production-ready folder structure in seconds.</p>
-            <p class="ss-desc">StackStruct eliminates the blank-slate problem every developer faces at the start of a new project. Powered by AI, it generates opinionated, best-practice folder architectures for any stack — frontend, backend, full-stack, mobile, or monorepo.</p>
-            <div class="ss-stats">
-              <div class="ss-stat"><div class="ss-stat-n">20<span>+</span></div><div class="ss-stat-l">Stack Templates</div></div>
-              <div class="ss-stat"><div class="ss-stat-n">1<span>s</span></div><div class="ss-stat-l">Generation Time</div></div>
-              <div class="ss-stat"><div class="ss-stat-n">Any</div><div class="ss-stat-l">Framework</div></div>
-              <div class="ss-stat"><div class="ss-stat-n">0</div><div class="ss-stat-l">Config Needed</div></div>
+            <p class="text-secondary leading-relaxed mb-8">Describe your project in plain English. Get a complete, production-ready folder structure in seconds. Eliminates the blank-slate problem for every developer.</p>
+            <div class="grid grid-cols-2 gap-3 mb-8">
+              <div class="bg-surface-container-lowest rounded-[16px] p-5 card-hover"><div class="text-3xl font-black text-primary tracking-tighter">20<span class="text-lg">+</span></div><div class="text-[10px] uppercase tracking-widest font-bold opacity-40 mt-1">Stack Templates</div></div>
+              <div class="bg-surface-container-lowest rounded-[16px] p-5 card-hover"><div class="text-3xl font-black text-primary tracking-tighter">1<span class="text-lg">s</span></div><div class="text-[10px] uppercase tracking-widest font-bold opacity-40 mt-1">Generation Time</div></div>
+              <div class="bg-surface-container-lowest rounded-[16px] p-5 card-hover"><div class="text-3xl font-black text-primary tracking-tighter">Any</div><div class="text-[10px] uppercase tracking-widest font-bold opacity-40 mt-1">Framework</div></div>
+              <div class="bg-surface-container-lowest rounded-[16px] p-5 card-hover"><div class="text-3xl font-black text-primary tracking-tighter">0</div><div class="text-[10px] uppercase tracking-widest font-bold opacity-40 mt-1">Config Needed</div></div>
             </div>
           </div>
-          <div class="ss-actions">
-            <a href="https://stackstruct.vercel.app" target="_blank" class="btn-accent">Launch StackStruct</a>
-            <a href="index.html#contact" class="btn-outline-accent">View on GitHub →</a>
+          <div class="flex gap-4 flex-wrap">
+            <a href="https://stackstruct.vercel.app" target="_blank" class="bg-tertiary text-on-tertiary px-7 py-3 rounded-full text-sm font-bold hover:scale-105 transition-transform active:scale-95">Launch StackStruct</a>
+            <a href="mailto:xrpbusinessx@gmail.com" class="border border-outline-variant/30 text-on-surface px-7 py-3 rounded-full text-sm font-medium hover:bg-surface-container transition-colors">Contact Dev</a>
           </div>
         </div>
       </div>
     </div>
-  </div>
+  </section>
 
   <!-- ── 03 ROOTLAB ── -->
-  <div class="project-wrap reveal">
-    <div class="sec-head">
+  <section class="py-24 px-8 max-w-7xl mx-auto reveal">
+    <div class="flex items-end justify-between mb-10 pb-6 border-b border-surface-container-high">
       <div>
-        <div class="sec-label"><span>03</span> Learning Engine</div>
-        <h2>Root<em>Lab</em></h2>
+        <p class="section-label mb-2">03 · Learning Engine</p>
+        <h2 class="text-4xl md:text-5xl font-bold tracking-tight">RootLab</h2>
       </div>
-      <span class="sec-status status-live">● Live</span>
+      <span class="text-xs font-bold tracking-widest uppercase py-1.5 px-4 rounded-full bg-primary-fixed/60 text-on-primary-fixed">● Live</span>
     </div>
-    <div class="rootlab-card">
-      <div class="rl-orb"></div>
-      <div class="rl-inner">
-        <!-- INFO LEFT -->
-        <div class="rl-info">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+      <div class="flex flex-col justify-between" style="min-height:400px;">
+        <div>
+          <div class="flex gap-2 flex-wrap mb-5">
+            <span class="text-[10px] font-bold tracking-widest uppercase px-3 py-1 rounded-full bg-surface-container text-on-surface-variant">AI Learning</span>
+            <span class="text-[10px] font-bold tracking-widest uppercase px-3 py-1 rounded-full bg-surface-container text-on-surface-variant">Next.js</span>
+            <span class="text-[10px] font-bold tracking-widest uppercase px-3 py-1 rounded-full bg-surface-container text-on-surface-variant">LLaMA · Groq</span>
+          </div>
+          <p class="text-secondary leading-relaxed mb-6">Enter any topic, choose your difficulty, and RootLab generates a structured 5-section breakdown — foundations, core mechanics, branches, real-world applications, and follow-up questions. Powered by LLaMA 3.3 via Groq.</p>
+          <div class="space-y-3 mb-8">
+            <div class="flex items-center gap-4"><span class="text-[10px] uppercase tracking-widest font-bold text-outline w-20">Platform</span><span class="text-sm text-secondary">Vercel · Edge</span></div>
+            <div class="flex items-center gap-4"><span class="text-[10px] uppercase tracking-widest font-bold text-outline w-20">AI Model</span><span class="text-sm text-secondary">LLaMA 3.3 70B · Groq</span></div>
+            <div class="flex items-center gap-4"><span class="text-[10px] uppercase tracking-widest font-bold text-outline w-20">Levels</span><span class="text-sm text-secondary">Beginner · Intermediate · Advanced</span></div>
+            <div class="flex items-center gap-4"><span class="text-[10px] uppercase tracking-widest font-bold text-outline w-20">Status</span><span class="text-sm font-bold text-primary">● Deployed & Live</span></div>
+          </div>
+        </div>
+        <div class="flex gap-4 flex-wrap">
+          <a href="https://rootlab-38er.vercel.app" target="_blank" class="bg-tertiary text-on-tertiary px-7 py-3 rounded-full text-sm font-bold hover:scale-105 transition-transform active:scale-95">Launch RootLab</a>
+          <a href="mailto:xrpbusinessx@gmail.com" class="border border-outline-variant/30 text-on-surface px-7 py-3 rounded-full text-sm font-medium hover:bg-surface-container-low transition-colors">Contact Dev</a>
+        </div>
+      </div>
+      <div class="grid grid-cols-2 gap-4">
+        <div class="bg-surface-container-lowest rounded-[20px] p-8 card-hover"><div class="text-2xl mb-3">🌱</div><div class="font-bold text-base mb-2">Root</div><div class="text-secondary text-sm leading-relaxed">Foundational explanation of any topic</div></div>
+        <div class="bg-surface-container-lowest rounded-[20px] p-8 card-hover"><div class="text-2xl mb-3">🧠</div><div class="font-bold text-base mb-2">Core</div><div class="text-secondary text-sm leading-relaxed">Mechanisms + ASCII diagrams</div></div>
+        <div class="bg-surface-container-lowest rounded-[20px] p-8 card-hover"><div class="text-2xl mb-3">🌿</div><div class="font-bold text-base mb-2">Branches</div><div class="text-secondary text-sm leading-relaxed">5 deep related subtopics</div></div>
+        <div class="bg-primary rounded-[20px] p-8 card-hover"><div class="text-2xl mb-3">🍎</div><div class="font-bold text-base mb-2 text-white">Fruit</div><div class="text-primary-fixed/70 text-sm leading-relaxed">Real-world applications</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 04 AI TOOLS HUB ── -->
+  <section class="py-24 px-8 bg-surface-container-low reveal">
+    <div class="max-w-7xl mx-auto">
+      <div class="flex items-end justify-between mb-10 pb-6 border-b border-surface-container-high">
+        <div>
+          <p class="section-label mb-2">04 · AI Directory</p>
+          <h2 class="text-4xl md:text-5xl font-bold tracking-tight">AI Tools Hub</h2>
+        </div>
+        <span class="text-xs font-bold tracking-widest uppercase py-1.5 px-4 rounded-full bg-primary-fixed/60 text-on-primary-fixed">● Live</span>
+      </div>
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div class="bg-surface-container-lowest rounded-[20px] p-10 card-hover flex flex-col justify-between" style="min-height:380px;">
           <div>
-            <div class="df-badges">
-              <span class="badge badge-cyan">AI Learning</span>
-              <span class="badge badge-purple">Next.js</span>
-              <span class="badge badge-green">Live</span>
-              <span class="badge badge-cyan">Groq · LLaMA</span>
+            <div class="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center mb-6">
+              <span class="material-symbols-outlined text-primary">auto_awesome</span>
             </div>
-            <div class="rl-name">Root<span>Lab</span></div>
-            <p class="df-tagline">A structured AI learning engine that breaks down any topic into deep, digestible knowledge — from root to seed.</p>
-            <p class="df-desc">RootLab is NexoCorp's deep learning program. Enter any topic, choose your difficulty level, and RootLab generates a structured 5-section breakdown covering foundations, core mechanics, branches, real-world applications, and follow-up questions. Powered by LLaMA 3.3 via Groq for blazing-fast streaming.</p>
-            <div class="df-meta">
-              <div class="df-meta-row"><span class="df-meta-key">Platform</span><span class="df-meta-val">Vercel · Edge</span></div>
-              <div class="df-meta-row"><span class="df-meta-key">Framework</span><span class="df-meta-val">Next.js</span></div>
-              <div class="df-meta-row"><span class="df-meta-key">AI Model</span><span class="df-meta-val hi-cyan">LLaMA 3.3 70B · Groq</span></div>
-              <div class="df-meta-row"><span class="df-meta-key">Levels</span><span class="df-meta-val">Beginner · Intermediate · Advanced</span></div>
-              <div class="df-meta-row"><span class="df-meta-key">Status</span><span class="df-meta-val" style="color:#4ade80;">● Deployed & Live</span></div>
-              <div class="df-meta-row"><span class="df-meta-key">Built by</span><span class="df-meta-val">Devk · NexoCorp</span></div>
+            <p class="text-secondary leading-relaxed mb-6">A curated intelligence library of AI platforms reshaping how the world thinks, creates, and builds — handpicked and organized by capability. Free, no login, always updated.</p>
+            <div class="space-y-3">
+              <div class="flex items-center gap-4"><span class="text-[10px] uppercase tracking-widest font-bold text-outline w-20">Type</span><span class="text-sm text-secondary">Curated Directory</span></div>
+              <div class="flex items-center gap-4"><span class="text-[10px] uppercase tracking-widest font-bold text-outline w-20">Access</span><span class="text-sm text-secondary">Free · No Login</span></div>
+              <div class="flex items-center gap-4"><span class="text-[10px] uppercase tracking-widest font-bold text-outline w-20">Status</span><span class="text-sm font-bold text-primary">● Live & Growing</span></div>
             </div>
           </div>
-          <div class="df-actions">
-            <a href="https://rootlab-38er.vercel.app" target="_blank" class="btn-cyan">Launch RootLab</a>
-            <a href="index.html#contact" class="btn-outline-cyan">Contact Dev</a>
+          <div class="flex gap-4 mt-8 flex-wrap">
+            <a href="https://nexocorp.online/ai-tools.html" target="_blank" class="bg-tertiary text-on-tertiary px-7 py-3 rounded-full text-sm font-bold hover:scale-105 transition-transform active:scale-95">Explore Hub</a>
+            <a href="mailto:xrpbusinessx@gmail.com" class="border border-outline-variant/30 text-on-surface px-7 py-3 rounded-full text-sm font-medium hover:bg-surface-container transition-colors">Contact Dev</a>
           </div>
         </div>
-        <!-- VISUAL RIGHT -->
-        <div class="rl-visual">
-          <div class="df-preview-header">
-            <div class="df-dot df-dot-cyan"></div>
-            <div class="df-dot df-dot-yellow"></div>
-            <div class="df-dot df-dot-green"></div>
-            <span class="df-preview-url">rootlab-38er.vercel.app</span>
+        <div class="grid grid-cols-2 gap-4">
+          <div class="bg-surface-container-lowest rounded-[20px] p-8 card-hover"><div class="text-2xl mb-3">🔍</div><div class="font-bold text-base mb-2">Curated Tools</div><div class="text-secondary text-sm leading-relaxed">Handpicked by NexoCorp</div></div>
+          <div class="bg-surface-container-lowest rounded-[20px] p-8 card-hover"><div class="text-2xl mb-3">📂</div><div class="font-bold text-base mb-2">By Category</div><div class="text-secondary text-sm leading-relaxed">Organized by capability</div></div>
+          <div class="bg-surface-container-lowest rounded-[20px] p-8 card-hover"><div class="text-2xl mb-3">🔄</div><div class="font-bold text-base mb-2">Always Updated</div><div class="text-secondary text-sm leading-relaxed">New tools added regularly</div></div>
+          <div class="bg-primary rounded-[20px] p-8 card-hover"><div class="text-2xl mb-3">⚡</div><div class="font-bold text-base mb-2 text-white">Free Access</div><div class="text-primary-fixed/70 text-sm leading-relaxed">No login, no paywall</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 05 MYLAND ── -->
+  <section class="py-24 px-8 pb-36 reveal">
+    <div class="max-w-7xl mx-auto">
+      <div class="flex items-end justify-between mb-10 pb-6 border-b border-surface-container-high">
+        <div>
+          <p class="section-label mb-2">05 · In Production</p>
+          <h2 class="text-4xl md:text-5xl font-bold tracking-tight">MyLand</h2>
+        </div>
+        <span class="text-xs font-bold tracking-widest uppercase py-1.5 px-4 rounded-full bg-tertiary-fixed text-tertiary">⏳ 7–14 Days</span>
+      </div>
+
+      <div class="bg-tertiary rounded-[24px] p-12 md:p-16 relative overflow-hidden card-hover">
+        <div class="absolute inset-0 opacity-10 pointer-events-none">
+          <div class="w-full h-full" style="background-image:radial-gradient(#fff 1px,transparent 1px);background-size:36px 36px;"></div>
+        </div>
+        <div class="relative z-10 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+          <div>
+            <div class="inline-flex items-center gap-2 mb-6">
+              <span class="w-2 h-2 rounded-full bg-tertiary-fixed pulse inline-block"></span>
+              <span class="text-[10px] font-bold tracking-widest uppercase text-tertiary-fixed/70">Active Development</span>
+            </div>
+            <h3 class="text-4xl md:text-5xl font-bold text-on-tertiary tracking-tight mb-4 leading-tight">Something new<br/>is coming.</h3>
+            <p class="text-on-tertiary/70 text-lg leading-relaxed mb-8 max-w-md">MyLand is NexoCorp's next product — in its final production stage. Dropping in 7 to 14 days. Details revealed at launch.</p>
+            <a href="mailto:xrpbusinessx@gmail.com" class="inline-flex items-center gap-2 bg-white text-tertiary px-8 py-4 rounded-full text-sm font-bold hover:scale-105 transition-transform shadow-xl">
+              Stay Updated
+            </a>
           </div>
-          <div class="rl-terminal">
-            <div class="t-line"><span class="t-prompt-cyan">▸</span><span class="t-cmd">RootLab — Learning Engine v2.0</span></div>
-            <div class="t-line" style="margin-top:8px;"><span class="t-prompt-cyan">topic</span><span class="t-cmd" style="padding-left:12px;">Quantum Computing</span><span style="font-family:var(--font-mono);font-size:0.6rem;color:var(--cyan);border:1px solid var(--border-cyan);padding:2px 8px;margin-left:12px;">ADV</span></div>
-            <div class="t-line"><span class="t-ai-cyan">🌱 ROOT — Quantum Computing emerges from quantum mechanics, leveraging <span class="t-hi-cyan">superposition</span> and <span class="t-hi-cyan">entanglement</span> to perform computations beyond classical limits...</span></div>
-            <div class="t-line" style="margin-top:6px;"><span class="t-ai-cyan">🧠 CORE — Unlike classical bits, <span class="t-hi-cyan">qubits</span> exist in multiple states simultaneously. Quantum <span class="t-hi-cyan">gates</span> manipulate these states...</span></div>
-            <div class="t-line" style="margin-top:8px;opacity:0.5;"><span class="t-prompt-cyan">▸</span><span class="t-cmd" style="color:var(--cyan);opacity:0.6;">streaming response</span><span class="t-blink-cyan"> </span></div>
-          </div>
-          <div class="rl-sections">
-            <div class="rl-sec"><div class="rl-sec-emoji">🌱</div><div class="rl-sec-name">Root</div><div class="rl-sec-desc">Foundational explanation</div></div>
-            <div class="rl-sec"><div class="rl-sec-emoji">🧠</div><div class="rl-sec-name">Core</div><div class="rl-sec-desc">Mechanisms + ASCII diagrams</div></div>
-            <div class="rl-sec"><div class="rl-sec-emoji">🌿</div><div class="rl-sec-name">Branches</div><div class="rl-sec-desc">5 related subtopics</div></div>
-            <div class="rl-sec"><div class="rl-sec-emoji">🍎</div><div class="rl-sec-name">Fruit</div><div class="rl-sec-desc">Real-world applications</div></div>
+          <div class="space-y-5">
+            <div>
+              <div class="flex justify-between mb-2">
+                <span class="text-[10px] uppercase tracking-widest font-bold text-on-tertiary/50">Production Progress</span>
+                <span class="text-[10px] uppercase tracking-widest font-bold text-tertiary-fixed">~85%</span>
+              </div>
+              <div class="progress-bar"><div class="progress-fill" style="width:85%;"></div></div>
+            </div>
+            <div class="grid grid-cols-2 gap-4">
+              <div class="bg-white/10 rounded-[16px] p-6">
+                <div class="text-3xl font-black text-tertiary-fixed tracking-tighter">7–14</div>
+                <div class="text-[10px] uppercase tracking-widest font-bold text-on-tertiary/50 mt-1">Days Remaining</div>
+              </div>
+              <div class="bg-white/10 rounded-[16px] p-6">
+                <div class="text-3xl font-black text-tertiary-fixed tracking-tighter">🔒</div>
+                <div class="text-[10px] uppercase tracking-widest font-bold text-on-tertiary/50 mt-1">Details Hidden</div>
+              </div>
+            </div>
+            <div class="bg-white/10 rounded-[16px] p-5 flex items-center gap-4">
+              <span class="material-symbols-outlined text-tertiary-fixed fill-icon">rocket_launch</span>
+              <div>
+                <div class="text-sm font-bold text-on-tertiary">Launch incoming</div>
+                <div class="text-[10px] uppercase tracking-widest font-bold text-on-tertiary/50">Built by Dev · NexoCorp</div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
+  </section>
 
-  <!-- MORE -->
-  <div class="more-section reveal">
-    <div class="more-label">// Also from NexoCorp</div>
-    <div class="more-grid">
-      <div class="more-card">
-        <span class="more-tag">Web App</span>
-        <div class="more-name">AI Tools Hub</div>
-        <p class="more-desc">A curated intelligence library of AI platforms organized by capability — for builders, researchers, and creators.</p>
-        <a href="ai-tools.html" class="more-link">Explore Hub →</a>
-      </div>
-      <div class="more-card">
-        <span class="more-tag">Research</span>
-        <div class="more-name">Billionaire Minds</div>
-        <p class="more-desc">Deep research into the decisions, mental models, and philosophies behind the world's most consequential fortunes.</p>
-        <a href="billionaires.html" class="more-link">Read Research →</a>
-      </div>
-      <div class="more-card" style="opacity:0.6;">
-        <span class="more-tag more-tag-gold">Upcoming</span>
-        <div class="more-name">Project 04</div>
-        <p class="more-desc">Something new is being built. Follow the founder for updates on what's coming next from NexoCorp.</p>
-        <a href="index.html#contact" class="more-link">Stay Updated →</a>
-      </div>
+</main>
+
+<!-- FOOTER -->
+<footer class="w-full py-12 bg-zinc-50 border-t border-zinc-200/40">
+  <div class="flex flex-col md:flex-row justify-between items-center max-w-7xl mx-auto px-8 gap-4">
+    <div class="flex flex-col gap-2">
+      <div class="text-lg font-black text-zinc-900">NexoCorp</div>
+      <p class="text-sm tracking-wide uppercase font-light text-zinc-500">© 2026 NexoCorp · Founded by Dev</p>
+    </div>
+    <a href="index.html" class="text-sm font-bold tracking-wide uppercase text-zinc-500 hover:text-primary transition-colors">← Back to Home</a>
+    <div class="flex gap-8">
+      <a href="privacy.html" class="text-sm tracking-wide uppercase font-light text-zinc-500 hover:text-orange-500 transition-all">Privacy</a>
+      <a href="terms.html" class="text-sm tracking-wide uppercase font-light text-zinc-500 hover:text-orange-500 transition-all">Terms</a>
     </div>
   </div>
-
-</div>
-
-<footer>
-  <div class="footer-logo">Nexo<span>Corp</span></div>
-  <a href="index.html" class="back-link">← Back to Home</a>
-  <div class="footer-copy">© 2026 NexoCorp · Founded by Devk</div>
 </footer>
 
 <script>
-  document.body.classList.add('js-ready');
-  const obs = new IntersectionObserver(entries => {
-    entries.forEach(e => { if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);} });
-  }, { threshold: 0.06, rootMargin: '0px 0px -30px 0px' });
-  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
-
-  const cursor = document.getElementById('cursor');
-  const ring = document.getElementById('cursorRing');
-  let mx=0,my=0,rx=0,ry=0;
-  document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;});
-  (function loop(){
-    rx+=(mx-rx)*0.15; ry+=(my-ry)*0.15;
-    cursor.style.transform=`translate(${mx-5}px,${my-5}px)`;
-    ring.style.transform=`translate(${rx-18}px,${ry-18}px)`;
-    requestAnimationFrame(loop);
-  })();
-  document.querySelectorAll('a,.darkfury-card,.stackstruct-card,.rootlab-card,.more-card,.df-feat,.ss-stat,.rl-sec').forEach(el=>{
-    el.addEventListener('mouseenter',()=>{ring.style.width='56px';ring.style.height='56px';ring.style.borderColor='rgba(167,139,250,0.65)';});
-    el.addEventListener('mouseleave',()=>{ring.style.width='36px';ring.style.height='36px';ring.style.borderColor='rgba(167,139,250,0.45)';});
-  });
+  const reveals = document.querySelectorAll('.reveal');
+  reveals.forEach(el => el.classList.add('hidden-init'));
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if(e.isIntersecting){e.target.classList.remove('hidden-init');e.target.classList.add('visible');}
+    });
+  },{threshold:0.05});
+  reveals.forEach(el => observer.observe(el));
+  setTimeout(()=>{reveals[0]?.classList.remove('hidden-init');reveals[0]?.classList.add('visible');},50);
 </script>
 </body>
 </html>
