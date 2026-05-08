@@ -1,17 +1,377 @@
-<section class="fade-up">
-  <h3>About NexoCorp</h3>
-  <div class="card">
-    <p>
-      NexoCorp is a modern technology studio focused on building clean,
-      intelligent, and user-first digital products.
-    </p>
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>About — NexoCorp</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg"/>
+  <meta name="theme-color" content="#006a41"/>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Plus Jakarta Sans', sans-serif; background: #fff; color: #111; overflow-x: hidden; }
 
-    <br />
+    /* ── Navbar ── */
+    #navbar {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 9999;
+      background: #fff;
+      border-bottom: 1px solid rgba(0,0,0,0.08);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 5vw; height: 64px;
+      transition: box-shadow 0.2s;
+    }
+    #navbar.scrolled { box-shadow: 0 2px 16px rgba(0,0,0,0.10); }
+    .nav-logo { font-size: 1.2rem; font-weight: 800; color: #111; letter-spacing: -0.03em; text-decoration: none; }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a { font-size: 0.95rem; font-weight: 500; color: #444; text-decoration: none; border-bottom: 2px solid transparent; padding-bottom: 2px; transition: color 0.15s, border-color 0.15s; }
+    .nav-links a:hover, .nav-links a.active { color: #006a41; border-color: #006a41; }
+    .nav-cta { background: #d97706; color: #fff; font-weight: 700; font-size: 0.9rem; padding: 10px 22px; border-radius: 8px; text-decoration: none; transition: background 0.15s, transform 0.1s; }
+    .nav-cta:hover { background: #b45309; transform: translateY(-1px); }
+    @media (max-width: 768px) { .nav-links { display: none; } }
 
-    <p>
-      <strong>Founder — Devk</strong><br />
-      A self-driven developer and builder passionate about AI, automation,
-      and creating tools that genuinely help people.
+    /* ── Page Layout ── */
+    .page-wrap { padding-top: 64px; }
+
+    /* ── Hero Banner ── */
+    .about-hero {
+      background: #006a41;
+      color: #fff;
+      padding: clamp(4rem, 10vw, 8rem) 5vw clamp(3rem, 7vw, 5rem);
+      position: relative;
+      overflow: hidden;
+    }
+    .about-hero::after {
+      content: 'ABOUT';
+      position: absolute;
+      right: 4vw; bottom: -0.15em;
+      font-size: clamp(6rem, 18vw, 18rem);
+      font-weight: 800;
+      letter-spacing: -0.05em;
+      color: rgba(255,255,255,0.06);
+      line-height: 1;
+      pointer-events: none;
+      user-select: none;
+    }
+    .hero-label {
+      font-size: 0.72rem; font-weight: 700; letter-spacing: 0.2em;
+      text-transform: uppercase; opacity: 0.6; margin-bottom: 1.5rem;
+    }
+    .hero-title {
+      font-size: clamp(2.5rem, 7vw, 6rem);
+      font-weight: 800;
+      line-height: 0.92;
+      letter-spacing: -0.04em;
+      margin-bottom: 2rem;
+    }
+    .hero-sub {
+      font-size: clamp(1rem, 2vw, 1.4rem);
+      font-weight: 400;
+      line-height: 1.6;
+      max-width: 52ch;
+      opacity: 0.85;
+    }
+
+    /* ── Content Sections ── */
+    .section { padding: clamp(3rem, 8vw, 6rem) 5vw; }
+    .section-alt { background: #f9f7f3; }
+    .section-dark { background: #111; color: #fff; }
+
+    .section-label {
+      font-size: 0.72rem; font-weight: 700; letter-spacing: 0.2em;
+      text-transform: uppercase; color: #006a41; margin-bottom: 1rem;
+    }
+    .section-dark .section-label { color: #6ee7b7; }
+    .section-heading {
+      font-size: clamp(1.8rem, 4vw, 3.5rem);
+      font-weight: 800; letter-spacing: -0.03em;
+      line-height: 1.05; margin-bottom: 1.5rem;
+    }
+    .section-body {
+      font-size: clamp(1rem, 1.5vw, 1.15rem);
+      line-height: 1.75; color: #444; max-width: 64ch;
+    }
+    .section-dark .section-body { color: rgba(255,255,255,0.7); }
+
+    .divider { border: none; border-top: 1px solid rgba(0,0,0,0.1); margin: 3rem 0; }
+    .section-dark .divider { border-color: rgba(255,255,255,0.12); }
+
+    /* ── Values Grid ── */
+    .values-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+    .value-card {
+      background: #fff;
+      border: 1px solid rgba(0,0,0,0.08);
+      border-radius: 12px;
+      padding: 1.5rem 1.5rem 2rem;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .value-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,106,65,0.12); }
+    .value-icon {
+      width: 40px; height: 40px;
+      background: #e6f4ed;
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 1rem;
+      font-size: 1.2rem;
+    }
+    .value-title { font-size: 1rem; font-weight: 700; margin-bottom: 0.5rem; color: #111; }
+    .value-desc { font-size: 0.9rem; line-height: 1.65; color: #666; }
+
+    /* ── Stats ── */
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 2rem;
+      margin: 3rem 0;
+    }
+    .stat-block { text-align: center; }
+    .stat-num {
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      color: #006a41;
+      line-height: 1;
+      display: block;
+    }
+    .section-dark .stat-num { color: #6ee7b7; }
+    .stat-label { font-size: 0.85rem; font-weight: 500; color: #888; margin-top: 0.5rem; text-transform: uppercase; letter-spacing: 0.1em; }
+    .section-dark .stat-label { color: rgba(255,255,255,0.5); }
+
+    /* ── Timeline ── */
+    .timeline { margin-top: 3rem; position: relative; }
+    .timeline::before {
+      content: '';
+      position: absolute; left: 0; top: 0; bottom: 0;
+      width: 2px; background: #e5e7eb;
+    }
+    .tl-item {
+      padding-left: 2.5rem;
+      margin-bottom: 2.5rem;
+      position: relative;
+    }
+    .tl-item::before {
+      content: '';
+      position: absolute; left: -5px; top: 4px;
+      width: 12px; height: 12px;
+      border-radius: 50%;
+      background: #006a41;
+    }
+    .tl-year { font-size: 0.75rem; font-weight: 700; color: #006a41; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.35rem; }
+    .tl-title { font-size: 1.05rem; font-weight: 700; margin-bottom: 0.35rem; }
+    .tl-desc { font-size: 0.9rem; color: #666; line-height: 1.6; }
+
+    /* ── CTA section ── */
+    .cta-strip {
+      background: #006a41;
+      color: #fff;
+      padding: clamp(3rem,8vw,5rem) 5vw;
+      display: flex; flex-wrap: wrap;
+      align-items: center; justify-content: space-between;
+      gap: 2rem;
+    }
+    .cta-strip h2 { font-size: clamp(1.5rem,3vw,2.5rem); font-weight: 800; letter-spacing: -0.03em; }
+    .cta-strip p { font-size: 1rem; opacity: 0.8; margin-top: 0.5rem; max-width: 44ch; }
+    .cta-btn {
+      display: inline-block;
+      background: #d97706; color: #fff;
+      font-weight: 700; font-size: 1rem;
+      padding: 14px 32px; border-radius: 8px;
+      text-decoration: none;
+      transition: background 0.15s, transform 0.1s;
+      white-space: nowrap;
+    }
+    .cta-btn:hover { background: #b45309; transform: translateY(-2px); }
+
+    /* ── Footer ── */
+    footer {
+      background: #0a0a0a; color: rgba(255,255,255,0.4);
+      text-align: center; padding: 2rem 5vw;
+      font-size: 0.82rem;
+    }
+    footer a { color: rgba(255,255,255,0.5); text-decoration: none; }
+    footer a:hover { color: #fff; }
+  </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav id="navbar" aria-label="Main navigation">
+  <a class="nav-logo" href="index.html">NexoCorp</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html" class="active">About</a></li>
+    <li><a href="index.html#tools">Tools</a></li>
+    <li><a href="founder.html">Founder</a></li>
+    <li><a href="index.html#contact">Contact</a></li>
+  </ul>
+  <a class="nav-cta" href="index.html#contact">Get in Touch</a>
+</nav>
+
+<div class="page-wrap">
+
+  <!-- HERO -->
+  <section class="about-hero">
+    <p class="hero-label">Est. 2024 · AI-Native Studio</p>
+    <h1 class="hero-title">We Build<br/>Things That<br/>Actually Work.</h1>
+    <p class="hero-sub">
+      NexoCorp is a modern technology studio focused on building clean, intelligent,
+      and user-first digital products. No buzzwords. No bloat. Just clarity.
     </p>
+  </section>
+
+  <!-- MISSION -->
+  <section class="section">
+    <p class="section-label">Our Mission</p>
+    <h2 class="section-heading">Technology that<br/>respects your intelligence.</h2>
+    <p class="section-body">
+      NexoCorp was founded with a clear intent: build technology that respects intelligence,
+      time, and long-term thinking. The studio operates with restraint, focus, and personal
+      ownership. There is no rush to scale — only a commitment to quality and clarity.
+    </p>
+    <hr class="divider"/>
+    <div class="stats-row">
+      <div class="stat-block">
+        <span class="stat-num">2024</span>
+        <p class="stat-label">Founded</p>
+      </div>
+      <div class="stat-block">
+        <span class="stat-num">100%</span>
+        <p class="stat-label">Independent</p>
+      </div>
+      <div class="stat-block">
+        <span class="stat-num">AI-First</span>
+        <p class="stat-label">Always</p>
+      </div>
+      <div class="stat-block">
+        <span class="stat-num">0</span>
+        <p class="stat-label">Fluff. Zero.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- VALUES -->
+  <section class="section section-alt">
+    <p class="section-label">What We Stand For</p>
+    <h2 class="section-heading">Our values.</h2>
+    <div class="values-grid">
+      <div class="value-card">
+        <div class="value-icon">🎯</div>
+        <p class="value-title">Clarity first</p>
+        <p class="value-desc">We cut through noise. Every decision, every line of code, every product has a clear reason to exist.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-icon">⚡</div>
+        <p class="value-title">Move fast, stay right</p>
+        <p class="value-desc">Speed without recklessness. We ship fast but we own our output — quality is non-negotiable.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-icon">🧠</div>
+        <p class="value-title">Intelligence by design</p>
+        <p class="value-desc">AI is a first-class citizen in everything we build — not a feature bolted on at the end.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-icon">🔒</div>
+        <p class="value-title">Personal ownership</p>
+        <p class="value-desc">We operate with full accountability. Small team, big responsibility, zero finger-pointing.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-icon">🌍</div>
+        <p class="value-title">Built for everyone</p>
+        <p class="value-desc">Our tools are designed to be accessible and useful — regardless of technical background.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-icon">📐</div>
+        <p class="value-title">Restraint as craft</p>
+        <p class="value-desc">We don't add features just because we can. What we leave out is as important as what we include.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- STORY / TIMELINE -->
+  <section class="section">
+    <p class="section-label">The Story</p>
+    <h2 class="section-heading">How we got here.</h2>
+    <p class="section-body">
+      NexoCorp didn't start with a business plan. It started with a frustration —
+      that most software is bloated, unintelligent, and built for demos rather than real use.
+      Devk set out to fix that, one product at a time.
+    </p>
+    <div class="timeline">
+      <div class="tl-item">
+        <p class="tl-year">Early 2024</p>
+        <p class="tl-title">The idea</p>
+        <p class="tl-desc">Started exploring how AI could be the foundation of products rather than an add-on. First prototypes built in isolation.</p>
+      </div>
+      <div class="tl-item">
+        <p class="tl-year">Mid 2024</p>
+        <p class="tl-title">NexoCorp founded</p>
+        <p class="tl-desc">Officially established as an AI-native studio with a singular focus: calm tools for serious thinkers.</p>
+      </div>
+      <div class="tl-item">
+        <p class="tl-year">Late 2024</p>
+        <p class="tl-title">First products launched</p>
+        <p class="tl-desc">DarkFury and early community tools shipped. Real users, real feedback, real improvements — fast.</p>
+      </div>
+      <div class="tl-item">
+        <p class="tl-year">2025 →</p>
+        <p class="tl-title">Growing the ecosystem</p>
+        <p class="tl-desc">Expanding the suite of tools, growing the community, and refining the vision of what intelligent software should feel like.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- DARK SECTION -->
+  <section class="section section-dark">
+    <p class="section-label">The Philosophy</p>
+    <h2 class="section-heading">Calm tools for<br/>serious thinkers.</h2>
+    <p class="section-body">
+      DarkFury and other systems are developed under a single vision: software that
+      doesn't demand your attention, but earns it. Tools that get out of the way
+      and let you do your best work.
+    </p>
+    <hr class="divider"/>
+    <div class="stats-row">
+      <div class="stat-block">
+        <span class="stat-num">∞</span>
+        <p class="stat-label">Long-term thinking</p>
+      </div>
+      <div class="stat-block">
+        <span class="stat-num">0</span>
+        <p class="stat-label">Dark patterns</p>
+      </div>
+      <div class="stat-block">
+        <span class="stat-num">1</span>
+        <p class="stat-label">Clear vision</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <div class="cta-strip">
+    <div>
+      <h2>Want to work together?</h2>
+      <p>We take on select projects that align with our values. Let's talk.</p>
+    </div>
+    <a class="cta-btn" href="index.html#contact">Get in Touch →</a>
   </div>
-</section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2024 NexoCorp · <a href="privacy.html">Privacy</a> · <a href="terms.html">Terms</a> · Built with clarity.</p>
+  </footer>
+
+</div>
+
+<script>
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 10);
+  }, { passive: true });
+</script>
+</body>
+</html>
