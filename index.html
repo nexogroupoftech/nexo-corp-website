@@ -1,466 +1,379 @@
 <!DOCTYPE html>
 <html class="light" lang="en">
 <head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>NexoCorp — Building Intelligent Products</title>
-<link rel="icon" type="image/svg+xml" href="favicon.svg"/>
-<link rel="shortcut icon" href="favicon.svg"/>
-<meta name="theme-color" content="#006a41"/>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<script id="tailwind-config">
-  tailwind.config = {
-    darkMode: "class",
-    theme: {
-      extend: {
-        colors: {
-          "tertiary": "#954500",
-          "surface-container-highest": "#e2e2e2",
-          "tertiary-fixed-dim": "#ffb68b",
-          "on-error-container": "#93000a",
-          "on-surface": "#1a1c1c",
-          "primary": "#006a41",
-          "surface-container-lowest": "#ffffff",
-          "surface-container": "#eeeeee",
-          "surface": "#f9f9f9",
-          "surface-container-low": "#f3f3f3",
-          "error": "#ba1a1a",
-          "surface-container-high": "#e8e8e8",
-          "on-primary-container": "#f6fff5",
-          "secondary-fixed-dim": "#c8c6c5",
-          "error-container": "#ffdad6",
-          "inverse-primary": "#6ddb9f",
-          "secondary-container": "#e2dfde",
-          "background": "#f9f9f9",
-          "surface-bright": "#f9f9f9",
-          "primary-container": "#008653",
-          "surface-dim": "#dadada",
-          "on-background": "#1a1c1c",
-          "inverse-surface": "#2f3131",
-          "inverse-on-surface": "#f1f1f1",
-          "outline": "#6e7a70",
-          "tertiary-container": "#bb5800",
-          "on-primary-fixed-variant": "#005231",
-          "on-tertiary-container": "#fffbff",
-          "surface-tint": "#006d43",
-          "on-secondary": "#ffffff",
-          "on-secondary-fixed": "#1c1b1b",
-          "secondary": "#5f5e5e",
-          "on-tertiary-fixed-variant": "#753400",
-          "on-tertiary": "#ffffff",
-          "primary-fixed": "#8af8ba",
-          "on-secondary-fixed-variant": "#474746",
-          "on-secondary-container": "#636262",
-          "on-primary-fixed": "#002111",
-          "on-primary": "#ffffff",
-          "outline-variant": "#bdcabf",
-          "primary-fixed-dim": "#6ddb9f",
-          "surface-variant": "#e2e2e2",
-          "on-surface-variant": "#3e4a41",
-          "on-error": "#ffffff",
-          "tertiary-fixed": "#ffdbc8"
-        },
-        fontFamily: {
-          "headline": ["Inter", "system-ui", "-apple-system", "sans-serif"],
-          "body": ["Inter", "system-ui", "-apple-system", "sans-serif"],
-          "label": ["Inter", "system-ui", "-apple-system", "sans-serif"]
-        },
-        borderRadius: {"DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px"},
-      },
-    },
-  }
-</script>
-<style>
-  .material-symbols-outlined {
-    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-  }
-  .glass-nav {
-    background: rgba(255,255,255,0.7);
-    backdrop-filter: blur(24px);
-  }
-  .hero-gradient {
-    background: radial-gradient(circle at 60% 40%, #edfff5 0%, #f9f9f9 65%);
-  }
-  .ticker-wrap {
-    overflow: hidden;
-    white-space: nowrap;
-  }
-  .ticker-inner {
-    display: inline-flex;
-    animation: ticker 28s linear infinite;
-  }
-  @keyframes ticker {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(-50%); }
-  }
-  .card-hover {
-    transition: transform 0.3s cubic-bezier(.22,.68,0,1.2), box-shadow 0.3s ease;
-  }
-  .card-hover:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 24px 60px rgba(0,106,65,0.10);
-  }
-  .project-card:hover .arrow-icon {
-    transform: translate(4px,-4px);
-    color: #006a41;
-  }
-  .arrow-icon {
-    transition: transform 0.2s ease, color 0.2s ease;
-  }
-  .section-label {
-    font-size: 0.7rem;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    font-weight: 700;
-    color: #006a41;
-  }
-  .fill-icon {
-    font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-  }
-  /* Scroll reveal */
-  .reveal {
-    opacity: 1;
-    transform: translateY(0);
-    transition: opacity 0.6s cubic-bezier(.22,.68,0,1.2), transform 0.6s cubic-bezier(.22,.68,0,1.2);
-  }
-  .reveal.hidden-init {
-    opacity: 0;
-    transform: translateY(28px);
-  }
-  .reveal.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-</style>
-</head>
-<body class="bg-surface text-on-surface font-body selection:bg-primary-fixed selection:text-on-primary-fixed">
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>NexoCorp — Building Intelligent Products</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg"/>
+  <link rel="shortcut icon" href="favicon.svg"/>
+  <meta name="theme-color" content="#006a41"/>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <script src="https://cdn.tailwindcss.com/3.4.1"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            primary: '#006a41',
+            amber: '#d97706',
+          },
+          fontFamily: {
+            sans: ['Plus Jakarta Sans', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Plus Jakarta Sans', sans-serif; overflow-x: hidden; }
 
-<!-- ── TOP NAV ── -->
-<nav class="fixed top-0 w-full z-50 glass-nav shadow-[0px_24px_80px_rgba(26,28,28,0.06)] h-20">
-  <div class="flex justify-between items-center max-w-7xl mx-auto px-8 h-full">
-    <div class="text-xl font-black tracking-tighter text-on-surface font-headline">NexoCorp</div>
-    <div class="hidden md:flex items-center gap-10 font-medium tracking-tight text-sm">
-      <a class="text-primary font-semibold border-b-2 border-primary pb-0.5 transition-colors" href="#">Home</a>
-      <a class="text-secondary hover:text-primary transition-colors" href="#about">About</a>
-      <a class="text-secondary hover:text-primary transition-colors" href="#projects">Tools</a>
-      <a class="text-secondary hover:text-primary transition-colors" href="#founder">Founder</a>
-      <a class="text-secondary hover:text-primary transition-colors" href="#contact">Contact</a>
-    </div>
-    <div class="flex items-center gap-4">
-      <a href="https://instagram.com/itsmedevv16" target="_blank" class="bg-tertiary hover:bg-tertiary-container text-on-tertiary px-6 py-2.5 rounded-full text-sm font-semibold tracking-wide transition-all duration-200 active:scale-95">
-        Get in Touch
-      </a>
-    </div>
-  </div>
+    /* ── Navbar ── */
+    #navbar {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 9999;
+      background: #fff;
+      border-bottom: 1px solid rgba(0,0,0,0.08);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 5vw; height: 64px;
+      transition: box-shadow 0.2s;
+    }
+    #navbar.scrolled { box-shadow: 0 2px 16px rgba(0,0,0,0.10); }
+    .nav-logo { font-size: 1.2rem; font-weight: 800; color: #111; letter-spacing: -0.03em; }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a { font-size: 0.95rem; font-weight: 500; color: #444; text-decoration: none; border-bottom: 2px solid transparent; padding-bottom: 2px; transition: color 0.15s, border-color 0.15s; }
+    .nav-links a:hover, .nav-links a.active { color: #006a41; border-color: #006a41; }
+    .nav-cta { background: #d97706; color: #fff; font-weight: 700; font-size: 0.9rem; padding: 10px 22px; border-radius: 8px; text-decoration: none; transition: background 0.15s, transform 0.1s; }
+    .nav-cta:hover { background: #b45309; transform: translateY(-1px); }
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+    }
+
+    /* ── FlowArt Scroll ── */
+    #flow-root { padding-top: 64px; width: 100%; overflow-x: hidden; }
+
+    .flow-section {
+      position: relative; min-height: 100vh; width: 100%; overflow: hidden;
+    }
+    .flow-inner {
+      position: relative;
+      display: flex; flex-direction: column; justify-content: space-between;
+      gap: clamp(1rem, 3vw, 2rem);
+      min-height: 100vh; width: 100%;
+      padding: clamp(2rem,8vw,4vw) 4vw 4vw;
+      transform-origin: bottom left;
+      will-change: transform;
+    }
+    .flow-hr {
+      border: none;
+      border-top: 1px solid currentColor;
+      opacity: 0.2;
+      margin: 0;
+    }
+    .flow-hr.strong { opacity: 0.5; }
+    .section-label {
+      font-size: 0.72rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase;
+    }
+    .section-title {
+      font-size: clamp(3rem,11vw,13rem);
+      font-weight: 800;
+      line-height: 0.88;
+      text-transform: uppercase;
+      letter-spacing: -0.03em;
+    }
+    .section-body {
+      max-width: 50ch;
+      font-size: clamp(1rem,2.2vw,1.75rem);
+      font-weight: 400;
+      line-height: 1.5;
+      opacity: 0.9;
+    }
+    .grid-3 {
+      display: flex; flex-wrap: wrap; gap: clamp(1rem,3vw,2.5rem);
+    }
+    .grid-3 > div { min-width: 160px; flex: 1; }
+    .grid-label {
+      font-size: 0.78rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+      margin-bottom: 0.4rem;
+    }
+    .grid-body {
+      font-size: clamp(0.82rem,1.2vw,1rem);
+      line-height: 1.65;
+      opacity: 0.7;
+    }
+
+    /* ── CTA Button inside sections ── */
+    .cta-btn {
+      display: inline-block;
+      background: #d97706; color: #fff;
+      font-weight: 700; font-size: 1rem;
+      padding: 14px 32px; border-radius: 8px;
+      text-decoration: none; transition: background 0.15s, transform 0.1s;
+      align-self: flex-start;
+    }
+    .cta-btn:hover { background: #b45309; transform: translateY(-2px); }
+    .cta-btn.dark { background: #fff; color: #111; }
+    .cta-btn.dark:hover { background: #f3f4f6; }
+
+    /* ── Reduced motion ── */
+    @media (prefers-reduced-motion: reduce) {
+      .flow-inner { transform: none !important; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══════════ NAVBAR ══════════ -->
+<nav id="navbar" aria-label="Main navigation">
+  <a class="nav-logo" href="#">NexoCorp</a>
+  <ul class="nav-links">
+    <li><a href="#" class="active">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="#tools">Tools</a></li>
+    <li><a href="founder.html">Founder</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a class="nav-cta" href="#contact">Get in Touch</a>
 </nav>
 
-<main class="pt-20">
+<!-- ══════════ FLOW SCROLL ══════════ -->
+<main id="flow-root" aria-label="NexoCorp Story">
 
-  <!-- ── HERO ── -->
-  <section class="relative hero-gradient min-h-[920px] flex flex-col items-center justify-center px-8 text-center overflow-hidden">
-    <div class="max-w-4xl z-10 reveal">
-      <span class="inline-block py-1 px-4 rounded-full bg-primary-fixed text-on-primary-fixed text-xs font-bold tracking-[0.2em] uppercase mb-8">
-        Est. 2024 · AI-Native Studio
-      </span>
-      <h1 class="text-6xl md:text-8xl font-bold tracking-[-0.04em] text-on-surface mb-8 leading-[1.05]">
-        Building <em class="not-italic text-primary">intelligent</em><br/>products for the<br/>next digital era.
-      </h1>
-      <p class="text-xl md:text-2xl text-secondary max-w-2xl mx-auto mb-12 leading-relaxed font-light">
-        We design AI-powered tools, platforms, and experiences that define how the future feels.
+  <!-- 01 Who we are -->
+  <section class="flow-section" aria-label="Who we are" style="background:#006a41; color:#fff;">
+    <div class="flow-inner">
+      <p class="section-label" style="opacity:0.7">01 — Who we are</p>
+      <hr class="flow-hr strong"/>
+      <div>
+        <h1 class="section-title">Build<br/>Without<br/>Limits</h1>
+      </div>
+      <hr class="flow-hr strong"/>
+      <p class="section-body">
+        We are an AI-native studio designing intelligent products, platforms, and experiences
+        that define how the future feels. No fluff — just real tools for the real world.
       </p>
-      <div class="flex flex-col md:flex-row gap-6 justify-center">
-        <a href="#projects" class="bg-tertiary text-on-tertiary px-10 py-5 rounded-lg text-lg font-bold shadow-xl hover:scale-105 transition-transform active:scale-95">
-          Explore Our Work
-        </a>
-        <a href="#about" class="bg-surface-container-lowest text-on-surface px-10 py-5 rounded-lg text-lg font-medium border border-outline-variant/20 hover:bg-surface-container-low transition-colors">
-          Learn More
-        </a>
-      </div>
-    </div>
-    <!-- Decorative blobs -->
-    <div class="absolute -bottom-24 -right-24 w-[600px] h-[600px] bg-primary/5 rounded-full blur-3xl -z-0 pointer-events-none"></div>
-    <div class="absolute -top-24 -left-24 w-[400px] h-[400px] bg-tertiary/5 rounded-full blur-3xl -z-0 pointer-events-none"></div>
-  </section>
-
-  <!-- ── TICKER STRIP ── -->
-  <section class="bg-surface-container-low py-6 ticker-wrap overflow-hidden">
-    <div class="ticker-inner gap-0">
-      <!-- repeated twice for seamless loop -->
-      <span class="text-xs font-black tracking-[0.18em] uppercase text-on-surface-variant px-10">AI Product Design</span>
-      <span class="text-primary font-black px-4">·</span>
-      <span class="text-xs font-black tracking-[0.18em] uppercase text-on-surface-variant px-10">Web Platforms</span>
-      <span class="text-primary font-black px-4">·</span>
-      <span class="text-xs font-black tracking-[0.18em] uppercase text-on-surface-variant px-10">Digital Experiences</span>
-      <span class="text-primary font-black px-4">·</span>
-      <span class="text-xs font-black tracking-[0.18em] uppercase text-on-surface-variant px-10">Intelligent Tools</span>
-      <span class="text-primary font-black px-4">·</span>
-      <span class="text-xs font-black tracking-[0.18em] uppercase text-on-surface-variant px-10">Next-Gen Interfaces</span>
-      <span class="text-primary font-black px-4">·</span>
-      <!-- duplicate -->
-      <span class="text-xs font-black tracking-[0.18em] uppercase text-on-surface-variant px-10">AI Product Design</span>
-      <span class="text-primary font-black px-4">·</span>
-      <span class="text-xs font-black tracking-[0.18em] uppercase text-on-surface-variant px-10">Web Platforms</span>
-      <span class="text-primary font-black px-4">·</span>
-      <span class="text-xs font-black tracking-[0.18em] uppercase text-on-surface-variant px-10">Digital Experiences</span>
-      <span class="text-primary font-black px-4">·</span>
-      <span class="text-xs font-black tracking-[0.18em] uppercase text-on-surface-variant px-10">Intelligent Tools</span>
-      <span class="text-primary font-black px-4">·</span>
-      <span class="text-xs font-black tracking-[0.18em] uppercase text-on-surface-variant px-10">Next-Gen Interfaces</span>
-      <span class="text-primary font-black px-4">·</span>
-    </div>
-  </section>
-
-  <!-- ── ABOUT ── -->
-  <section id="about" class="py-36 px-8 max-w-7xl mx-auto">
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
-      <div class="reveal">
-        <p class="section-label mb-6">01 · Who We Are</p>
-        <h2 class="text-4xl md:text-5xl font-bold tracking-tight mb-8 leading-tight">
-          We craft the <em class="not-italic text-primary">digital future</em> with intention.
-        </h2>
-        <p class="text-secondary text-lg leading-relaxed mb-6">
-          NexoCorp is a forward-thinking technology studio at the intersection of artificial intelligence and thoughtful design. We build products that don't just function — they inspire.
-        </p>
-        <p class="text-secondary text-lg leading-relaxed">
-          Every interface, every experience, every line of code is crafted with meticulous attention to craft and a relentless commitment to excellence.
-        </p>
-      </div>
-      <!-- Stats -->
-      <div class="grid grid-cols-2 gap-6 reveal">
-        <div class="bg-surface-container-lowest rounded-[20px] p-10 card-hover">
-          <span class="text-5xl font-black text-primary tracking-tighter">12+</span>
-          <p class="text-xs uppercase tracking-widest font-bold opacity-50 mt-3">Projects Shipped</p>
-        </div>
-        <div class="bg-surface-container-lowest rounded-[20px] p-10 card-hover">
-          <span class="text-5xl font-black text-primary tracking-tighter">5k+</span>
-          <p class="text-xs uppercase tracking-widest font-bold opacity-50 mt-3">Users Reached</p>
-        </div>
-        <div class="bg-surface-container-lowest rounded-[20px] p-10 card-hover">
-          <span class="text-5xl font-black text-primary tracking-tighter">3+</span>
-          <p class="text-xs uppercase tracking-widest font-bold opacity-50 mt-3">AI Tools Built</p>
-        </div>
-        <div class="bg-primary rounded-[20px] p-10 card-hover">
-          <span class="text-5xl font-black text-primary-fixed tracking-tighter">∞</span>
-          <p class="text-xs uppercase tracking-widest font-bold text-primary-fixed/60 mt-3">Ideas in Progress</p>
-        </div>
+      <div style="display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap; margin-top:auto;">
+        <a class="cta-btn dark" href="#contact">Start a Project →</a>
+        <span style="font-size:0.85rem; opacity:0.6">Est. 2024 · AI-Native Studio</span>
       </div>
     </div>
   </section>
 
-  <!-- ── TOOLS ── -->
-  <section id="projects" class="py-32 bg-surface-container-low px-8">
-    <div class="max-w-7xl mx-auto">
-      <div class="mb-20 reveal">
-        <p class="section-label mb-6">02 · Our Tools</p>
-        <h2 class="text-4xl md:text-5xl font-bold tracking-tight">What we've <em class="not-italic text-primary">built.</em></h2>
+  <!-- 02 The Mission -->
+  <section class="flow-section" aria-label="The mission" style="background:#000; color:#fff;">
+    <div class="flow-inner">
+      <p class="section-label" style="opacity:0.55">02 — The mission</p>
+      <hr class="flow-hr"/>
+      <div>
+        <h2 class="section-title">AI<br/>First.<br/>Always.</h2>
       </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-
-        <!-- Tool 1 – StackStruct -->
-        <div class="project-card bg-surface-container-lowest rounded-[20px] p-12 card-hover reveal" style="transition-delay:0.05s">
-          <div class="flex justify-between items-start mb-8">
-            <div class="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center">
-              <span class="material-symbols-outlined text-primary">terminal</span>
-            </div>
-            <span class="text-xs font-bold tracking-widest uppercase py-1 px-3 rounded-full bg-primary-fixed/60 text-on-primary-fixed">Live</span>
-          </div>
-          <p class="section-label mb-3">01 · Developer Tool</p>
-          <h3 class="text-2xl font-bold mb-4">StackStruct</h3>
-          <p class="text-secondary leading-relaxed mb-8">An intelligent project structure generator that scaffolds entire codebases from a single prompt. Built for developers who move fast.</p>
-          <a href="https://nexocorp.online/projects.html" class="inline-flex items-center gap-2 text-sm font-bold text-primary hover:gap-3 transition-all">
-            Open Tool <span class="arrow-icon material-symbols-outlined text-base">arrow_outward</span>
-          </a>
-        </div>
-
-        <!-- Tool 2 – AI Tools Hub -->
-        <div class="project-card bg-surface-container-lowest rounded-[20px] p-12 card-hover reveal" style="transition-delay:0.1s">
-          <div class="flex justify-between items-start mb-8">
-            <div class="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center">
-              <span class="material-symbols-outlined text-primary">auto_awesome</span>
-            </div>
-            <span class="text-xs font-bold tracking-widest uppercase py-1 px-3 rounded-full bg-primary-fixed/60 text-on-primary-fixed">Live</span>
-          </div>
-          <p class="section-label mb-3">02 · AI Directory</p>
-          <h3 class="text-2xl font-bold mb-4">AI Tools Hub</h3>
-          <p class="text-secondary leading-relaxed mb-8">A curated intelligence library of AI platforms reshaping how the world thinks, creates, and builds — organized by capability.</p>
-          <a href="https://nexocorp.online/projects.html" class="inline-flex items-center gap-2 text-sm font-bold text-primary hover:gap-3 transition-all">
-            Open Tool <span class="arrow-icon material-symbols-outlined text-base">arrow_outward</span>
-          </a>
-        </div>
-
-        <!-- Tool 3 – MyLand (Coming Soon) -->
-        <div class="project-card bg-surface-container-lowest rounded-[20px] p-12 card-hover reveal md:col-span-2" style="transition-delay:0.15s">
-          <div class="flex justify-between items-start mb-8">
-            <div class="w-14 h-14 rounded-2xl bg-tertiary/10 flex items-center justify-center">
-              <span class="material-symbols-outlined text-tertiary">landscape</span>
-            </div>
-            <span class="text-xs font-bold tracking-widest uppercase py-1 px-3 rounded-full bg-surface-container text-on-surface-variant">Coming Soon · 7–14 Days</span>
-          </div>
-          <p class="section-label mb-3">03 · New Drop</p>
-          <h3 class="text-2xl font-bold mb-4">MyLand</h3>
-          <p class="text-secondary leading-relaxed mb-8">Something new is coming. MyLand is currently in its final stage — launching in 7 to 14 days. Stay tuned.</p>
-          <span class="inline-flex items-center gap-2 text-sm font-bold text-tertiary">
-            <span class="w-2 h-2 rounded-full bg-tertiary animate-pulse inline-block"></span>
-            In Development
-          </span>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- ── FOUNDER ── -->
-  <section id="founder" class="py-36 px-8 max-w-7xl mx-auto">
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
-      <div class="reveal">
-        <p class="section-label mb-6">03 · Founder</p>
-        <h2 class="text-4xl md:text-5xl font-bold tracking-tight mb-8 leading-tight">
-          Hi, I'm <em class="not-italic text-primary">Dev.</em>
-        </h2>
-        <p class="text-secondary text-lg leading-relaxed">
-          I'm the founder of NexoCorp — a builder driven by curiosity, creativity, and the vision to create meaningful digital experiences.
-        </p>
-      </div>
-      <div class="bg-primary rounded-[20px] p-12 card-hover reveal">
-        <blockquote>
-          <p class="text-primary-fixed text-2xl font-medium leading-relaxed mb-8 italic tracking-tight">
-            "The most powerful products are born at the intersection of intelligence and intentional design."
-          </p>
-          <footer class="flex items-center gap-4">
-            <div class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center">
-              <span class="material-symbols-outlined text-white text-sm fill-icon">person</span>
-            </div>
-            <div>
-              <p class="text-white font-bold">Dev</p>
-              <p class="text-primary-fixed/60 text-xs uppercase tracking-widest font-bold">Founder · NexoCorp</p>
-            </div>
-          </footer>
-        </blockquote>
-      </div>
-    </div>
-  </section>
-
-  <!-- ── TESTIMONIALS ── -->
-  <section class="py-36 px-8 bg-surface-container-low">
-    <div class="max-w-7xl mx-auto">
-      <div class="mb-16 reveal">
-        <p class="section-label mb-4">What People Say</p>
-        <h2 class="text-4xl md:text-5xl font-bold tracking-tight">Trusted by <em class="not-italic text-primary">builders.</em></h2>
-      </div>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-
-        <div class="bg-surface-container-lowest rounded-[20px] p-8 card-hover reveal" style="transition-delay:0.05s">
-          <div class="flex gap-1 mb-5">
-            <span class="text-primary text-sm">★★★★★</span>
-          </div>
-          <p class="text-on-surface leading-relaxed mb-6 font-light text-lg">&ldquo;StackStruct saved me hours on every new project. I just describe what I need and the structure is ready in seconds. Genuinely impressive.&rdquo;</p>
-          <div class="flex items-center gap-3">
-            <div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-sm font-bold text-primary">AR</div>
-            <div>
-              <div class="font-bold text-sm">Arjun R.</div>
-              <div class="text-xs text-secondary uppercase tracking-widest font-bold">Full-Stack Developer</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="bg-primary rounded-[20px] p-8 card-hover reveal" style="transition-delay:0.1s">
-          <div class="flex gap-1 mb-5">
-            <span class="text-primary-fixed text-sm">★★★★★</span>
-          </div>
-          <p class="text-primary-fixed leading-relaxed mb-6 font-light text-lg">&ldquo;RootLab is the best way to learn anything fast. I used it to understand machine learning concepts and it broke everything down perfectly.&rdquo;</p>
-          <div class="flex items-center gap-3">
-            <div class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center text-sm font-bold text-white">SM</div>
-            <div>
-              <div class="font-bold text-sm text-white">Sara M.</div>
-              <div class="text-xs text-primary-fixed/60 uppercase tracking-widest font-bold">CS Student</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="bg-surface-container-lowest rounded-[20px] p-8 card-hover reveal" style="transition-delay:0.15s">
-          <div class="flex gap-1 mb-5">
-            <span class="text-primary text-sm">★★★★★</span>
-          </div>
-          <p class="text-on-surface leading-relaxed mb-6 font-light text-lg">&ldquo;DarkFury is my go-to AI tool. The dark UI is clean, responses are fast, and it handles complex questions better than most tools I&apos;ve tried.&rdquo;</p>
-          <div class="flex items-center gap-3">
-            <div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-sm font-bold text-primary">KP</div>
-            <div>
-              <div class="font-bold text-sm">Karan P.</div>
-              <div class="text-xs text-secondary uppercase tracking-widest font-bold">Startup Founder</div>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- ── SOCIAL ── -->
-  <section class="py-24 px-8">
-    <div class="max-w-7xl mx-auto">
-      <div class="bg-surface-container-lowest rounded-[24px] p-10 md:p-14 flex flex-col md:flex-row items-center justify-between gap-8 card-hover reveal">
-        <div class="flex items-center gap-6">
-          <div class="w-16 h-16 rounded-2xl flex items-center justify-center" style="background:linear-gradient(135deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
-          </div>
-          <div>
-            <p class="section-label mb-1">Follow on Instagram</p>
-            <p class="text-2xl font-black tracking-tight text-on-surface">@itsmedevv16</p>
-            <p class="text-sm text-secondary mt-1">Dev Kumar Singh · NexoCorp Founder</p>
-          </div>
-        </div>
-        <a href="https://instagram.com/itsmedevv16" target="_blank" class="bg-tertiary text-on-tertiary px-8 py-4 rounded-full text-sm font-bold hover:scale-105 transition-transform active:scale-95 whitespace-nowrap">
-          Follow @itsmedevv16
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- ── CTA ── -->
-  <section id="contact" class="py-40 px-8">
-    <div class="max-w-5xl mx-auto bg-tertiary rounded-3xl p-16 md:p-24 text-center relative overflow-hidden reveal">
-      <!-- Dot pattern -->
-      <div class="absolute inset-0 opacity-10 pointer-events-none">
-        <div class="absolute top-0 left-0 w-full h-full" style="background-image:radial-gradient(#fff 1px,transparent 1px);background-size:40px 40px;"></div>
-      </div>
-      <p class="section-label text-on-tertiary/60 mb-6 z-10 relative">04 · Connect</p>
-      <h2 class="text-4xl md:text-6xl font-bold text-on-tertiary mb-6 tracking-tight z-10 relative leading-tight">
-        Ready to build something<br/><em class="not-italic text-tertiary-fixed">remarkable?</em>
-      </h2>
-      <p class="text-on-tertiary/70 text-xl mb-12 z-10 relative max-w-xl mx-auto leading-relaxed">
-        Whether you have a vision or just a spark of an idea — slide into my DMs on Instagram.
+      <hr class="flow-hr"/>
+      <p class="section-body">
+        A global studio built on the belief that AI should amplify human potential —
+        not replace it. We craft products that matter, with honesty and precision.
       </p>
-      <div class="flex flex-col md:flex-row gap-6 justify-center z-10 relative">
-        
+      <hr class="flow-hr"/>
+      <div class="grid-3">
+        <div>
+          <p class="grid-label">Intelligence</p>
+          <p class="grid-body">Every product we ship is powered by cutting-edge AI that actually solves problems — not demo-ware.</p>
+        </div>
+        <div>
+          <p class="grid-label">Craft</p>
+          <p class="grid-body">Design and engineering treated as one discipline. Beautiful code, beautiful interfaces.</p>
+        </div>
+        <div>
+          <p class="grid-label">Speed</p>
+          <p class="grid-body">From idea to launch in weeks, not months. We move fast without breaking things.</p>
+        </div>
+      </div>
+      <hr class="flow-hr"/>
+      <div class="grid-3">
+        <div>
+          <p class="grid-label">Research</p>
+          <p class="grid-body">Deep expertise in LLMs, agents, and automation — applied to real-world workflows.</p>
+        </div>
+        <div>
+          <p class="grid-label">Strategy</p>
+          <p class="grid-body">We help founders and enterprises find their AI edge before competitors do.</p>
+        </div>
+        <div>
+          <p class="grid-label">Community</p>
+          <p class="grid-body">An open network of builders, researchers, and entrepreneurs shaping the next era.</p>
+        </div>
+      </div>
+      <hr class="flow-hr"/>
+      <p class="section-body" style="margin-top:auto; margin-left:auto; text-align:right;">
+        Every feature we build starts with one question — does this genuinely help?
+      </p>
+    </div>
+  </section>
+
+  <!-- 03 How it works -->
+  <section class="flow-section" aria-label="How it works" style="background:#F5F0E8; color:#111;">
+    <div class="flow-inner">
+      <p class="section-label" style="opacity:0.5">03 — How it works</p>
+      <hr class="flow-hr strong"/>
+      <div>
+        <h2 class="section-title">Think.<br/>Build.<br/>Ship.</h2>
+      </div>
+      <hr class="flow-hr strong"/>
+      <p class="section-body">
+        Three phases. Zero bloat. Your product moves from whiteboard to production the moment
+        we align on the vision.
+      </p>
+      <hr class="flow-hr strong"/>
+      <div class="grid-3">
+        <div>
+          <p class="grid-label">01 — Discover</p>
+          <p class="grid-body">We map your goals, constraints, and AI opportunities in a focused strategy sprint.</p>
+        </div>
+        <div>
+          <p class="grid-label">02 — Design</p>
+          <p class="grid-body">Rapid prototyping with real AI models — see it working before a single line of prod code.</p>
+        </div>
+        <div>
+          <p class="grid-label">03 — Build</p>
+          <p class="grid-body">Full-stack engineering with AI at the core — scalable, maintainable, production-ready.</p>
+        </div>
+      </div>
+      <hr class="flow-hr strong"/>
+      <div class="grid-3">
+        <div>
+          <p class="grid-label">04 — Launch</p>
+          <p class="grid-body">Deploy, monitor, and iterate. We stay on until you're confident and growing.</p>
+        </div>
+        <div>
+          <p class="grid-label">05 — Grow</p>
+          <p class="grid-body">Ongoing AI enhancements, feature expansion, and performance tuning as you scale.</p>
+        </div>
+        <div>
+          <p class="grid-label">06 — Evolve</p>
+          <p class="grid-body">The AI landscape moves fast. Your product should too — we keep you ahead.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 04 Tools -->
+  <section class="flow-section" aria-label="Our tools" id="tools" style="background:#006a41; color:#fff;">
+    <div class="flow-inner">
+      <p class="section-label" style="opacity:0.65">04 — Our tools</p>
+      <hr class="flow-hr strong"/>
+      <div>
+        <h2 class="section-title">Smart<br/>Tools.<br/>Real<br/>Impact.</h2>
+      </div>
+      <hr class="flow-hr strong"/>
+      <p class="section-body">
+        We're not just consultants — we build and ship our own AI-native tools that the world
+        actually uses every day.
+      </p>
+      <hr class="flow-hr strong"/>
+      <div class="grid-3">
+        <div>
+          <p class="grid-label" style="color:#d1fae5">Community Platform</p>
+          <p class="grid-body">A space for AI builders and founders to connect, share, and collaborate on what's next.</p>
+        </div>
+        <div>
+          <p class="grid-label" style="color:#d1fae5">AI Workflows</p>
+          <p class="grid-body">Custom automation pipelines that eliminate repetitive work and surface insights instantly.</p>
+        </div>
+        <div>
+          <p class="grid-label" style="color:#d1fae5">Product Studio</p>
+          <p class="grid-body">End-to-end product design and engineering as a service — from zero to launch.</p>
+        </div>
+      </div>
+      <hr class="flow-hr strong"/>
+      <p class="section-body">
+        The digital era has been waiting for tools that think. We're building them — permanently.
+      </p>
+    </div>
+  </section>
+
+  <!-- 05 Join us -->
+  <section class="flow-section" aria-label="Join us" id="contact" style="background:#111; color:#fff;">
+    <div class="flow-inner">
+      <p class="section-label" style="opacity:0.45">05 — Join us</p>
+      <hr class="flow-hr"/>
+      <div>
+        <h2 class="section-title">Ready<br/>To<br/>Begin?</h2>
+      </div>
+      <hr class="flow-hr"/>
+      <p class="section-body">
+        Take control of your digital future. Let's build something that outlasts the hype —
+        together.
+      </p>
+      <div style="display:flex; gap:1rem; flex-wrap:wrap; margin-top:auto;">
+        <a class="cta-btn" href="mailto:hello@nexocorp.online">hello@nexocorp.online →</a>
+      </div>
+      <div style="margin-top:2rem; opacity:0.3; font-size:0.8rem;">
+        © 2024 NexoCorp. All rights reserved.
       </div>
     </div>
   </section>
 
 </main>
 
-<!-- ── FOOTER ── -->
-<footer class="w-full py-12 bg-zinc-50 border-t border-zinc-200/40">
-  <div class="flex flex-col md:flex-row justify-between items-center max-w-7xl mx-auto px-8 gap-4">
-    <div class="flex flex-col gap-2">
-      <div class="flex items-center gap-2">
-        <svg width="28" height="28" viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg">
-          <rect width="36" height="36" rx="8" fill="#006a41"/>
-          <rect x="10" y="8" width="7" height="22" rx="3.5" fill="white" transform="rotate(-16 13 19)"/>
-          <rect x="22" y="8" width="7" height="22" rx="3.5" fill="#ffb68b" transform="rotate(-16 25 19)"/>
-        </svg>
-        <span style="font-family:system-ui,-apple-system,sans-serif;font-weight:800;font-size:1.1rem;letter-spacing:-0.05em;color:#18181b;">Nexo<span style="font-weight:300;">Corp</span></span>
-      </div>
-      <p class="text-sm tracking-wide uppercase font-light text-zinc-500">
-        © 2026 NexoCorp · Founded by Devk
-      </p>
-    </div>
-    <div class="flex gap-8">
-      <a href="https://nexocorp.online/privacy.html" class="text-sm tracking-wide uppercase font-light text-zinc-500 hover:text-orange-500 transition-all">Privacy</a>
-      <a href="https://nexocorp.online/terms.html" class="text-sm tracking-wide uppercase font-light text-zinc-500 hover:text-orange-500 transition-all">Terms</a>
-      <a href="https://nexocorp.online/about.html" class="text-sm tracking-wide uppercase font-light text-zinc-500 hover:text-orange-500 transition-all">About</a>
-      <a href="https://instagram.com/itsmedevv16" target="_blank" class="text-sm tracking-wide uppercase font-light text-zinc-500 hover:text-pink-500 transition-all">Instagram</a>
-    </div>
-  </div>
+<!-- GSAP + ScrollTrigger via CDN -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script>
+(function () {
+  // Navbar scroll class
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 10);
+  }, { passive: true });
+
+  // Reduced motion check
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (!reducedMotion) {
+    gsap.registerPlugin(ScrollTrigger);
+
+    const sections = Array.from(document.querySelectorAll('.flow-section'));
+    const triggers = [];
+
+    sections.forEach((section, i) => {
+      gsap.set(section, { zIndex: i + 1 });
+
+      const inner = section.querySelector('.flow-inner');
+      if (!inner) return;
+
+      // All sections except the first rotate in from 30deg
+      if (i > 0) {
+        gsap.set(inner, { rotation: 30, transformOrigin: 'bottom left' });
+        const tween = gsap.to(inner, {
+          rotation: 0,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: section,
+            start: 'top bottom',
+            end: 'top 25%',
+            scrub: true,
+          },
+        });
+        if (tween.scrollTrigger) triggers.push(tween.scrollTrigger);
+      }
+
+      // Pin all sections except the last
+      if (i < sections.length - 1) {
+        triggers.push(
+          ScrollTrigger.create({
+            trigger: section,
+            start: 'bottom bottom',
+            end: 'bottom top',
+            pin: true,
+            pinSpacing: false,
+          })
+        );
+      }
+    });
+
+    ScrollTrigger.refresh();
+  }
+})();
+</script>
+</body>
+</html>
