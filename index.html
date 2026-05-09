@@ -323,13 +323,8 @@
 
         <!-- Right: contact form -->
         <div>
-          <form id="contact-form" style="display:flex; flex-direction:column; gap:1rem;">
-
-            <!-- Web3Forms access key - sends to xrpbusinessx@gmail.com after verification -->
-            <input type="hidden" name="access_key" value="YOUR_WEB3FORMS_KEY"/>
-            <input type="hidden" name="subject" value="New NexoCorp Enquiry"/>
-            <input type="hidden" name="from_name" value="NexoCorp Website"/>
-            <input type="checkbox" name="botcheck" style="display:none;"/>
+          <!-- ✅ FIX: action points to Formspree; Web3Forms hidden fields removed -->
+          <form id="contact-form" action="https://formspree.io/f/mnjwgrej" style="display:flex; flex-direction:column; gap:1rem;">
 
             <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem;">
               <div>
@@ -430,6 +425,7 @@
       }
     });
   }
+
   window.addEventListener('scroll', () => {
     navbar.classList.toggle('scrolled', window.scrollY > 10);
   }, { passive: true });
