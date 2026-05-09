@@ -323,12 +323,18 @@
 
         <!-- Right: contact form -->
         <div>
-          <form id="contact-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST" style="display:flex; flex-direction:column; gap:1rem;">
+          <form id="contact-form" style="display:flex; flex-direction:column; gap:1rem;">
+
+            <!-- Web3Forms access key - sends to xrpbusinessx@gmail.com after verification -->
+            <input type="hidden" name="access_key" value="YOUR_WEB3FORMS_KEY"/>
+            <input type="hidden" name="subject" value="New NexoCorp Enquiry"/>
+            <input type="hidden" name="from_name" value="NexoCorp Website"/>
+            <input type="checkbox" name="botcheck" style="display:none;"/>
 
             <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem;">
               <div>
                 <label style="font-size:0.72rem; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; color:rgba(255,255,255,0.4); display:block; margin-bottom:0.5rem;">Your Name</label>
-                <input type="text" name="name" required placeholder="Dev Pawar"
+                <input type="text" name="name" required placeholder="Your name"
                   style="width:100%; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.12); border-radius:10px; padding:12px 16px; color:#fff; font-size:0.95rem; font-family:inherit; outline:none; transition:border-color 0.2s;"
                   onfocus="this.style.borderColor='#006a41'" onblur="this.style.borderColor='rgba(255,255,255,0.12)'"/>
               </div>
@@ -360,14 +366,13 @@
                 onfocus="this.style.borderColor='#006a41'" onblur="this.style.borderColor='rgba(255,255,255,0.12)'"></textarea>
             </div>
 
-            <button type="submit"
-              style="background:#d97706; color:#fff; font-weight:700; font-size:1rem; padding:14px 28px; border-radius:10px; border:none; cursor:pointer; font-family:inherit; transition:background 0.15s, transform 0.1s; text-align:left; display:flex; align-items:center; justify-content:space-between;"
+            <button type="submit" id="submit-btn"
+              style="background:#d97706; color:#fff; font-weight:700; font-size:1rem; padding:14px 28px; border-radius:10px; border:none; cursor:pointer; font-family:inherit; transition:background 0.15s; display:flex; align-items:center; justify-content:space-between;"
               onmouseover="this.style.background='#b45309'" onmouseout="this.style.background='#d97706'">
               <span>Send Message</span>
               <span>→</span>
             </button>
 
-            <!-- Success message (hidden by default) -->
             <div id="form-success" style="display:none; background:rgba(0,106,65,0.2); border:1px solid #006a41; border-radius:10px; padding:14px 18px; color:#6ee7b7; font-size:0.9rem; font-weight:600;">
               ✅ Message sent! I'll get back to you within 24 hours.
             </div>
