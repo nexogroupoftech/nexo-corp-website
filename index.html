@@ -291,23 +291,96 @@
     </div>
   </section>
 
-  <!-- 05 Join us -->
-  <section class="flow-section" aria-label="Join us" id="contact" style="background:#111; color:#fff;">
+  <!-- 05 Contact -->
+  <section class="flow-section" aria-label="Contact us" id="contact" style="background:#111; color:#fff;">
     <div class="flow-inner">
-      <p class="section-label" style="opacity:0.45">05 — Join us</p>
+      <p class="section-label" style="opacity:0.45">05 — Get in touch</p>
       <hr class="flow-hr"/>
-      <div>
-        <h2 class="section-title">Ready<br/>To<br/>Begin?</h2>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:4vw; align-items:start; flex:1;">
+
+        <!-- Left: heading + info -->
+        <div>
+          <h2 class="section-title" style="font-size:clamp(2.5rem,7vw,8rem);">Ready<br/>To<br/>Begin?</h2>
+          <hr class="flow-hr" style="margin:2rem 0;"/>
+          <p class="section-body" style="color:rgba(255,255,255,0.65); font-size:1rem; max-width:36ch;">
+            Tell us what you need — an Instagram agent, WhatsApp bot, a full product, or anything else. We'll get back to you fast.
+          </p>
+          <div style="margin-top:2.5rem; display:flex; flex-direction:column; gap:1.25rem;">
+            <div style="display:flex; align-items:center; gap:0.75rem;">
+              <span style="font-size:1.2rem;">📧</span>
+              <span style="font-size:0.9rem; color:rgba(255,255,255,0.5);">xrpbusinessx@gmail.com</span>
+            </div>
+            <div style="display:flex; align-items:center; gap:0.75rem;">
+              <span style="font-size:1.2rem;">📍</span>
+              <span style="font-size:0.9rem; color:rgba(255,255,255,0.5);">India · Remote worldwide</span>
+            </div>
+            <div style="display:flex; align-items:center; gap:0.75rem;">
+              <span style="font-size:1.2rem;">⚡</span>
+              <span style="font-size:0.9rem; color:rgba(255,255,255,0.5);">Typical reply within 24 hours</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: contact form -->
+        <div>
+          <form id="contact-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST" style="display:flex; flex-direction:column; gap:1rem;">
+
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem;">
+              <div>
+                <label style="font-size:0.72rem; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; color:rgba(255,255,255,0.4); display:block; margin-bottom:0.5rem;">Your Name</label>
+                <input type="text" name="name" required placeholder="Dev Pawar"
+                  style="width:100%; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.12); border-radius:10px; padding:12px 16px; color:#fff; font-size:0.95rem; font-family:inherit; outline:none; transition:border-color 0.2s;"
+                  onfocus="this.style.borderColor='#006a41'" onblur="this.style.borderColor='rgba(255,255,255,0.12)'"/>
+              </div>
+              <div>
+                <label style="font-size:0.72rem; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; color:rgba(255,255,255,0.4); display:block; margin-bottom:0.5rem;">Your Email</label>
+                <input type="email" name="email" required placeholder="you@email.com"
+                  style="width:100%; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.12); border-radius:10px; padding:12px 16px; color:#fff; font-size:0.95rem; font-family:inherit; outline:none; transition:border-color 0.2s;"
+                  onfocus="this.style.borderColor='#006a41'" onblur="this.style.borderColor='rgba(255,255,255,0.12)'"/>
+              </div>
+            </div>
+
+            <div>
+              <label style="font-size:0.72rem; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; color:rgba(255,255,255,0.4); display:block; margin-bottom:0.5rem;">I'm interested in</label>
+              <select name="service"
+                style="width:100%; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.12); border-radius:10px; padding:12px 16px; color:#fff; font-size:0.95rem; font-family:inherit; outline:none; cursor:pointer;">
+                <option value="" style="background:#111;">Select a service...</option>
+                <option value="Instagram AI Agent" style="background:#111;">📸 Instagram AI Agent</option>
+                <option value="WhatsApp AI Agent" style="background:#111;">💬 WhatsApp AI Agent</option>
+                <option value="Other Automation Agent" style="background:#111;">🤖 Other Automation Agent</option>
+                <option value="Custom Product Build" style="background:#111;">🛠️ Custom Product Build</option>
+                <option value="General Enquiry" style="background:#111;">💬 General Enquiry</option>
+              </select>
+            </div>
+
+            <div>
+              <label style="font-size:0.72rem; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; color:rgba(255,255,255,0.4); display:block; margin-bottom:0.5rem;">Message</label>
+              <textarea name="message" required rows="4" placeholder="Tell me what you need, your budget, timeline..."
+                style="width:100%; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.12); border-radius:10px; padding:12px 16px; color:#fff; font-size:0.95rem; font-family:inherit; outline:none; resize:vertical; transition:border-color 0.2s;"
+                onfocus="this.style.borderColor='#006a41'" onblur="this.style.borderColor='rgba(255,255,255,0.12)'"></textarea>
+            </div>
+
+            <button type="submit"
+              style="background:#d97706; color:#fff; font-weight:700; font-size:1rem; padding:14px 28px; border-radius:10px; border:none; cursor:pointer; font-family:inherit; transition:background 0.15s, transform 0.1s; text-align:left; display:flex; align-items:center; justify-content:space-between;"
+              onmouseover="this.style.background='#b45309'" onmouseout="this.style.background='#d97706'">
+              <span>Send Message</span>
+              <span>→</span>
+            </button>
+
+            <!-- Success message (hidden by default) -->
+            <div id="form-success" style="display:none; background:rgba(0,106,65,0.2); border:1px solid #006a41; border-radius:10px; padding:14px 18px; color:#6ee7b7; font-size:0.9rem; font-weight:600;">
+              ✅ Message sent! I'll get back to you within 24 hours.
+            </div>
+            <div id="form-error" style="display:none; background:rgba(200,0,0,0.15); border:1px solid rgba(200,0,0,0.3); border-radius:10px; padding:14px 18px; color:#fca5a5; font-size:0.9rem; font-weight:600;">
+              ❌ Something went wrong. Please email xrpbusinessx@gmail.com directly.
+            </div>
+
+          </form>
+        </div>
+
       </div>
-      <hr class="flow-hr"/>
-      <p class="section-body">
-        Take control of your digital future. Let's build something that outlasts the hype —
-        together.
-      </p>
-      <div style="display:flex; gap:1rem; flex-wrap:wrap; margin-top:auto;">
-        <a class="cta-btn" href="mailto:hello@nexocorp.online">hello@nexocorp.online →</a>
-      </div>
-      <div style="margin-top:2rem; opacity:0.3; font-size:0.8rem;">
+
+      <div style="margin-top:auto; padding-top:2rem; opacity:0.25; font-size:0.8rem; border-top:1px solid rgba(255,255,255,0.08);">
         © 2024 NexoCorp. All rights reserved.
       </div>
     </div>
@@ -320,8 +393,38 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <script>
 (function () {
-  // Navbar scroll class
-  const navbar = document.getElementById('navbar');
+  // Contact form handler
+  const form = document.getElementById('contact-form');
+  if (form) {
+    form.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const btn = form.querySelector('button[type="submit"]');
+      const success = document.getElementById('form-success');
+      const error = document.getElementById('form-error');
+      btn.textContent = 'Sending...';
+      btn.disabled = true;
+      try {
+        const res = await fetch(form.action, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { 'Accept': 'application/json' }
+        });
+        if (res.ok) {
+          form.reset();
+          success.style.display = 'block';
+          error.style.display = 'none';
+          btn.textContent = 'Sent ✓';
+        } else {
+          throw new Error('Failed');
+        }
+      } catch {
+        error.style.display = 'block';
+        success.style.display = 'none';
+        btn.innerHTML = '<span>Send Message</span><span>→</span>';
+        btn.disabled = false;
+      }
+    });
+  }
   window.addEventListener('scroll', () => {
     navbar.classList.toggle('scrolled', window.scrollY > 10);
   }, { passive: true });
