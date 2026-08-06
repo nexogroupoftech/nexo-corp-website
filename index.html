@@ -1,483 +1,343 @@
 <!DOCTYPE html>
-<html class="light" lang="en">
+<html>
 <head>
-  <meta charset="utf-8"/>
-  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-  <title>NexoCorp — Building Intelligent Products</title>
-  <link rel="icon" type="image/svg+xml" href="favicon.svg"/>
-  <link rel="shortcut icon" href="favicon.svg"/>
-  <meta name="theme-color" content="#006a41"/>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
-  <script src="https://cdn.tailwindcss.com/3.4.1"></script>
-  <script>
-    tailwind.config = {
-      darkMode: 'class',
-      theme: {
-        extend: {
-          colors: {
-            primary: '#006a41',
-            amber: '#d97706',
-          },
-          fontFamily: {
-            sans: ['Plus Jakarta Sans', 'ui-sans-serif', 'system-ui', 'sans-serif'],
-          }
-        }
-      }
-    }
-  </script>
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-    body { font-family: 'Plus Jakarta Sans', sans-serif; overflow-x: hidden; }
-
-    /* ── Navbar ── */
-    #navbar {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 9999;
-      background: #fff;
-      border-bottom: 1px solid rgba(0,0,0,0.08);
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 0 5vw; height: 64px;
-      transition: box-shadow 0.2s;
-    }
-    #navbar.scrolled { box-shadow: 0 2px 16px rgba(0,0,0,0.10); }
-    .nav-logo { font-size: 1.2rem; font-weight: 800; color: #111; letter-spacing: -0.03em; }
-    .nav-links { display: flex; gap: 2rem; list-style: none; }
-    .nav-links a { font-size: 0.95rem; font-weight: 500; color: #444; text-decoration: none; border-bottom: 2px solid transparent; padding-bottom: 2px; transition: color 0.15s, border-color 0.15s; }
-    .nav-links a:hover, .nav-links a.active { color: #006a41; border-color: #006a41; }
-    .nav-cta { background: #d97706; color: #fff; font-weight: 700; font-size: 0.9rem; padding: 10px 22px; border-radius: 8px; text-decoration: none; transition: background 0.15s, transform 0.1s; }
-    .nav-cta:hover { background: #b45309; transform: translateY(-1px); }
-    @media (max-width: 768px) {
-      .nav-links { display: none; }
-    }
-
-    /* ── FlowArt Scroll ── */
-    #flow-root { padding-top: 64px; width: 100%; overflow-x: hidden; }
-
-    .flow-section {
-      position: relative; min-height: 100vh; width: 100%; overflow: hidden;
-    }
-    .flow-inner {
-      position: relative;
-      display: flex; flex-direction: column; justify-content: space-between;
-      gap: clamp(1rem, 3vw, 2rem);
-      min-height: 100vh; width: 100%;
-      padding: clamp(2rem,8vw,4vw) 4vw 4vw;
-      transform-origin: bottom left;
-      will-change: transform;
-    }
-    .flow-hr {
-      border: none;
-      border-top: 1px solid currentColor;
-      opacity: 0.2;
-      margin: 0;
-    }
-    .flow-hr.strong { opacity: 0.5; }
-    .section-label {
-      font-size: 0.72rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase;
-    }
-    .section-title {
-      font-size: clamp(3rem,11vw,13rem);
-      font-weight: 800;
-      line-height: 0.88;
-      text-transform: uppercase;
-      letter-spacing: -0.03em;
-    }
-    .section-body {
-      max-width: 50ch;
-      font-size: clamp(1rem,2.2vw,1.75rem);
-      font-weight: 400;
-      line-height: 1.5;
-      opacity: 0.9;
-    }
-    .grid-3 {
-      display: flex; flex-wrap: wrap; gap: clamp(1rem,3vw,2.5rem);
-    }
-    .grid-3 > div { min-width: 160px; flex: 1; }
-    .grid-label {
-      font-size: 0.78rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
-      margin-bottom: 0.4rem;
-    }
-    .grid-body {
-      font-size: clamp(0.82rem,1.2vw,1rem);
-      line-height: 1.65;
-      opacity: 0.7;
-    }
-
-    /* ── CTA Button inside sections ── */
-    .cta-btn {
-      display: inline-block;
-      background: #d97706; color: #fff;
-      font-weight: 700; font-size: 1rem;
-      padding: 14px 32px; border-radius: 8px;
-      text-decoration: none; transition: background 0.15s, transform 0.1s;
-      align-self: flex-start;
-    }
-    .cta-btn:hover { background: #b45309; transform: translateY(-2px); }
-    .cta-btn.dark { background: #fff; color: #111; }
-    .cta-btn.dark:hover { background: #f3f4f6; }
-
-    /* ── Reduced motion ── */
-    @media (prefers-reduced-motion: reduce) {
-      .flow-inner { transform: none !important; }
-    }
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
 </head>
 <body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&amp;family=Inter+Tight:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+<style>
+  body{margin:0;background:#ECE6DB;background-image:radial-gradient(ellipse 1400px 900px at 50% 0%, rgba(255,250,240,0.5), transparent 60%), radial-gradient(ellipse 1200px 800px at 100% 100%, rgba(0,0,0,0.04), transparent 60%);}
+  a{color:#2B4FC9;text-decoration:none}
+  a:hover{color:#1A1814}
+  @keyframes ribbonFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+</style>
+</helmet>
 
-<!-- ══════════ NAVBAR ══════════ -->
-<nav id="navbar" aria-label="Main navigation">
-  <a class="nav-logo" href="#">NexoCorp</a>
-  <ul class="nav-links">
-    <li><a href="index.html" class="active">Home</a></li>
-    <li><a href="about.html">About</a></li>
-    <li><a href="projects.html">Tools</a></li>
-    <li><a href="founder.html">Founder</a></li>
-    <li><a href="#contact">Contact</a></li>
-  </ul>
-  <a class="nav-cta" href="#contact">Get in Touch</a>
+<div style="font-family:'Inter Tight',sans-serif;color:#1A1814;-webkit-font-smoothing:antialiased;overflow-x:hidden;min-height:100vh" data-screen-label="Nexo.corp — single page">
+
+<!-- NAV -->
+<nav style="display:flex;align-items:center;justify-content:space-between;padding:22px 6%;position:sticky;top:0;z-index:100;backdrop-filter:blur(8px);background:rgba(236,230,219,0.82);border-bottom:1px solid #C9C0B0">
+  <div style="display:flex;align-items:center;gap:12px;font-weight:600;font-size:17px;letter-spacing:-0.01em">
+    <div style="width:34px;height:18px;border-radius:999px;position:relative;overflow:hidden;background:linear-gradient(90deg,#2B4FC9 0%,#2B4FC9 33%,#F45A55 33%,#F45A55 66%,#E07A18 66%,#E07A18 100%);box-shadow:inset 0 1px 0 rgba(255,255,255,0.3)"></div>
+    <span>Nexocorp</span>
+  </div>
+  <div style="display:flex;gap:30px;font-size:14px;color:#4A453D;font-weight:500">
+    <a href="#home" style="color:#1A1814">Home</a>
+    <a href="#about" style="color:#1A1814">About</a>
+    <a href="#services" style="color:#1A1814">Services</a>
+    <a href="#tools" style="color:#1A1814">Tools</a>
+    <a href="#founder" style="color:#1A1814">Founder</a>
+    <a href="#privacy" style="color:#1A1814">Privacy</a>
+  </div>
+  <a href="mailto:xrpbusinessx@gmail.com" style="font-family:'JetBrains Mono',monospace;font-size:13px;color:#1A1814">xrpbusinessx@gmail.com</a>
 </nav>
 
-<!-- ══════════ FLOW SCROLL ══════════ -->
-<main id="flow-root" aria-label="NexoCorp Story">
-
-  <!-- 01 Who we are -->
-  <section class="flow-section" aria-label="Who we are" style="background:#006a41; color:#fff;">
-    <div class="flow-inner">
-      <p class="section-label" style="opacity:0.7">01 — Who we are</p>
-      <hr class="flow-hr strong"/>
-      <div>
-        <h1 class="section-title">Build<br/>Without<br/>Limits</h1>
-      </div>
-      <hr class="flow-hr strong"/>
-      <p class="section-body">
-        We are an AI-native studio designing intelligent products, platforms, and experiences
-        that define how the future feels. No fluff — just real tools for the real world.
-      </p>
-      <div style="display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap; margin-top:auto;">
-        <a class="cta-btn dark" href="#contact">Start a Project →</a>
-        <span style="font-size:0.85rem; opacity:0.6">Est. 2024 · AI-Native Studio</span>
-      </div>
+<!-- HERO -->
+<section id="home" style="padding:88px 6% 100px;display:grid;grid-template-columns:1.1fr 1fr;gap:60px;align-items:center">
+  <div>
+    <div style="display:flex;align-items:center;gap:10px;font-family:'JetBrains Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:0.14em;color:#4A453D;margin-bottom:28px">
+      <span style="width:8px;height:8px;border-radius:999px;background:linear-gradient(90deg,#F45A55,#E07A18)"></span>
+      <span>Est. 2024 · AI-Native Studio</span>
     </div>
-  </section>
-
-  <!-- 02 The Mission -->
-  <section class="flow-section" aria-label="The mission" style="background:#000; color:#fff;">
-    <div class="flow-inner">
-      <p class="section-label" style="opacity:0.55">02 — The mission</p>
-      <hr class="flow-hr"/>
-      <div>
-        <h2 class="section-title">AI<br/>First.<br/>Always.</h2>
-      </div>
-      <hr class="flow-hr"/>
-      <p class="section-body">
-        A global studio built on the belief that AI should amplify human potential —
-        not replace it. We craft products that matter, with honesty and precision.
-      </p>
-      <hr class="flow-hr"/>
-      <div class="grid-3">
-        <div>
-          <p class="grid-label">Intelligence</p>
-          <p class="grid-body">Every product we ship is powered by cutting-edge AI that actually solves problems — not demo-ware.</p>
-        </div>
-        <div>
-          <p class="grid-label">Craft</p>
-          <p class="grid-body">Design and engineering treated as one discipline. Beautiful code, beautiful interfaces.</p>
-        </div>
-        <div>
-          <p class="grid-label">Speed</p>
-          <p class="grid-body">From idea to launch in weeks, not months. We move fast without breaking things.</p>
-        </div>
-      </div>
-      <hr class="flow-hr"/>
-      <div class="grid-3">
-        <div>
-          <p class="grid-label">Research</p>
-          <p class="grid-body">Deep expertise in LLMs, agents, and automation — applied to real-world workflows.</p>
-        </div>
-        <div>
-          <p class="grid-label">Strategy</p>
-          <p class="grid-body">We help founders and enterprises find their AI edge before competitors do.</p>
-        </div>
-        <div>
-          <p class="grid-label">Community</p>
-          <p class="grid-body">An open network of builders, researchers, and entrepreneurs shaping the next era.</p>
-        </div>
-      </div>
-      <hr class="flow-hr"/>
-      <p class="section-body" style="margin-top:auto; margin-left:auto; text-align:right;">
-        Every feature we build starts with one question — does this genuinely help?
-      </p>
+    <h1 style="font-family:'Instrument Serif',serif;font-weight:400;font-size:72px;line-height:0.98;letter-spacing:-0.02em;margin:0 0 28px">We build <em style="font-style:italic;background:linear-gradient(90deg,#2B4FC9,#7A5AC9 40%,#F45A55 70%,#E07A18);-webkit-background-clip:text;background-clip:text;color:transparent">things that actually work.</em></h1>
+    <p style="font-size:18px;line-height:1.55;color:#4A453D;max-width:480px;margin:0 0 36px">NexoCorp is a modern technology studio focused on building clean, intelligent, and user-first digital products. No buzzwords. No bloat. Just clarity.</p>
+    <div style="display:flex;gap:14px;align-items:center;flex-wrap:wrap">
+      <a href="#contact" style="display:flex;align-items:center;justify-content:center;height:44px;padding:0 22px;border-radius:999px;font-weight:600;font-size:14px;color:#fff;background:linear-gradient(180deg,rgba(255,255,255,0.22) 0%,transparent 35%,rgba(0,0,0,0.18) 100%),linear-gradient(90deg,#2B4FC9 0%,#2B4FC9 34%,#F45A55 34%,#F45A55 67%,#E07A18 67%,#E07A18 100%);box-shadow:0 2px 0 rgba(0,0,0,0.15),0 8px 22px rgba(26,24,20,0.12)">Start a project →</a>
+      <a href="#services" style="display:flex;align-items:center;justify-content:center;height:44px;padding:0 22px;border-radius:999px;font-weight:600;font-size:14px;color:#1A1814;border:1px solid #1A1814">See what we build</a>
     </div>
-  </section>
+  </div>
+  <div style="position:relative;height:420px;display:flex;align-items:center;justify-content:center">
+    <div style="position:absolute;width:420px;height:100px;top:20px;left:10px;transform:rotate(-12deg);border-radius:999px;overflow:hidden;box-shadow:0 20px 60px rgba(26,24,20,0.15),inset 0 1px 0 rgba(255,255,255,0.15);background:linear-gradient(90deg,#2B4FC9 0%,#2B4FC9 28%,#1F6B3F 28%,#1F6B3F 55%,#E07A18 55%,#E07A18 100%);animation:ribbonFloat 9s ease-in-out infinite"></div>
+    <div style="position:absolute;width:440px;height:100px;top:150px;left:-10px;transform:rotate(14deg);border-radius:999px;overflow:hidden;box-shadow:0 20px 60px rgba(26,24,20,0.15),inset 0 1px 0 rgba(255,255,255,0.15);background:linear-gradient(90deg,#E07A18 0%,#E07A18 25%,#F45A55 25%,#F45A55 55%,#F49AB8 55%,#F49AB8 80%,#7A5AC9 80%,#7A5AC9 100%);animation:ribbonFloat 11s ease-in-out infinite -2s"></div>
+    <div style="position:absolute;width:400px;height:100px;top:280px;left:30px;transform:rotate(-8deg);border-radius:999px;overflow:hidden;box-shadow:0 20px 60px rgba(26,24,20,0.15),inset 0 1px 0 rgba(255,255,255,0.15);background:linear-gradient(90deg,#7A5AC9 0%,#7A5AC9 30%,#3A3FB0 30%,#3A3FB0 60%,#7BB8E8 60%,#7BB8E8 100%);animation:ribbonFloat 10s ease-in-out infinite -4s"></div>
+  </div>
+</section>
 
-  <!-- 03 How it works -->
-  <section class="flow-section" aria-label="How it works" style="background:#F5F0E8; color:#111;">
-    <div class="flow-inner">
-      <p class="section-label" style="opacity:0.5">03 — How it works</p>
-      <hr class="flow-hr strong"/>
-      <div>
-        <h2 class="section-title">Think.<br/>Build.<br/>Ship.</h2>
-      </div>
-      <hr class="flow-hr strong"/>
-      <p class="section-body">
-        Three phases. Zero bloat. Your product moves from whiteboard to production the moment
-        we align on the vision.
-      </p>
-      <hr class="flow-hr strong"/>
-      <div class="grid-3">
-        <div>
-          <p class="grid-label">01 — Discover</p>
-          <p class="grid-body">We map your goals, constraints, and AI opportunities in a focused strategy sprint.</p>
-        </div>
-        <div>
-          <p class="grid-label">02 — Design</p>
-          <p class="grid-body">Rapid prototyping with real AI models — see it working before a single line of prod code.</p>
-        </div>
-        <div>
-          <p class="grid-label">03 — Build</p>
-          <p class="grid-body">Full-stack engineering with AI at the core — scalable, maintainable, production-ready.</p>
-        </div>
-      </div>
-      <hr class="flow-hr strong"/>
-      <div class="grid-3">
-        <div>
-          <p class="grid-label">04 — Launch</p>
-          <p class="grid-body">Deploy, monitor, and iterate. We stay on until you're confident and growing.</p>
-        </div>
-        <div>
-          <p class="grid-label">05 — Grow</p>
-          <p class="grid-body">Ongoing AI enhancements, feature expansion, and performance tuning as you scale.</p>
-        </div>
-        <div>
-          <p class="grid-label">06 — Evolve</p>
-          <p class="grid-body">The AI landscape moves fast. Your product should too — we keep you ahead.</p>
-        </div>
-      </div>
+<!-- ABOUT / MISSION -->
+<section id="about" style="padding:120px 6%;border-top:1px solid #C9C0B0">
+  <div style="font-family:'JetBrains Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:0.14em;color:#2B4FC9;margin-bottom:16px">Our mission</div>
+  <h2 style="font-family:'Instrument Serif',serif;font-weight:400;font-size:56px;line-height:1;letter-spacing:-0.02em;margin:0 0 24px;max-width:16ch">Technology that respects your intelligence.</h2>
+  <p style="font-size:17px;line-height:1.65;color:#4A453D;max-width:64ch;margin:0 0 48px">NexoCorp was founded with a clear intent: build technology that respects intelligence, time, and long-term thinking. The studio operates with restraint, focus, and personal ownership. There is no rush to scale — only a commitment to quality and clarity.</p>
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:32px;padding-top:40px;border-top:1px solid #C9C0B0">
+    <div><div style="font-family:'Instrument Serif',serif;font-size:44px;color:#2B4FC9">2024</div><div style="font-family:'JetBrains Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:0.1em;color:#4A453D;margin-top:6px">Founded</div></div>
+    <div><div style="font-family:'Instrument Serif',serif;font-size:44px;color:#2B4FC9">100%</div><div style="font-family:'JetBrains Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:0.1em;color:#4A453D;margin-top:6px">Independent</div></div>
+    <div><div style="font-family:'Instrument Serif',serif;font-size:44px;color:#2B4FC9">AI-First</div><div style="font-family:'JetBrains Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:0.1em;color:#4A453D;margin-top:6px">Always</div></div>
+    <div><div style="font-family:'Instrument Serif',serif;font-size:44px;color:#2B4FC9">0</div><div style="font-family:'JetBrains Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:0.1em;color:#4A453D;margin-top:6px">Fluff. Zero.</div></div>
+  </div>
+</section>
+
+<!-- VALUES -->
+<section style="padding:0 6% 120px">
+  <div style="font-family:'JetBrains Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:0.14em;color:#2B4FC9;margin-bottom:16px">What we stand for</div>
+  <h2 style="font-family:'Instrument Serif',serif;font-weight:400;font-size:44px;letter-spacing:-0.02em;margin:0 0 40px">Our values.</h2>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1px;background:#C9C0B0;border-top:1px solid #C9C0B0;border-bottom:1px solid #C9C0B0">
+    <div style="background:#ECE6DB;padding:32px 28px"><div style="width:64px;height:26px;border-radius:999px;margin-bottom:18px;background:linear-gradient(90deg,#2B4FC9 0%,#2B4FC9 45%,#1F6B3F 45%,#1F6B3F 100%)"></div><h3 style="font-family:'Instrument Serif',serif;font-weight:400;font-size:22px;margin:0 0 8px">Clarity first</h3><p style="font-size:14px;line-height:1.6;color:#4A453D;margin:0">We cut through noise. Every decision, every line of code, every product has a clear reason to exist.</p></div>
+    <div style="background:#ECE6DB;padding:32px 28px"><div style="width:64px;height:26px;border-radius:999px;margin-bottom:18px;background:linear-gradient(90deg,#E07A18 0%,#E07A18 40%,#F45A55 40%,#F45A55 75%,#F49AB8 75%,#F49AB8 100%)"></div><h3 style="font-family:'Instrument Serif',serif;font-weight:400;font-size:22px;margin:0 0 8px">Move fast, stay right</h3><p style="font-size:14px;line-height:1.6;color:#4A453D;margin:0">Speed without recklessness. We ship fast but we own our output — quality is non-negotiable.</p></div>
+    <div style="background:#ECE6DB;padding:32px 28px"><div style="width:64px;height:26px;border-radius:999px;margin-bottom:18px;background:linear-gradient(90deg,#7A5AC9 0%,#7A5AC9 50%,#3A3FB0 50%,#3A3FB0 100%)"></div><h3 style="font-family:'Instrument Serif',serif;font-weight:400;font-size:22px;margin:0 0 8px">Intelligence by design</h3><p style="font-size:14px;line-height:1.6;color:#4A453D;margin:0">AI is a first-class citizen in everything we build — not a feature bolted on at the end.</p></div>
+    <div style="background:#ECE6DB;padding:32px 28px"><div style="width:64px;height:26px;border-radius:999px;margin-bottom:18px;background:linear-gradient(90deg,#7BB8E8 0%,#7BB8E8 50%,#1A1814 50%,#1A1814 100%)"></div><h3 style="font-family:'Instrument Serif',serif;font-weight:400;font-size:22px;margin:0 0 8px">Personal ownership</h3><p style="font-size:14px;line-height:1.6;color:#4A453D;margin:0">We operate with full accountability. Small team, big responsibility, zero finger-pointing.</p></div>
+    <div style="background:#ECE6DB;padding:32px 28px"><div style="width:64px;height:26px;border-radius:999px;margin-bottom:18px;background:linear-gradient(90deg,#1F6B3F 0%,#1F6B3F 40%,#E07A18 40%,#E07A18 100%)"></div><h3 style="font-family:'Instrument Serif',serif;font-weight:400;font-size:22px;margin:0 0 8px">Built for everyone</h3><p style="font-size:14px;line-height:1.6;color:#4A453D;margin:0">Our tools are designed to be accessible and useful — regardless of technical background.</p></div>
+    <div style="background:#ECE6DB;padding:32px 28px"><div style="width:64px;height:26px;border-radius:999px;margin-bottom:18px;background:linear-gradient(90deg,#F45A55 0%,#F45A55 33%,#7A5AC9 33%,#7A5AC9 66%,#2B4FC9 66%,#2B4FC9 100%)"></div><h3 style="font-family:'Instrument Serif',serif;font-weight:400;font-size:22px;margin:0 0 8px">Restraint as craft</h3><p style="font-size:14px;line-height:1.6;color:#4A453D;margin:0">We don't add features just because we can. What we leave out is as important as what we include.</p></div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services" style="padding:0 6% 120px">
+  <div style="font-family:'JetBrains Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:0.14em;color:#2B4FC9;margin-bottom:16px">What we offer</div>
+  <h2 style="font-family:'Instrument Serif',serif;font-weight:400;font-size:44px;letter-spacing:-0.02em;margin:0 0 20px">Our services.</h2>
+  <p style="font-size:16px;line-height:1.65;color:#4A453D;max-width:70ch;margin:0 0 44px">Beyond building our own products, we build intelligent automation agents for businesses — AI-powered systems that work 24/7, handle conversations, and close the gap between human effort and real results.</p>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px;margin-bottom:44px">
+    <div style="background:#fff;border:1px solid #C9C0B0;border-radius:16px;padding:32px">
+      <div style="width:56px;height:24px;border-radius:999px;margin-bottom:16px;background:linear-gradient(90deg,#F45A55 0%,#F45A55 50%,#E07A18 50%,#E07A18 100%)"></div>
+      <div style="display:inline-block;font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;background:#F45A55;color:#fff;padding:4px 10px;border-radius:100px;margin-bottom:14px">Most popular</div>
+      <h3 style="font-family:'Instrument Serif',serif;font-weight:400;font-size:26px;margin:0 0 10px">Instagram AI Agents</h3>
+      <p style="font-size:14px;line-height:1.65;color:#4A453D;margin:0 0 18px">Fully automated Instagram agents that engage your audience, reply to DMs, handle comments, qualify leads, and nurture followers — around the clock, without you lifting a finger.</p>
+      <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:8px;font-size:13px;color:#1A1814">
+        <li>Auto-reply to DMs with context-aware AI responses</li>
+        <li>Comment moderation &amp; intelligent engagement</li>
+        <li>Lead qualification via conversation flows</li>
+        <li>Story mention tracking &amp; auto-responses</li>
+      </ul>
     </div>
-  </section>
-
-  <!-- 04 Tools -->
-  <section class="flow-section" aria-label="Our tools" id="tools" style="background:#006a41; color:#fff;">
-    <div class="flow-inner">
-      <p class="section-label" style="opacity:0.65">04 — Our tools</p>
-      <hr class="flow-hr strong"/>
-      <div>
-        <h2 class="section-title">Smart<br/>Tools.<br/>Real<br/>Impact.</h2>
-      </div>
-      <hr class="flow-hr strong"/>
-      <p class="section-body">
-        We're not just consultants — we build and ship our own AI-native tools that the world
-        actually uses every day.
-      </p>
-      <hr class="flow-hr strong"/>
-      <div class="grid-3">
-        <div>
-          <p class="grid-label" style="color:#d1fae5">Community Platform</p>
-          <p class="grid-body">A space for AI builders and founders to connect, share, and collaborate on what's next.</p>
-        </div>
-        <div>
-          <p class="grid-label" style="color:#d1fae5">AI Workflows</p>
-          <p class="grid-body">Custom automation pipelines that eliminate repetitive work and surface insights instantly.</p>
-        </div>
-        <div>
-          <p class="grid-label" style="color:#d1fae5">Product Studio</p>
-          <p class="grid-body">End-to-end product design and engineering as a service — from zero to launch.</p>
-        </div>
-      </div>
-      <hr class="flow-hr strong"/>
-      <p class="section-body">
-        The digital era has been waiting for tools that think. We're building them — permanently.
-      </p>
+    <div style="background:#fff;border:1px solid #C9C0B0;border-radius:16px;padding:32px">
+      <div style="width:56px;height:24px;border-radius:999px;margin-bottom:16px;background:linear-gradient(90deg,#7BB8E8 0%,#7BB8E8 50%,#2B4FC9 50%,#2B4FC9 100%)"></div>
+      <div style="display:inline-block;font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;background:#1F6B3F;color:#fff;padding:4px 10px;border-radius:100px;margin-bottom:14px">Live &amp; ready</div>
+      <h3 style="font-family:'Instrument Serif',serif;font-weight:400;font-size:26px;margin:0 0 10px">WhatsApp AI Agents</h3>
+      <p style="font-size:14px;line-height:1.65;color:#4A453D;margin:0 0 18px">Deploy an AI agent directly on your WhatsApp Business number. It handles customer queries, books appointments, sends follow-ups, and converts conversations into customers — automatically.</p>
+      <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:8px;font-size:13px;color:#1A1814">
+        <li>Instant AI responses to customer queries 24/7</li>
+        <li>Appointment booking &amp; calendar integration</li>
+        <li>Order tracking &amp; status update automation</li>
+        <li>Multi-language support</li>
+      </ul>
     </div>
-  </section>
-
-  <!-- 05 Contact -->
-  <section class="flow-section" aria-label="Contact us" id="contact" style="background:#111; color:#fff;">
-    <div class="flow-inner">
-      <p class="section-label" style="opacity:0.45">05 — Get in touch</p>
-      <hr class="flow-hr"/>
-      <div style="display:grid; grid-template-columns:1fr 1fr; gap:4vw; align-items:start; flex:1;">
-
-        <!-- Left: heading + info -->
-        <div>
-          <h2 class="section-title" style="font-size:clamp(2.5rem,7vw,8rem);">Ready<br/>To<br/>Begin?</h2>
-          <hr class="flow-hr" style="margin:2rem 0;"/>
-          <p class="section-body" style="color:rgba(255,255,255,0.65); font-size:1rem; max-width:36ch;">
-            Tell us what you need — an Instagram agent, WhatsApp bot, a full product, or anything else. We'll get back to you fast.
-          </p>
-          <div style="margin-top:2.5rem; display:flex; flex-direction:column; gap:1.25rem;">
-            <div style="display:flex; align-items:center; gap:0.75rem;">
-              <span style="font-size:1.2rem;">📧</span>
-              <span style="font-size:0.9rem; color:rgba(255,255,255,0.5);">xrpbusinessx@gmail.com</span>
-            </div>
-            <div style="display:flex; align-items:center; gap:0.75rem;">
-              <span style="font-size:1.2rem;">📍</span>
-              <span style="font-size:0.9rem; color:rgba(255,255,255,0.5);">India · Remote worldwide</span>
-            </div>
-            <div style="display:flex; align-items:center; gap:0.75rem;">
-              <span style="font-size:1.2rem;">⚡</span>
-              <span style="font-size:0.9rem; color:rgba(255,255,255,0.5);">Typical reply within 24 hours</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Right: contact form -->
-        <div>
-          <!-- ✅ FIX: action points to Formspree; Web3Forms hidden fields removed -->
-          <form id="contact-form" action="https://formspree.io/f/mnjwgrej" style="display:flex; flex-direction:column; gap:1rem;">
-
-            <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem;">
-              <div>
-                <label style="font-size:0.72rem; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; color:rgba(255,255,255,0.4); display:block; margin-bottom:0.5rem;">Your Name</label>
-                <input type="text" name="name" required placeholder="Your name"
-                  style="width:100%; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.12); border-radius:10px; padding:12px 16px; color:#fff; font-size:0.95rem; font-family:inherit; outline:none; transition:border-color 0.2s;"
-                  onfocus="this.style.borderColor='#006a41'" onblur="this.style.borderColor='rgba(255,255,255,0.12)'"/>
-              </div>
-              <div>
-                <label style="font-size:0.72rem; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; color:rgba(255,255,255,0.4); display:block; margin-bottom:0.5rem;">Your Email</label>
-                <input type="email" name="email" required placeholder="you@email.com"
-                  style="width:100%; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.12); border-radius:10px; padding:12px 16px; color:#fff; font-size:0.95rem; font-family:inherit; outline:none; transition:border-color 0.2s;"
-                  onfocus="this.style.borderColor='#006a41'" onblur="this.style.borderColor='rgba(255,255,255,0.12)'"/>
-              </div>
-            </div>
-
-            <div>
-              <label style="font-size:0.72rem; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; color:rgba(255,255,255,0.4); display:block; margin-bottom:0.5rem;">I'm interested in</label>
-              <select name="service"
-                style="width:100%; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.12); border-radius:10px; padding:12px 16px; color:#fff; font-size:0.95rem; font-family:inherit; outline:none; cursor:pointer;">
-                <option value="" style="background:#111;">Select a service...</option>
-                <option value="Instagram AI Agent" style="background:#111;">📸 Instagram AI Agent</option>
-                <option value="WhatsApp AI Agent" style="background:#111;">💬 WhatsApp AI Agent</option>
-                <option value="Other Automation Agent" style="background:#111;">🤖 Other Automation Agent</option>
-                <option value="Custom Product Build" style="background:#111;">🛠️ Custom Product Build</option>
-                <option value="General Enquiry" style="background:#111;">💬 General Enquiry</option>
-              </select>
-            </div>
-
-            <div>
-              <label style="font-size:0.72rem; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; color:rgba(255,255,255,0.4); display:block; margin-bottom:0.5rem;">Message</label>
-              <textarea name="message" required rows="4" placeholder="Tell me what you need, your budget, timeline..."
-                style="width:100%; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.12); border-radius:10px; padding:12px 16px; color:#fff; font-size:0.95rem; font-family:inherit; outline:none; resize:vertical; transition:border-color 0.2s;"
-                onfocus="this.style.borderColor='#006a41'" onblur="this.style.borderColor='rgba(255,255,255,0.12)'"></textarea>
-            </div>
-
-            <button type="submit" id="submit-btn"
-              style="background:#d97706; color:#fff; font-weight:700; font-size:1rem; padding:14px 28px; border-radius:10px; border:none; cursor:pointer; font-family:inherit; transition:background 0.15s; display:flex; align-items:center; justify-content:space-between;"
-              onmouseover="this.style.background='#b45309'" onmouseout="this.style.background='#d97706'">
-              <span>Send Message</span>
-              <span>→</span>
-            </button>
-
-            <div id="form-success" style="display:none; background:rgba(0,106,65,0.2); border:1px solid #006a41; border-radius:10px; padding:14px 18px; color:#6ee7b7; font-size:0.9rem; font-weight:600;">
-              ✅ Message sent! I'll get back to you within 24 hours.
-            </div>
-            <div id="form-error" style="display:none; background:rgba(200,0,0,0.15); border:1px solid rgba(200,0,0,0.3); border-radius:10px; padding:14px 18px; color:#fca5a5; font-size:0.9rem; font-weight:600;">
-              ❌ Something went wrong. Please email xrpbusinessx@gmail.com directly.
-            </div>
-
-          </form>
-        </div>
-
-      </div>
-
-      <div style="margin-top:auto; padding-top:2rem; opacity:0.25; font-size:0.8rem; border-top:1px solid rgba(255,255,255,0.08);">
-        © 2024 NexoCorp. All rights reserved.
-      </div>
+    <div style="background:#fff;border:1px solid #C9C0B0;border-radius:16px;padding:32px">
+      <div style="width:56px;height:24px;border-radius:999px;margin-bottom:16px;background:linear-gradient(90deg,#7A5AC9 0%,#7A5AC9 50%,#3A3FB0 50%,#3A3FB0 100%)"></div>
+      <div style="display:inline-block;font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;background:#E07A18;color:#fff;padding:4px 10px;border-radius:100px;margin-bottom:14px">Custom builds</div>
+      <h3 style="font-family:'Instrument Serif',serif;font-weight:400;font-size:26px;margin:0 0 10px">Other Automation Agents</h3>
+      <p style="font-size:14px;line-height:1.65;color:#4A453D;margin:0 0 18px">Need something beyond Instagram and WhatsApp? We build custom AI agents for any platform or workflow — from email outreach to Telegram bots to full business process automation.</p>
+      <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:8px;font-size:13px;color:#1A1814">
+        <li>Email outreach &amp; follow-up agents</li>
+        <li>Telegram &amp; Discord community bots</li>
+        <li>CRM data entry &amp; enrichment automation</li>
+        <li>Custom agent built to your exact requirements</li>
+      </ul>
     </div>
-  </section>
+  </div>
+  <div style="background:#1A1814;color:#ECE6DB;border-radius:20px;padding:44px;display:flex;flex-wrap:wrap;gap:32px;align-items:center;justify-content:space-between">
+    <div>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:0.14em;color:#7BB8E8;margin-bottom:10px">Why AI agents?</div>
+      <h3 style="font-family:'Instrument Serif',serif;font-weight:400;font-size:32px;margin:0;max-width:20ch">Your business runs 24/7. Your team doesn't have to.</h3>
+    </div>
+    <a href="#contact" style="display:flex;align-items:center;justify-content:center;height:44px;padding:0 24px;border-radius:999px;font-weight:600;font-size:14px;color:#1A1814;background:#ECE6DB">Build my agent →</a>
+  </div>
+</section>
 
-</main>
+<!-- TOOLS / PROJECTS -->
+<section id="tools" style="padding:0 6% 120px;border-top:1px solid #C9C0B0;padding-top:80px">
+  <div style="font-family:'JetBrains Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:0.14em;color:#2B4FC9;margin-bottom:16px">Nexo.corp — Projects</div>
+  <h2 style="font-family:'Instrument Serif',serif;font-weight:400;font-size:44px;letter-spacing:-0.02em;margin:0 0 40px">Everything we've shipped.</h2>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px">
+    <div style="background:#fff;border:1px solid #C9C0B0;border-radius:16px;padding:28px">
+      <div style="width:56px;height:24px;border-radius:999px;margin-bottom:14px;background:linear-gradient(90deg,#2B4FC9 0%,#2B4FC9 45%,#1F6B3F 45%,#1F6B3F 100%)"></div>
+      <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px"><h3 style="font-family:'Instrument Serif',serif;font-weight:400;font-size:24px;margin:0">Kaizen AI</h3><span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#1F6B3F;text-transform:uppercase;letter-spacing:0.08em">● Live</span></div>
+      <p style="font-size:14px;line-height:1.6;color:#4A453D;margin:0 0 14px">NexoCorp's first deployed AI product — a conversational AI workspace connected to a custom-trained model through a Hugging Face inference bridge.</p>
+      <a href="https://kaizen-ai-eight.vercel.app/" target="_blank" style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:500">Launch Kaizen AI →</a>
+    </div>
+    <div style="background:#fff;border:1px solid #C9C0B0;border-radius:16px;padding:28px">
+      <div style="width:56px;height:24px;border-radius:999px;margin-bottom:14px;background:linear-gradient(90deg,#E07A18 0%,#E07A18 40%,#F45A55 40%,#F45A55 75%,#7A5AC9 75%,#7A5AC9 100%)"></div>
+      <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px"><h3 style="font-family:'Instrument Serif',serif;font-weight:400;font-size:24px;margin:0">StackStruct</h3><span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#1F6B3F;text-transform:uppercase;letter-spacing:0.08em">● Live</span></div>
+      <p style="font-size:14px;line-height:1.6;color:#4A453D;margin:0 0 14px">Describe your project in plain English. Get a complete, production-ready folder structure in seconds — eliminates the blank-slate problem for every developer.</p>
+      <a href="https://stackstruct.vercel.app" target="_blank" style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:500">Launch StackStruct →</a>
+    </div>
+    <div style="background:#fff;border:1px solid #C9C0B0;border-radius:16px;padding:28px">
+      <div style="width:56px;height:24px;border-radius:999px;margin-bottom:14px;background:linear-gradient(90deg,#1F6B3F 0%,#1F6B3F 50%,#7BB8E8 50%,#7BB8E8 100%)"></div>
+      <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px"><h3 style="font-family:'Instrument Serif',serif;font-weight:400;font-size:24px;margin:0">RootLab</h3><span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#1F6B3F;text-transform:uppercase;letter-spacing:0.08em">● Live</span></div>
+      <p style="font-size:14px;line-height:1.6;color:#4A453D;margin:0 0 14px">Enter any topic, choose your difficulty, and RootLab generates a structured 5-section breakdown — foundations, mechanics, branches, applications, and follow-up questions. Powered by LLaMA 3.3 via Groq.</p>
+      <a href="https://rootlab-38er.vercel.app" target="_blank" style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:500">Launch RootLab →</a>
+    </div>
+    <div style="background:#fff;border:1px solid #C9C0B0;border-radius:16px;padding:28px">
+      <div style="width:56px;height:24px;border-radius:999px;margin-bottom:14px;background:linear-gradient(90deg,#F45A55 0%,#F45A55 33%,#7A5AC9 33%,#7A5AC9 66%,#2B4FC9 66%,#2B4FC9 100%)"></div>
+      <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px"><h3 style="font-family:'Instrument Serif',serif;font-weight:400;font-size:24px;margin:0">AI Tools Hub</h3><span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#1F6B3F;text-transform:uppercase;letter-spacing:0.08em">● Live</span></div>
+      <p style="font-size:14px;line-height:1.6;color:#4A453D;margin:0 0 14px">A curated intelligence library of AI platforms reshaping how the world thinks, creates, and builds — handpicked and organized by capability. Free, no login, always updated.</p>
+      <a href="https://nexocorp.online/ai-tools.html" target="_blank" style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:500">Explore hub →</a>
+    </div>
+    <div style="background:#E07A18;color:#fff;border-radius:16px;padding:28px">
+      <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px"><h3 style="font-family:'Instrument Serif',serif;font-weight:400;font-size:24px;margin:0">MyLand</h3><span style="font-family:'JetBrains Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:0.08em">⏳ 7–14 days</span></div>
+      <p style="font-size:14px;line-height:1.6;margin:0 0 14px;opacity:0.9">NexoCorp's next product — in its final production stage. Details revealed at launch.</p>
+      <div style="height:4px;border-radius:99px;background:rgba(255,255,255,0.25);overflow:hidden"><div style="width:85%;height:100%;background:#fff"></div></div>
+    </div>
+  </div>
+</section>
 
-<!-- GSAP + ScrollTrigger via CDN -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-<script>
-(function () {
-  // Contact form handler
-  const form = document.getElementById('contact-form');
-  if (form) {
-    form.addEventListener('submit', async function(e) {
-      e.preventDefault();
-      const btn = form.querySelector('button[type="submit"]');
-      const success = document.getElementById('form-success');
-      const error = document.getElementById('form-error');
-      btn.textContent = 'Sending...';
-      btn.disabled = true;
-      try {
-        const res = await fetch(form.action, {
-          method: 'POST',
-          body: new FormData(form),
-          headers: { 'Accept': 'application/json' }
-        });
-        if (res.ok) {
-          form.reset();
-          success.style.display = 'block';
-          error.style.display = 'none';
-          btn.textContent = 'Sent ✓';
-        } else {
-          throw new Error('Failed');
-        }
-      } catch {
-        error.style.display = 'block';
-        success.style.display = 'none';
-        btn.innerHTML = '<span>Send Message</span><span>→</span>';
-        btn.disabled = false;
-      }
-    });
+<!-- STORY -->
+<section style="padding:0 6% 120px">
+  <div style="font-family:'JetBrains Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:0.14em;color:#2B4FC9;margin-bottom:16px">The story</div>
+  <h2 style="font-family:'Instrument Serif',serif;font-weight:400;font-size:44px;letter-spacing:-0.02em;margin:0 0 20px">How we got here.</h2>
+  <p style="font-size:16px;line-height:1.65;color:#4A453D;max-width:70ch;margin:0 0 44px">NexoCorp didn't start with a business plan. It started with a frustration — that most software is bloated, unintelligent, and built for demos rather than real use. Devk set out to fix that, one product at a time.</p>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:32px">
+    <div><div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#2B4FC9;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:6px">Early 2024</div><h4 style="font-size:16px;font-weight:700;margin:0 0 6px">The idea</h4><p style="font-size:13px;color:#4A453D;line-height:1.6;margin:0">Started exploring how AI could be the foundation of products rather than an add-on. First prototypes built in isolation.</p></div>
+    <div><div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#2B4FC9;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:6px">Mid 2024</div><h4 style="font-size:16px;font-weight:700;margin:0 0 6px">NexoCorp founded</h4><p style="font-size:13px;color:#4A453D;line-height:1.6;margin:0">Officially established as an AI-native studio with a singular focus: calm tools for serious thinkers.</p></div>
+    <div><div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#2B4FC9;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:6px">Late 2024</div><h4 style="font-size:16px;font-weight:700;margin:0 0 6px">First products launched</h4><p style="font-size:13px;color:#4A453D;line-height:1.6;margin:0">DarkFury and early community tools shipped. Real users, real feedback, real improvements — fast.</p></div>
+    <div><div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#2B4FC9;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:6px">2025 →</div><h4 style="font-size:16px;font-weight:700;margin:0 0 6px">Growing the ecosystem</h4><p style="font-size:13px;color:#4A453D;line-height:1.6;margin:0">Expanding the suite of tools, growing the community, and refining the vision of what intelligent software should feel like.</p></div>
+  </div>
+</section>
+
+<!-- FOUNDER -->
+<section id="founder" style="background:#1A1814;color:#ECE6DB;padding:120px 6%;position:relative;overflow:hidden">
+  <div style="position:absolute;top:-100px;right:-100px;width:500px;height:120px;border-radius:999px;background:linear-gradient(90deg,#F45A55 0%,#F45A55 33%,#E07A18 33%,#E07A18 66%,#F49AB8 66%,#F49AB8 100%);transform:rotate(18deg);opacity:0.85"></div>
+  <div style="position:absolute;bottom:-80px;left:-120px;width:480px;height:100px;border-radius:999px;background:linear-gradient(90deg,#2B4FC9 0%,#2B4FC9 40%,#7A5AC9 40%,#7A5AC9 70%,#7BB8E8 70%,#7BB8E8 100%);transform:rotate(-14deg);opacity:0.8"></div>
+  <div style="position:relative;z-index:2;max-width:1100px;margin:0 auto">
+    <div style="font-family:'JetBrains Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:0.14em;opacity:0.6;margin-bottom:16px">Founder &amp; builder</div>
+    <h2 style="font-family:'Instrument Serif',serif;font-weight:400;font-size:80px;line-height:0.95;letter-spacing:-0.02em;margin:0 0 32px">Dev</h2>
+    <blockquote style="font-family:'Instrument Serif',serif;font-weight:400;font-size:32px;line-height:1.3;font-style:italic;border-left:3px solid rgba(255,255,255,0.4);padding-left:20px;margin:0 0 40px;max-width:44ch">"Calm tools for serious thinkers. That's the only brief I've ever needed."</blockquote>
+    <p style="font-size:16px;line-height:1.75;color:rgba(236,230,219,0.75);max-width:64ch;margin:0 0 14px">NexoCorp was founded with a clear intent: build technology that respects intelligence, time, and long-term thinking. The studio operates with restraint, focus, and personal ownership.</p>
+    <p style="font-size:16px;line-height:1.75;color:rgba(236,230,219,0.75);max-width:64ch;margin:0 0 14px">A self-driven developer and builder, passionate about AI, automation, and creating tools that genuinely help people — not just impress them in demos.</p>
+    <p style="font-size:16px;line-height:1.75;color:rgba(236,230,219,0.75);max-width:64ch;margin:0 0 30px">There is no rush to scale — only a commitment to quality and clarity.</p>
+    <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:64px">
+      <span style="background:rgba(255,255,255,0.1);color:#ECE6DB;font-size:13px;font-weight:500;padding:6px 14px;border-radius:100px">AI &amp; LLMs</span>
+      <span style="background:rgba(255,255,255,0.1);color:#ECE6DB;font-size:13px;font-weight:500;padding:6px 14px;border-radius:100px">Product Design</span>
+      <span style="background:rgba(255,255,255,0.1);color:#ECE6DB;font-size:13px;font-weight:500;padding:6px 14px;border-radius:100px">Full-Stack</span>
+      <span style="background:rgba(255,255,255,0.1);color:#ECE6DB;font-size:13px;font-weight:500;padding:6px 14px;border-radius:100px">Automation</span>
+      <span style="background:rgba(255,255,255,0.1);color:#ECE6DB;font-size:13px;font-weight:500;padding:6px 14px;border-radius:100px">Systems Thinking</span>
+      <span style="background:rgba(255,255,255,0.1);color:#ECE6DB;font-size:13px;font-weight:500;padding:6px 14px;border-radius:100px">Community Building</span>
+    </div>
+
+    <h3 style="font-family:'Instrument Serif',serif;font-weight:400;font-size:36px;margin:0 0 32px">Principles that drive every decision.</h3>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1px;background:rgba(255,255,255,0.12);margin-bottom:64px">
+      <div style="background:#1A1814;padding:28px"><div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#7BB8E8;letter-spacing:0.1em;margin-bottom:10px">01</div><div style="font-size:16px;font-weight:700;margin-bottom:8px">Restraint over feature-creep</div><div style="font-size:13px;color:rgba(236,230,219,0.6);line-height:1.6">Every feature earns its place. I ship less and make it count.</div></div>
+      <div style="background:#1A1814;padding:28px"><div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#7BB8E8;letter-spacing:0.1em;margin-bottom:10px">02</div><div style="font-size:16px;font-weight:700;margin-bottom:8px">Intelligence over automation</div><div style="font-size:13px;color:rgba(236,230,219,0.6);line-height:1.6">AI should amplify decisions, not replace thinking.</div></div>
+      <div style="background:#1A1814;padding:28px"><div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#7BB8E8;letter-spacing:0.1em;margin-bottom:10px">03</div><div style="font-size:16px;font-weight:700;margin-bottom:8px">Long-term over short-term</div><div style="font-size:13px;color:rgba(236,230,219,0.6);line-height:1.6">No growth hacks, no dark patterns, no engagement traps.</div></div>
+      <div style="background:#1A1814;padding:28px"><div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#7BB8E8;letter-spacing:0.1em;margin-bottom:10px">04</div><div style="font-size:16px;font-weight:700;margin-bottom:8px">Ownership over delegation</div><div style="font-size:13px;color:rgba(236,230,219,0.6);line-height:1.6">Small team, high accountability, end-to-end.</div></div>
+      <div style="background:#1A1814;padding:28px"><div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#7BB8E8;letter-spacing:0.1em;margin-bottom:10px">05</div><div style="font-size:16px;font-weight:700;margin-bottom:8px">Clarity over cleverness</div><div style="font-size:13px;color:rgba(236,230,219,0.6);line-height:1.6">If it's clever for clever's sake, it gets cut.</div></div>
+      <div style="background:#1A1814;padding:28px"><div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#7BB8E8;letter-spacing:0.1em;margin-bottom:10px">06</div><div style="font-size:16px;font-weight:700;margin-bottom:8px">Calm over urgency</div><div style="font-size:13px;color:rgba(236,230,219,0.6);line-height:1.6">The best products don't demand your attention — they earn it.</div></div>
+    </div>
+
+    <div style="background:rgba(255,255,255,0.06);border-radius:16px;padding:44px;margin-bottom:64px">
+      <p style="font-family:'Instrument Serif',serif;font-weight:400;font-style:italic;font-size:28px;line-height:1.4;max-width:56ch;margin:0 0 20px">DarkFury and other systems are developed under a single vision: calm tools for serious thinkers. Software that gets out of the way, respects your time, and actually does what it says it does. Nothing more, nothing less.</p>
+      <p style="font-size:13px;color:rgba(236,230,219,0.5);margin:0">— Devk, Founder of NexoCorp</p>
+    </div>
+
+    <h3 style="font-family:'Instrument Serif',serif;font-weight:400;font-size:36px;margin:0 0 32px">Products from the studio.</h3>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px">
+      <div style="background:rgba(255,255,255,0.06);border-radius:12px;padding:22px"><span style="display:inline-block;background:rgba(255,255,255,0.14);color:#6ddb9f;font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;padding:4px 12px;border-radius:100px;margin-bottom:12px">Live</span><div style="font-size:17px;font-weight:700;margin-bottom:8px">DarkFury</div><div style="font-size:13px;color:rgba(236,230,219,0.6);line-height:1.6">A focused AI-powered system built for serious thinkers.</div></div>
+      <div style="background:rgba(255,255,255,0.06);border-radius:12px;padding:22px"><span style="display:inline-block;background:rgba(255,255,255,0.14);color:#6ddb9f;font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;padding:4px 12px;border-radius:100px;margin-bottom:12px">Live</span><div style="font-size:17px;font-weight:700;margin-bottom:8px">NexoCorp Community</div><div style="font-size:13px;color:rgba(236,230,219,0.6);line-height:1.6">A gathering space for builders, AI enthusiasts, and founders.</div></div>
+      <div style="background:rgba(255,255,255,0.06);border-radius:12px;padding:22px"><span style="display:inline-block;background:rgba(224,122,24,0.25);color:#E07A18;font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;padding:4px 12px;border-radius:100px;margin-bottom:12px">In progress</span><div style="font-size:17px;font-weight:700;margin-bottom:8px">AI Workflow Suite</div><div style="font-size:13px;color:rgba(236,230,219,0.6);line-height:1.6">Custom automation pipelines eliminating repetitive decisions.</div></div>
+      <div style="background:rgba(255,255,255,0.06);border-radius:12px;padding:22px"><span style="display:inline-block;background:rgba(224,122,24,0.25);color:#E07A18;font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;padding:4px 12px;border-radius:100px;margin-bottom:12px">Coming soon</span><div style="font-size:17px;font-weight:700;margin-bottom:8px">Product Studio</div><div style="font-size:13px;color:rgba(236,230,219,0.6);line-height:1.6">End-to-end design and engineering as a service.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- PRIVACY -->
+<section id="privacy" style="padding:120px 6%;max-width:820px;margin:0 auto">
+  <div style="font-family:'JetBrains Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:0.14em;color:#2B4FC9;margin-bottom:16px">Legal</div>
+  <h2 style="font-family:'Instrument Serif',serif;font-weight:400;font-size:52px;letter-spacing:-0.02em;margin:0 0 8px">Privacy Policy</h2>
+  <p style="font-family:'JetBrains Mono',monospace;font-size:12px;color:#4A453D;font-style:italic;margin:0 0 36px">Last updated: 2025</p>
+  <p style="font-size:15px;line-height:1.75;color:#4A453D;margin:0 0 28px">This Privacy Policy explains how Nexo.corp ("we", "our", "us") collects, uses and protects information in connection with the XO AI tool and this website ("Services").</p>
+
+  <h3 style="font-family:'Instrument Serif',serif;font-weight:400;font-size:24px;margin:0 0 12px">1. Information we collect</h3>
+  <p style="font-size:15px;line-height:1.75;color:#4A453D;margin:0 0 10px">Depending on how you use the Services, we may collect:</p>
+  <ul style="font-size:15px;line-height:1.75;color:#4A453D;margin:0 0 28px;padding-left:20px">
+    <li><strong>Usage data</strong> — basic technical information such as browser type, approximate region, and pages visited. This is typically collected in aggregated form to understand how the Services are used.</li>
+    <li><strong>Chat input</strong> — the text you type into XO AI, which is processed by the model in order to generate responses.</li>
+    <li><strong>Contact information</strong> — only if you choose to contact us directly and provide an email or other details.</li>
+  </ul>
+
+  <h3 style="font-family:'Instrument Serif',serif;font-weight:400;font-size:24px;margin:0 0 12px">2. How we use information</h3>
+  <p style="font-size:15px;line-height:1.75;color:#4A453D;margin:0 0 10px">We may use the information above to:</p>
+  <ul style="font-size:15px;line-height:1.75;color:#4A453D;margin:0 0 28px;padding-left:20px">
+    <li>Provide and operate XO AI and other tools</li>
+    <li>Monitor basic usage and performance</li>
+    <li>Improve features, safety and reliability</li>
+    <li>Respond to support or feedback messages</li>
+  </ul>
+
+  <h3 style="font-family:'Instrument Serif',serif;font-weight:400;font-size:24px;margin:0 0 12px">3. Data storage and third-party services</h3>
+  <ul style="font-size:15px;line-height:1.75;color:#4A453D;margin:0 0 28px;padding-left:20px">
+    <li>XO AI relies on third-party model providers and hosting platforms. Your prompts and responses may be processed by those providers in order to generate answers and keep the service running.</li>
+    <li>We do not sell your personal data to third parties.</li>
+    <li>We generally aim to keep only the minimum data needed to operate and improve the Services.</li>
+  </ul>
+
+  <h3 style="font-family:'Instrument Serif',serif;font-weight:400;font-size:24px;margin:0 0 12px">4. Cookies and analytics</h3>
+  <p style="font-size:15px;line-height:1.75;color:#4A453D;margin:0 0 28px">The website may use basic cookies or analytics tools to understand overall traffic and usage patterns. This helps us see which pages are useful and where the experience can be improved.</p>
+
+  <h3 style="font-family:'Instrument Serif',serif;font-weight:400;font-size:24px;margin:0 0 12px">5. Your choices</h3>
+  <ul style="font-size:15px;line-height:1.75;color:#4A453D;margin:0 0 28px;padding-left:20px">
+    <li>You can choose not to provide optional information. If you do not agree with this policy, please do not use the Services.</li>
+    <li>If you contact us and later want us to delete your messages, you can request removal where possible.</li>
+  </ul>
+
+  <h3 style="font-family:'Instrument Serif',serif;font-weight:400;font-size:24px;margin:0 0 12px">6. Children</h3>
+  <p style="font-size:15px;line-height:1.75;color:#4A453D;margin:0 0 28px">The Services are not specifically targeted at children under 13. If you are a parent or guardian and believe your child has provided personal information, please contact us so we can review and, where appropriate, remove the data.</p>
+
+  <h3 style="font-family:'Instrument Serif',serif;font-weight:400;font-size:24px;margin:0 0 12px">7. Changes to this policy</h3>
+  <p style="font-size:15px;line-height:1.75;color:#4A453D;margin:0 0 28px">We may update this Privacy Policy from time to time. When we do, we will update the "Last updated" date at the top of this page. Continued use of the Services after changes are posted means you accept the revised policy.</p>
+
+  <h3 style="font-family:'Instrument Serif',serif;font-weight:400;font-size:24px;margin:0 0 12px">8. Contact</h3>
+  <p style="font-size:15px;line-height:1.75;color:#4A453D;margin:0 0 28px">If you have any questions about this Privacy Policy, you can reach us using the contact information provided on the main website.</p>
+
+  <p style="font-size:13px;color:#9aa4b2;border-top:1px solid #C9C0B0;padding-top:20px">This Privacy Policy template is provided for general informational purposes only and does not constitute legal advice.</p>
+</section>
+
+<!-- CONTACT -->
+
+
+<!-- FOOTER -->
+<section id="contact" style="margin:0 6% 100px;background:#E4DDD0;border-radius:24px;padding:64px 48px">
+  
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start">
+    
+    <div style="display:flex;flex-direction:column;gap:14px">
+      
+      
+      
+      
+    </div><div style="font-family:'JetBrains Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:0.14em;color:#2B4FC9;margin-bottom:16px">Get in touch</div><h2 style="font-family:'Instrument Serif',serif;font-weight:400;font-size:48px;letter-spacing:-0.02em;margin:0 0 20px">Ready to begin?</h2><a href="{{ mailtoHref }}" style="display:flex;align-items:center;justify-content:center;height:46px;border-radius:10px;font-weight:600;font-size:14px;color:#fff;background:linear-gradient(90deg,#2B4FC9 0%,#2B4FC9 34%,#F45A55 34%,#F45A55 67%,#E07A18 67%,#E07A18 100%)">Send message →</a><div>
+      
+      
+      <p style="font-size:15px;line-height:1.65;color:#4A453D;max-width:40ch;margin:0 0 24px">Tell us what you need — an Instagram agent, WhatsApp bot, a full product, or anything else. We'll get back to you fast.</p>
+      
+    </div>
+  </div><div style="font-size:14px;color:#4A453D;display:flex;flex-direction:column;gap:8px">
+        <div>xrpbusinessx@gmail.com</div>
+        <div>India · Remote worldwide</div>
+        <div>Typical reply within 24 hours</div>
+      </div></section><footer style="padding:0 6% 48px">
+  <div style="width:100%;height:12px;border-radius:999px;margin-bottom:36px;background:linear-gradient(90deg,#2B4FC9 0%,#2B4FC9 14%,#1F6B3F 14%,#1F6B3F 28%,#E07A18 28%,#E07A18 42%,#F45A55 42%,#F45A55 56%,#F49AB8 56%,#F49AB8 70%,#7A5AC9 70%,#7A5AC9 84%,#7BB8E8 84%,#7BB8E8 100%)"></div>
+  <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:16px;padding-top:24px;border-top:1px solid #C9C0B0;font-family:'JetBrains Mono',monospace;font-size:11px;color:#4A453D;letter-spacing:0.06em">
+    <div>© 2025 Nexo.corp — Founded by Dev</div>
+    <div>India · Remote worldwide</div>
+  </div>
+</footer>
+
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { name: "", email: "", message: "" };
+  renderVals() {
+    const { name, email, message } = this.state;
+    const body = encodeURIComponent(
+      (message || "") + (name ? "\n\n— " + name : "") + (email ? " (" + email + ")" : "")
+    );
+    return {
+      contactName: name,
+      contactEmail: email,
+      contactMessage: message,
+      onNameChange: (e) => this.setState({ name: e.target.value }),
+      onEmailChange: (e) => this.setState({ email: e.target.value }),
+      onMessageChange: (e) => this.setState({ message: e.target.value }),
+      mailtoHref: "mailto:xrpbusinessx@gmail.com?subject=Project%20enquiry&body=" + body,
+    };
   }
-
-  window.addEventListener('scroll', () => {
-    navbar.classList.toggle('scrolled', window.scrollY > 10);
-  }, { passive: true });
-
-  // Reduced motion check
-  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-  if (!reducedMotion) {
-    gsap.registerPlugin(ScrollTrigger);
-
-    const sections = Array.from(document.querySelectorAll('.flow-section'));
-    const triggers = [];
-
-    sections.forEach((section, i) => {
-      gsap.set(section, { zIndex: i + 1 });
-
-      const inner = section.querySelector('.flow-inner');
-      if (!inner) return;
-
-      // All sections except the first rotate in from 30deg
-      if (i > 0) {
-        gsap.set(inner, { rotation: 30, transformOrigin: 'bottom left' });
-        const tween = gsap.to(inner, {
-          rotation: 0,
-          ease: 'none',
-          scrollTrigger: {
-            trigger: section,
-            start: 'top bottom',
-            end: 'top 25%',
-            scrub: true,
-          },
-        });
-        if (tween.scrollTrigger) triggers.push(tween.scrollTrigger);
-      }
-
-      // Pin all sections except the last
-      if (i < sections.length - 1) {
-        triggers.push(
-          ScrollTrigger.create({
-            trigger: section,
-            start: 'bottom bottom',
-            end: 'bottom top',
-            pin: true,
-            pinSpacing: false,
-          })
-        );
-      }
-    });
-
-    ScrollTrigger.refresh();
-  }
-})();
+}
 </script>
 </body>
 </html>
