@@ -11,7 +11,7 @@
   config.slots = Object.assign({}, config.slots || {});
 
   var placements = [
-    { name: "after-products", selector: "#products", position: "afterend" },
+    { name: "after-services", selector: "#services", position: "afterend" },
     { name: "after-founder", selector: "#founder", position: "afterend" }
   ];
 
