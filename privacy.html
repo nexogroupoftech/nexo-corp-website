@@ -21,12 +21,14 @@
 <main class="page">
   <h1>Privacy Policy</h1>
 
-  <p><em>Last updated: 2025</em></p>
+  <p><em>Last updated: September 4, 2026</em></p>
 
   <p>
     This Privacy Policy explains how Nexo.corp ("we", "our", "us") collects,
-    uses and protects information in connection with the XO AI tool and this
-    website ("Services").
+    uses and protects information in connection with the XO AI tool, the
+    Nexocorp Instagram AI Agent (an automated assistant that responds to
+    Instagram Direct Messages sent to a Nexocorp-operated Instagram account),
+    and this website (together, the "Services").
   </p>
 
   <h2>1. Information we collect</h2>
@@ -45,6 +47,17 @@
       <strong>Contact information</strong> — only if you choose to contact us
       directly and provide an email or other details.
     </li>
+    <li>
+      <strong>Instagram DM data</strong> — if you message our connected
+      Instagram account, we receive only what Meta includes in the standard
+      Instagram Messaging webhook for that conversation: your
+      Instagram-scoped sender/account identifier (an opaque ID assigned by
+      Meta, not your public username), the text of your message, the
+      conversation/thread identifier, and event metadata (timestamps and a
+      Meta-issued event ID) used to route the message and prevent duplicate
+      processing. We do not access your Instagram password, payment
+      information, precise location, contacts, followers, posts, or stories.
+    </li>
   </ul>
 
   <h2>2. How we use information</h2>
@@ -54,6 +67,18 @@
     <li>Monitor basic usage and performance</li>
     <li>Improve features, safety and reliability</li>
     <li>Respond to support or feedback messages</li>
+    <li>
+      Receive and reply to Instagram Direct Messages sent to our account via
+      the Meta/Instagram Messaging API, and maintain limited conversation
+      context (recent message history scoped to your sender and conversation
+      identifiers) so replies stay coherent within a conversation
+    </li>
+    <li>
+      Generate automated replies by sending the verified message text to a
+      configured third-party language model provider; the model receives only
+      the current conversation's recent history and permitted reference
+      material, never other users' conversations
+    </li>
   </ul>
 
   <h2>3. Data storage and third-party services</h2>
@@ -64,11 +89,37 @@
       generate answers and keep the service running.
     </li>
     <li>
-      We do not sell your personal data to third parties.
+      The Instagram AI Agent relies on the Meta/Instagram Messaging API to
+      receive and deliver messages, a configured third-party language model
+      provider to generate reply text, and a hosting/infrastructure provider
+      to run the application and database. Each processes data only as
+      necessary to perform its function on our behalf.
+    </li>
+    <li>
+      Instagram DM messages (sender ID, conversation ID, and text) are stored
+      in a private, access-controlled database solely to maintain
+      conversational context for future replies, and are scoped so one
+      user's conversation can never be read as part of another's.
+    </li>
+    <li>
+      Records used only to detect duplicate message delivery are retained
+      briefly on a rolling basis (typically 24 hours) and then automatically
+      purged.
+    </li>
+    <li>
+      We do not sell your personal data to third parties, and we do not use
+      your DM content to train third-party foundation models beyond the
+      single inference call required to generate your reply.
     </li>
     <li>
       We generally aim to keep only the minimum data needed to operate and
-      improve the Services.
+      improve the Services, and retain it only as long as necessary or as
+      required by law.
+    </li>
+    <li>
+      Your use of Instagram itself remains governed by
+      <a href="https://help.instagram.com/519522125107875" target="_blank" rel="noopener noreferrer">Instagram's own Privacy Policy</a>
+      and <a href="https://www.facebook.com/policy.php" target="_blank" rel="noopener noreferrer">Meta's Privacy Policy</a>.
     </li>
   </ul>
 
@@ -79,7 +130,37 @@
     where the experience can be improved.
   </p>
 
-  <h2>5. Your choices</h2>
+  <h2>5. Security</h2>
+  <ul>
+    <li>Instagram webhook traffic is served over HTTPS/TLS.</li>
+    <li>
+      Incoming Instagram webhook requests are authenticated using a
+      cryptographic signature check against Meta's app secret; requests that
+      fail verification are rejected before any data is processed.
+    </li>
+    <li>
+      Access to stored Instagram conversations is enforced by sender and
+      conversation identity, so a conversation cannot be read outside its
+      authenticated scope.
+    </li>
+    <li>
+      Application logs redact secrets and access tokens automatically, and
+      user identifiers are stored in logs only as one-way cryptographic
+      fingerprints rather than raw identifiers.
+    </li>
+    <li>
+      Credentials and API keys used by the Services (Meta app secret, page
+      access tokens, model provider keys) are kept in server-side
+      configuration only and are never included in messages, logs, or
+      replies sent to users.
+    </li>
+    <li>
+      Access to production systems and stored data is restricted to
+      authorized Nexocorp personnel.
+    </li>
+  </ul>
+
+  <h2>6. Your choices</h2>
   <ul>
     <li>
       You can choose not to provide optional information. If you do not agree
@@ -89,9 +170,19 @@
       If you contact us and later want us to delete your messages, you can
       request removal where possible.
     </li>
+    <li>
+      <strong>Instagram AI Agent:</strong> you may stop messaging our
+      Instagram account at any time to end processing, or block/restrict the
+      account using Instagram's own controls. You may also request deletion
+      of your stored Instagram conversation history by contacting us (see
+      "Contact" below) with the Instagram handle you messaged us from; upon a
+      verified request, we will delete the associated stored messages without
+      undue delay. Duplicate-prevention event records are purged
+      automatically regardless of any request.
+    </li>
   </ul>
 
-  <h2>6. Children</h2>
+  <h2>7. Children</h2>
   <p>
     The Services are not specifically targeted at children under 13.
     If you are a parent or guardian and believe your child has provided
@@ -99,17 +190,22 @@
     appropriate, remove the data.
   </p>
 
-  <h2>7. Changes to this policy</h2>
+  <h2>8. Changes to this policy</h2>
   <p>
     We may update this Privacy Policy from time to time. When we do, we will
     update the "Last updated" date at the top of this page. Continued use of
     the Services after changes are posted means you accept the revised policy.
   </p>
 
-  <h2>8. Contact</h2>
+  <h2>9. Contact</h2>
   <p>
-    If you have any questions about this Privacy Policy, you can reach us using
-    the contact information provided on the main website.
+    If you have any questions about this Privacy Policy, or wish to make a
+    data deletion request regarding the Instagram AI Agent, you can reach us
+    at <a href="mailto:privacy@nexocorp.online">privacy@nexocorp.online</a> or
+    using the contact information provided on the main website. For
+    Instagram-related deletion requests, please include the Instagram handle
+    you used to message us so we can locate and remove the associated
+    conversation.
   </p>
 
   <p style="font-size:0.85rem; opacity:0.7;">
