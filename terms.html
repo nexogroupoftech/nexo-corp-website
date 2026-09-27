@@ -1,24 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Terms of Service — Nexo.corp</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Terms of Service — NexoCorp</title>
+  <meta name="theme-color" content="#F4F0E6"/>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg"/>
+  <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
-
-<header>
-  <div class="logo">Nexo.corp</div>
-  <nav>
-    <a href="index.html">Home</a>
-    <a href="projects.html">Projects</a>
-    <a href="about.html">About</a>
-    <a href="terms.html">Terms</a>
-    <a href="privacy.html">Privacy</a>
-  </nav>
-</header>
-
-<main class="page">
+<a class="skip" href="#content">Skip to content</a>
+  <header class="nav">
+    <div class="nav-inner">
+      <a class="brand" href="index.html">NexoCorp</a>
+      <button class="nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-controls="site-nav">Menu</button>
+      <ul class="nav-links" id="site-nav" data-nav-links>
+        <li><a href="projects.html">Projects</a></li>
+        <li><a href="experiments.html">Experiments</a></li>
+        <li><a href="about.html">About</a></li>
+      </ul>
+    </div>
+  </header>
+<main id="content" class="shell legal">
   <h1>Terms of Service</h1>
 
   <p><em>Last updated: 2025</em></p>
@@ -125,11 +128,27 @@
     purposes only and does not constitute legal advice.
   </p>
 </main>
-
-<footer>
-  © 2025 Nexo.corp — Founded by Dev
-</footer>
-
+<footer class="footer">
+    <div class="shell footer-grid">
+      <div>
+        <a class="brand" href="index.html">NexoCorp</a>
+        <p class="motto">Built from curiosity.</p>
+      </div>
+      <nav aria-label="Footer">
+        <a href="projects.html">Projects</a>
+        <a href="experiments.html">Experiments</a>
+        <a href="about.html">About</a>
+      </nav>
+      <div>
+        <a href="mailto:xrpbusinessx@gmail.com">xrpbusinessx@gmail.com</a>
+        <div class="legal-links">
+          <a href="privacy.html">Privacy</a>
+          <a href="terms.html">Terms</a>
+          <a href="founder.html">Founder</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <script src="script.js"></script>
 </body>
 </html>
-
