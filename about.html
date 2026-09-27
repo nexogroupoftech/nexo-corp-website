@@ -1,228 +1,543 @@
 <!DOCTYPE html>
-<html lang="en">
+<html class="light" lang="en">
 <head>
   <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
   <title>About — NexoCorp</title>
-  <meta name="description" content="NexoCorp is an independent technology studio founded in 2024. We build tools and agents from curiosity."/>
-  <meta name="theme-color" content="#F4F0E6"/>
   <link rel="icon" type="image/svg+xml" href="favicon.svg"/>
-  <link rel="stylesheet" href="style.css"/>
+  <meta name="theme-color" content="#006a41"/>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Plus Jakarta Sans', sans-serif; background: #fff; color: #111; overflow-x: hidden; }
+
+    /* ── Navbar ── */
+    #navbar {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 9999;
+      background: #fff;
+      border-bottom: 1px solid rgba(0,0,0,0.08);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 5vw; height: 64px;
+      transition: box-shadow 0.2s;
+    }
+    #navbar.scrolled { box-shadow: 0 2px 16px rgba(0,0,0,0.10); }
+    .nav-logo { font-size: 1.2rem; font-weight: 800; color: #111; letter-spacing: -0.03em; text-decoration: none; }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a { font-size: 0.95rem; font-weight: 500; color: #444; text-decoration: none; border-bottom: 2px solid transparent; padding-bottom: 2px; transition: color 0.15s, border-color 0.15s; }
+    .nav-links a:hover, .nav-links a.active { color: #006a41; border-color: #006a41; }
+    .nav-cta { background: #d97706; color: #fff; font-weight: 700; font-size: 0.9rem; padding: 10px 22px; border-radius: 8px; text-decoration: none; transition: background 0.15s, transform 0.1s; }
+    .nav-cta:hover { background: #b45309; transform: translateY(-1px); }
+    @media (max-width: 768px) { .nav-links { display: none; } }
+
+    /* ── Page Layout ── */
+    .page-wrap { padding-top: 64px; }
+
+    /* ── Hero Banner ── */
+    .about-hero {
+      background: #006a41;
+      color: #fff;
+      padding: clamp(4rem, 10vw, 8rem) 5vw clamp(3rem, 7vw, 5rem);
+      position: relative;
+      overflow: hidden;
+    }
+    .about-hero::after {
+      content: 'ABOUT';
+      position: absolute;
+      right: 4vw; bottom: -0.15em;
+      font-size: clamp(6rem, 18vw, 18rem);
+      font-weight: 800;
+      letter-spacing: -0.05em;
+      color: rgba(255,255,255,0.06);
+      line-height: 1;
+      pointer-events: none;
+      user-select: none;
+    }
+    .hero-label {
+      font-size: 0.72rem; font-weight: 700; letter-spacing: 0.2em;
+      text-transform: uppercase; opacity: 0.6; margin-bottom: 1.5rem;
+    }
+    .hero-title {
+      font-size: clamp(2.5rem, 7vw, 6rem);
+      font-weight: 800;
+      line-height: 0.92;
+      letter-spacing: -0.04em;
+      margin-bottom: 2rem;
+    }
+    .hero-sub {
+      font-size: clamp(1rem, 2vw, 1.4rem);
+      font-weight: 400;
+      line-height: 1.6;
+      max-width: 52ch;
+      opacity: 0.85;
+    }
+
+    /* ── Content Sections ── */
+    .section { padding: clamp(3rem, 8vw, 6rem) 5vw; }
+    .section-alt { background: #f9f7f3; }
+    .section-dark { background: #111; color: #fff; }
+
+    .section-label {
+      font-size: 0.72rem; font-weight: 700; letter-spacing: 0.2em;
+      text-transform: uppercase; color: #006a41; margin-bottom: 1rem;
+    }
+    .section-dark .section-label { color: #6ee7b7; }
+    .section-heading {
+      font-size: clamp(1.8rem, 4vw, 3.5rem);
+      font-weight: 800; letter-spacing: -0.03em;
+      line-height: 1.05; margin-bottom: 1.5rem;
+    }
+    .section-body {
+      font-size: clamp(1rem, 1.5vw, 1.15rem);
+      line-height: 1.75; color: #444; max-width: 64ch;
+    }
+    .section-dark .section-body { color: rgba(255,255,255,0.7); }
+
+    .divider { border: none; border-top: 1px solid rgba(0,0,0,0.1); margin: 3rem 0; }
+    .section-dark .divider { border-color: rgba(255,255,255,0.12); }
+
+    /* ── Values Grid ── */
+    .values-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+    .value-card {
+      background: #fff;
+      border: 1px solid rgba(0,0,0,0.08);
+      border-radius: 12px;
+      padding: 1.5rem 1.5rem 2rem;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .value-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,106,65,0.12); }
+    .value-icon {
+      width: 40px; height: 40px;
+      background: #e6f4ed;
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 1rem;
+      font-size: 1.2rem;
+    }
+    .value-title { font-size: 1rem; font-weight: 700; margin-bottom: 0.5rem; color: #111; }
+    .value-desc { font-size: 0.9rem; line-height: 1.65; color: #666; }
+
+    /* ── Stats ── */
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 2rem;
+      margin: 3rem 0;
+    }
+    .stat-block { text-align: center; }
+    .stat-num {
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      color: #006a41;
+      line-height: 1;
+      display: block;
+    }
+    .section-dark .stat-num { color: #6ee7b7; }
+    .stat-label { font-size: 0.85rem; font-weight: 500; color: #888; margin-top: 0.5rem; text-transform: uppercase; letter-spacing: 0.1em; }
+    .section-dark .stat-label { color: rgba(255,255,255,0.5); }
+
+    /* ── Timeline ── */
+    .timeline { margin-top: 3rem; position: relative; }
+    .timeline::before {
+      content: '';
+      position: absolute; left: 0; top: 0; bottom: 0;
+      width: 2px; background: #e5e7eb;
+    }
+    .tl-item {
+      padding-left: 2.5rem;
+      margin-bottom: 2.5rem;
+      position: relative;
+    }
+    .tl-item::before {
+      content: '';
+      position: absolute; left: -5px; top: 4px;
+      width: 12px; height: 12px;
+      border-radius: 50%;
+      background: #006a41;
+    }
+    .tl-year { font-size: 0.75rem; font-weight: 700; color: #006a41; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.35rem; }
+    .tl-title { font-size: 1.05rem; font-weight: 700; margin-bottom: 0.35rem; }
+    .tl-desc { font-size: 0.9rem; color: #666; line-height: 1.6; }
+
+    /* ── CTA section ── */
+    .cta-strip {
+      background: #006a41;
+      color: #fff;
+      padding: clamp(3rem,8vw,5rem) 5vw;
+      display: flex; flex-wrap: wrap;
+      align-items: center; justify-content: space-between;
+      gap: 2rem;
+    }
+    .cta-strip h2 { font-size: clamp(1.5rem,3vw,2.5rem); font-weight: 800; letter-spacing: -0.03em; }
+    .cta-strip p { font-size: 1rem; opacity: 0.8; margin-top: 0.5rem; max-width: 44ch; }
+    .cta-btn {
+      display: inline-block;
+      background: #d97706; color: #fff;
+      font-weight: 700; font-size: 1rem;
+      padding: 14px 32px; border-radius: 8px;
+      text-decoration: none;
+      transition: background 0.15s, transform 0.1s;
+      white-space: nowrap;
+    }
+    .cta-btn:hover { background: #b45309; transform: translateY(-2px); }
+
+    /* ── Services ── */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+    .service-card {
+      background: #fff;
+      border: 1px solid rgba(0,0,0,0.07);
+      border-radius: 16px;
+      padding: 2rem 2rem 2.5rem;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.25s, box-shadow 0.25s;
+    }
+    .service-card:hover { transform: translateY(-5px); box-shadow: 0 20px 48px rgba(0,106,65,0.11); }
+    .service-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, #006a41, #6ee7b7);
+      border-radius: 16px 16px 0 0;
+    }
+    .service-icon-wrap {
+      width: 56px; height: 56px;
+      border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.6rem;
+      margin-bottom: 1.25rem;
+    }
+    .service-badge {
+      display: inline-block;
+      font-size: 0.65rem; font-weight: 700; letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 4px 10px; border-radius: 100px;
+      margin-bottom: 1rem;
+    }
+    .badge-live { background: #dcfce7; color: #15803d; }
+    .badge-new  { background: #fef3c7; color: #92400e; }
+    .badge-hot  { background: #fee2e2; color: #991b1b; }
+    .service-title { font-size: 1.2rem; font-weight: 800; margin-bottom: 0.6rem; letter-spacing: -0.02em; }
+    .service-desc  { font-size: 0.92rem; color: #555; line-height: 1.7; margin-bottom: 1.5rem; }
+    .service-features { list-style: none; display: flex; flex-direction: column; gap: 0.45rem; }
+    .service-features li {
+      font-size: 0.85rem; color: #444;
+      display: flex; align-items: flex-start; gap: 0.5rem;
+    }
+    .service-features li::before {
+      content: '✓';
+      color: #006a41; font-weight: 700; flex-shrink: 0; margin-top: 1px;
+    }
+    .service-cta {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      margin-top: 1.75rem;
+      font-size: 0.85rem; font-weight: 700; color: #006a41;
+      text-decoration: none; letter-spacing: 0.02em;
+      transition: gap 0.2s;
+    }
+    .service-cta:hover { gap: 0.7rem; }
+
+    /* ── Footer ── */
+    footer {
+      background: #0a0a0a; color: rgba(255,255,255,0.4);
+      text-align: center; padding: 2rem 5vw;
+      font-size: 0.82rem;
+    }
+    footer a { color: rgba(255,255,255,0.5); text-decoration: none; }
+    footer a:hover { color: #fff; }
+  </style>
 </head>
 <body>
-  <a class="skip" href="#content">Skip to content</a>
-  <header class="nav">
-    <div class="nav-inner">
-      <a class="brand" href="index.html">NexoCorp</a>
-      <button class="nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-controls="site-nav">Menu</button>
-      <ul class="nav-links" id="site-nav" data-nav-links>
-        <li><a href="projects.html">Projects</a></li>
-        <li><a href="experiments.html">Experiments</a></li>
-        <li><a href="about.html" aria-current="page">About</a></li>
-      </ul>
-    </div>
-  </header>
 
-  <main id="content">
-    <header class="shell page-intro">
-      <p class="meta">Est. 2024</p>
-      <div>
-        <h1>About</h1>
-        <p class="lede">NexoCorp is an independent technology studio. We build clean, intelligent products — and we stay small enough to own them.</p>
+<!-- NAVBAR -->
+<nav id="navbar" aria-label="Main navigation">
+  <a class="nav-logo" href="index.html">NexoCorp</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html" class="active">About</a></li>
+    <li><a href="projects.html">Tools</a></li>
+    <li><a href="founder.html">Founder</a></li>
+    <li><a href="index.html#contact">Contact</a></li>
+  </ul>
+  <a class="nav-cta" href="index.html#contact">Get in Touch</a>
+</nav>
+
+<div class="page-wrap">
+
+  <!-- HERO -->
+  <section class="about-hero">
+    <p class="hero-label">Est. 2024 · AI-Native Studio</p>
+    <h1 class="hero-title">We Build<br/>Things That<br/>Actually Work.</h1>
+    <p class="hero-sub">
+      NexoCorp is a modern technology studio focused on building clean, intelligent,
+      and user-first digital products. No buzzwords. No bloat. Just clarity.
+    </p>
+  </section>
+
+  <!-- MISSION -->
+  <section class="section">
+    <p class="section-label">Our Mission</p>
+    <h2 class="section-heading">Technology that<br/>respects your intelligence.</h2>
+    <p class="section-body">
+      NexoCorp was founded with a clear intent: build technology that respects intelligence,
+      time, and long-term thinking. The studio operates with restraint, focus, and personal
+      ownership. There is no rush to scale — only a commitment to quality and clarity.
+    </p>
+    <hr class="divider"/>
+    <div class="stats-row">
+      <div class="stat-block">
+        <span class="stat-num">2024</span>
+        <p class="stat-label">Founded</p>
       </div>
-    </header>
-
-    <section class="section">
-      <div class="shell split">
-        <div>
-          <p class="meta">The studio</p>
-          <h2 class="serif" style="font-weight:400;font-size:clamp(2rem,4vw,3rem);letter-spacing:-0.03em;line-height:1.08;margin:0.5rem 0 1rem;">Technology that respects your intelligence.</h2>
-          <p>NexoCorp was founded with a clear intent: build technology that respects intelligence, time, and long-term thinking. The studio operates with restraint, focus, and personal ownership. There is no rush to scale — only a commitment to quality and clarity.</p>
-          <p>It did not start with a business plan. It started with a frustration — that most software is bloated, unintelligent, and built for demos rather than real use. Devk set out to fix that, one product at a time.</p>
-        </div>
-        <figure>
-          <div class="art-frame" aria-hidden="true">
-            <svg viewBox="0 0 520 460" xmlns="http://www.w3.org/2000/svg">
-              <rect width="520" height="460" fill="#EBE6DA"/>
-              <circle cx="240" cy="220" r="110" fill="none" stroke="#111"/>
-              <path d="M240 100 L 360 320 H 120 Z" fill="none" stroke="#52664F"/>
-              <path d="M240 220 C 300 190, 340 160, 420 150" fill="none" stroke="#111"/>
-              <path d="M340 168 C 380 150, 400 196, 440 180 C 400 204, 366 196, 340 168 Z" fill="#52664F"/>
-              <circle cx="240" cy="220" r="5" fill="#E87532"/>
-              <path d="M420 70 L 426 90 H 448 L 430 102 L 436 122 L 420 110 L 404 122 L 410 102 L 392 90 H 414 Z" fill="none" stroke="#111"/>
-            </svg>
-          </div>
-          <figcaption class="fig"><span>Fig. 06</span><span>The studio mark, enlarged</span></figcaption>
-        </figure>
+      <div class="stat-block">
+        <span class="stat-num">100%</span>
+        <p class="stat-label">Independent</p>
       </div>
-    </section>
-
-    <section class="section">
-      <div class="shell">
-        <div class="section-head">
-          <p class="meta">Record</p>
-          <h2>How we got here.</h2>
-        </div>
-        <ol class="index-list">
-          <li>
-            <span class="meta">Early 2024</span>
-            <div>
-              <h3>The idea</h3>
-              <p>Started exploring how AI could be the foundation of a product rather than an add-on. First prototypes built in isolation.</p>
-            </div>
-          </li>
-          <li>
-            <span class="meta">Mid 2024</span>
-            <div>
-              <h3>NexoCorp founded</h3>
-              <p>Established as an AI-native studio with a singular focus: calm tools for serious thinkers.</p>
-            </div>
-          </li>
-          <li>
-            <span class="meta">Late 2024</span>
-            <div>
-              <h3>First products</h3>
-              <p>DarkFury and early community tools shipped. Real users, real feedback, real improvements.</p>
-            </div>
-          </li>
-          <li>
-            <span class="meta">2025 →</span>
-            <div>
-              <h3>The ecosystem</h3>
-              <p>Kaizen, StackStruct, RootLab, and the AI Tools Hub left the notebook. The suite is still growing, slowly.</p>
-            </div>
-          </li>
-        </ol>
+      <div class="stat-block">
+        <span class="stat-num">AI-First</span>
+        <p class="stat-label">Always</p>
       </div>
-    </section>
-
-    <section class="section" id="services">
-      <div class="shell">
-        <div class="section-head">
-          <p class="meta">Studio work</p>
-          <h2>Agents, when a product is not the point.</h2>
-        </div>
-        <p class="lede">Beyond our own tools, we build automation agents for businesses — systems that hold a conversation and close the gap between a message and a result.</p>
-
-        <article class="story">
-          <p class="story-index">01</p>
-          <div class="story-copy">
-            <h3>Instagram</h3>
-            <p class="statement">An agent in the messages you already receive.</p>
-            <p>Replies to direct messages with context, moderates comments, qualifies leads, answers story mentions, and keeps your tone. Built to run when you are not looking at the phone.</p>
-            <ul class="tags"><li>DMs</li><li>Comments</li><li>Leads</li></ul>
-            <a class="text-link" href="mailto:xrpbusinessx@gmail.com?subject=Instagram%20agent">Enquire <span aria-hidden="true">→</span></a>
-          </div>
-          <div class="story-art">
-            <div class="art-frame" aria-hidden="true">
-              <svg viewBox="0 0 480 280" xmlns="http://www.w3.org/2000/svg">
-                <rect width="480" height="280" fill="#EBE6DA"/>
-                <circle cx="160" cy="140" r="46" fill="none" stroke="#111"/>
-                <circle cx="300" cy="100" r="22" fill="none" stroke="#52664F"/>
-                <circle cx="340" cy="190" r="18" fill="none" stroke="#111"/>
-                <path d="M200 124 L 280 104 M198 156 L 324 186" stroke="#111" fill="none"/>
-                <circle cx="160" cy="140" r="4" fill="#E87532"/>
-              </svg>
-            </div>
-          </div>
-        </article>
-
-        <article class="story story--flip">
-          <p class="story-index">02</p>
-          <div class="story-copy">
-            <h3>WhatsApp</h3>
-            <p class="statement">A business number that can answer.</p>
-            <p>An agent on WhatsApp Business: questions, appointments, order status, follow-ups, and a handoff to a person when the conversation needs one. More than one language, when the work requires it.</p>
-            <ul class="tags"><li>Messages</li><li>Bookings</li><li>Follow-up</li></ul>
-            <a class="text-link" href="mailto:xrpbusinessx@gmail.com?subject=WhatsApp%20agent">Enquire <span aria-hidden="true">→</span></a>
-          </div>
-          <div class="story-art">
-            <div class="art-frame" aria-hidden="true">
-              <svg viewBox="0 0 480 280" xmlns="http://www.w3.org/2000/svg">
-                <rect width="480" height="280" fill="#EBE6DA"/>
-                <path d="M90 200 V 80 H 250 V 200 Z" fill="none" stroke="#111"/>
-                <path d="M250 140 H 360" stroke="#52664F"/>
-                <circle cx="378" cy="140" r="28" fill="none" stroke="#111"/>
-                <circle cx="378" cy="140" r="4" fill="#E87532"/>
-              </svg>
-            </div>
-          </div>
-        </article>
-
-        <article class="story">
-          <p class="story-index">03</p>
-          <div class="story-copy">
-            <h3>Other agents</h3>
-            <p class="statement">A workflow, drawn to the job.</p>
-            <p>Email outreach, Telegram and Discord bots, CRM upkeep, lead qualification, and orchestration across tools. If it is a repeated conversation or a repeated decision, we can study it.</p>
-            <ul class="tags"><li>Email</li><li>Community</li><li>Custom</li></ul>
-            <a class="text-link" href="mailto:xrpbusinessx@gmail.com?subject=Custom%20agent">Enquire <span aria-hidden="true">→</span></a>
-          </div>
-          <div class="story-art">
-            <div class="art-frame" aria-hidden="true">
-              <svg viewBox="0 0 480 280" xmlns="http://www.w3.org/2000/svg">
-                <rect width="480" height="280" fill="#EBE6DA"/>
-                <path d="M70 70 H 180 V 130 H 70 Z M200 70 H 310 V 130 H 200 Z M330 70 H 430 V 130 H 330 Z" fill="none" stroke="#111"/>
-                <path d="M180 100 H 200 M310 100 H 330" stroke="#52664F"/>
-                <path d="M120 130 V 200 H 380" fill="none" stroke="#111"/>
-                <circle cx="380" cy="200" r="4" fill="#E87532"/>
-              </svg>
-            </div>
-          </div>
-        </article>
-      </div>
-    </section>
-
-    <section class="philosophy">
-      <div class="shell columns">
-        <blockquote>Calm tools for serious thinkers.</blockquote>
-        <div>
-          <p class="meta">Philosophy</p>
-          <p>DarkFury and the systems around it share one aim: software that does not demand your attention, but earns it. What we leave out matters as much as what we build.</p>
-          <p><a class="text-link" href="founder.html">The founder <span aria-hidden="true">→</span></a></p>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="contact">
-      <div class="shell contact">
-        <div>
-          <p class="meta">Contact</p>
-          <h2>A few projects at a time.</h2>
-          <p>We take work that fits the studio: a product, an agent, or a question that is still a sketch. Write with what you are trying to make.</p>
-          <p><a href="mailto:xrpbusinessx@gmail.com">xrpbusinessx@gmail.com</a></p>
-        </div>
-        <form data-contact>
-          <label>Name<input name="name" type="text" autocomplete="name"/></label>
-          <label>Email<input name="email" type="email" autocomplete="email"/></label>
-          <label>Message<textarea name="message" required></textarea></label>
-          <button class="btn" type="submit">Send message</button>
-        </form>
-      </div>
-    </section>
-  </main>
-
-  <footer class="footer">
-    <div class="shell footer-grid">
-      <div>
-        <a class="brand" href="index.html">NexoCorp</a>
-        <p class="motto">Built from curiosity.</p>
-      </div>
-      <nav aria-label="Footer">
-        <a href="projects.html">Projects</a>
-        <a href="experiments.html">Experiments</a>
-        <a href="about.html">About</a>
-      </nav>
-      <div>
-        <a href="mailto:xrpbusinessx@gmail.com">xrpbusinessx@gmail.com</a>
-        <div class="legal-links">
-          <a href="privacy.html">Privacy</a>
-          <a href="terms.html">Terms</a>
-          <a href="founder.html">Founder</a>
-        </div>
+      <div class="stat-block">
+        <span class="stat-num">0</span>
+        <p class="stat-label">Fluff. Zero.</p>
       </div>
     </div>
+  </section>
+
+  <!-- VALUES -->
+  <section class="section section-alt">
+    <p class="section-label">What We Stand For</p>
+    <h2 class="section-heading">Our values.</h2>
+    <div class="values-grid">
+      <div class="value-card">
+        <div class="value-icon">🎯</div>
+        <p class="value-title">Clarity first</p>
+        <p class="value-desc">We cut through noise. Every decision, every line of code, every product has a clear reason to exist.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-icon">⚡</div>
+        <p class="value-title">Move fast, stay right</p>
+        <p class="value-desc">Speed without recklessness. We ship fast but we own our output — quality is non-negotiable.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-icon">🧠</div>
+        <p class="value-title">Intelligence by design</p>
+        <p class="value-desc">AI is a first-class citizen in everything we build — not a feature bolted on at the end.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-icon">🔒</div>
+        <p class="value-title">Personal ownership</p>
+        <p class="value-desc">We operate with full accountability. Small team, big responsibility, zero finger-pointing.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-icon">🌍</div>
+        <p class="value-title">Built for everyone</p>
+        <p class="value-desc">Our tools are designed to be accessible and useful — regardless of technical background.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-icon">📐</div>
+        <p class="value-title">Restraint as craft</p>
+        <p class="value-desc">We don't add features just because we can. What we leave out is as important as what we include.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section class="section" id="services">
+    <p class="section-label">What We Offer</p>
+    <h2 class="section-heading">Our services.</h2>
+    <p class="section-body">
+      Beyond building our own products, we build intelligent automation agents for businesses —
+      AI-powered systems that work 24/7, handle conversations, and close the gap between
+      human effort and real results.
+    </p>
+
+    <div class="services-grid">
+
+      <!-- Instagram Agents -->
+      <div class="service-card">
+        <div class="service-icon-wrap" style="background:#fce7f3;">📸</div>
+        <span class="service-badge badge-hot">Most Popular</span>
+        <h3 class="service-title">Instagram AI Agents</h3>
+        <p class="service-desc">
+          Fully automated Instagram agents that engage your audience, reply to DMs, handle
+          comments, qualify leads, and nurture followers — around the clock, without you lifting
+          a finger.
+        </p>
+        <ul class="service-features">
+          <li>Auto-reply to DMs with context-aware AI responses</li>
+          <li>Comment moderation & intelligent engagement</li>
+          <li>Lead qualification via conversation flows</li>
+          <li>Story mention tracking & auto-responses</li>
+          <li>Custom tone — matches your brand voice</li>
+          <li>Analytics dashboard for agent performance</li>
+        </ul>
+        <a class="service-cta" href="mailto:xrpbusinessx@gmail.com">Enquire about this →</a>
+      </div>
+
+      <!-- WhatsApp Agents -->
+      <div class="service-card">
+        <div class="service-icon-wrap" style="background:#dcfce7;">💬</div>
+        <span class="service-badge badge-live">Live & Ready</span>
+        <h3 class="service-title">WhatsApp AI Agents</h3>
+        <p class="service-desc">
+          Deploy an AI agent directly on your WhatsApp Business number. It handles customer
+          queries, books appointments, sends follow-ups, and converts conversations into
+          customers — automatically.
+        </p>
+        <ul class="service-features">
+          <li>Instant AI responses to customer queries 24/7</li>
+          <li>Appointment booking & calendar integration</li>
+          <li>Order tracking & status updates automation</li>
+          <li>Broadcast campaigns with smart personalisation</li>
+          <li>Escalation to human when needed</li>
+          <li>Multi-language support</li>
+        </ul>
+        <a class="service-cta" href="mailto:xrpbusinessx@gmail.com">Enquire about this →</a>
+      </div>
+
+      <!-- Other Automation Agents -->
+      <div class="service-card">
+        <div class="service-icon-wrap" style="background:#ede9fe;">🤖</div>
+        <span class="service-badge badge-new">Custom Builds</span>
+        <h3 class="service-title">Other Automation Agents</h3>
+        <p class="service-desc">
+          Need something beyond Instagram and WhatsApp? We build custom AI agents for any
+          platform or workflow — from email outreach to Telegram bots to full business process
+          automation.
+        </p>
+        <ul class="service-features">
+          <li>Email outreach & follow-up agents</li>
+          <li>Telegram & Discord community bots</li>
+          <li>CRM data entry & enrichment automation</li>
+          <li>Lead scraping & qualification pipelines</li>
+          <li>Multi-platform workflow orchestration</li>
+          <li>Custom agent built to your exact requirements</li>
+        </ul>
+        <a class="service-cta" href="mailto:xrpbusinessx@gmail.com">Enquire about this →</a>
+      </div>
+
+    </div>
+
+    <!-- Why agents strip -->
+    <div style="margin-top:3rem; background:#006a41; border-radius:16px; padding:2.5rem 2.5rem; display:flex; flex-wrap:wrap; gap:2rem; align-items:center; justify-content:space-between;">
+      <div>
+        <p style="font-size:0.72rem; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; color:#6ee7b7; margin-bottom:0.75rem;">Why AI Agents?</p>
+        <h3 style="font-size:clamp(1.3rem,2.5vw,2rem); font-weight:800; color:#fff; letter-spacing:-0.03em; line-height:1.2; max-width:36ch;">Your business runs 24/7.<br/>Your team doesn't have to.</h3>
+      </div>
+      <div style="display:flex; flex-wrap:wrap; gap:1.5rem;">
+        <div style="text-align:center;">
+          <p style="font-size:2rem; font-weight:800; color:#6ee7b7; letter-spacing:-0.04em;">24/7</p>
+          <p style="font-size:0.72rem; font-weight:600; color:rgba(255,255,255,0.5); text-transform:uppercase; letter-spacing:0.1em; margin-top:0.25rem;">Always on</p>
+        </div>
+        <div style="text-align:center;">
+          <p style="font-size:2rem; font-weight:800; color:#6ee7b7; letter-spacing:-0.04em;">10x</p>
+          <p style="font-size:0.72rem; font-weight:600; color:rgba(255,255,255,0.5); text-transform:uppercase; letter-spacing:0.1em; margin-top:0.25rem;">Faster replies</p>
+        </div>
+        <div style="text-align:center;">
+          <p style="font-size:2rem; font-weight:800; color:#6ee7b7; letter-spacing:-0.04em;">0</p>
+          <p style="font-size:0.72rem; font-weight:600; color:rgba(255,255,255,0.5); text-transform:uppercase; letter-spacing:0.1em; margin-top:0.25rem;">Missed leads</p>
+        </div>
+        <div style="text-align:center;">
+          <p style="font-size:2rem; font-weight:800; color:#6ee7b7; letter-spacing:-0.04em;">∞</p>
+          <p style="font-size:0.72rem; font-weight:600; color:rgba(255,255,255,0.5); text-transform:uppercase; letter-spacing:0.1em; margin-top:0.25rem;">Scalability</p>
+        </div>
+      </div>
+      <a href="mailto:xrpbusinessx@gmail.com" style="display:inline-block; background:#d97706; color:#fff; font-weight:700; font-size:0.95rem; padding:13px 28px; border-radius:8px; text-decoration:none; white-space:nowrap; transition:background 0.15s;">Build My Agent →</a>
+    </div>
+  </section>
+
+  <!-- STORY / TIMELINE -->
+  <section class="section">
+    <p class="section-label">The Story</p>
+    <h2 class="section-heading">How we got here.</h2>
+    <p class="section-body">
+      NexoCorp didn't start with a business plan. It started with a frustration —
+      that most software is bloated, unintelligent, and built for demos rather than real use.
+      Devk set out to fix that, one product at a time.
+    </p>
+    <div class="timeline">
+      <div class="tl-item">
+        <p class="tl-year">Early 2024</p>
+        <p class="tl-title">The idea</p>
+        <p class="tl-desc">Started exploring how AI could be the foundation of products rather than an add-on. First prototypes built in isolation.</p>
+      </div>
+      <div class="tl-item">
+        <p class="tl-year">Mid 2024</p>
+        <p class="tl-title">NexoCorp founded</p>
+        <p class="tl-desc">Officially established as an AI-native studio with a singular focus: calm tools for serious thinkers.</p>
+      </div>
+      <div class="tl-item">
+        <p class="tl-year">Late 2024</p>
+        <p class="tl-title">First products launched</p>
+        <p class="tl-desc">DarkFury and early community tools shipped. Real users, real feedback, real improvements — fast.</p>
+      </div>
+      <div class="tl-item">
+        <p class="tl-year">2025 →</p>
+        <p class="tl-title">Growing the ecosystem</p>
+        <p class="tl-desc">Expanding the suite of tools, growing the community, and refining the vision of what intelligent software should feel like.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- DARK SECTION -->
+  <section class="section section-dark">
+    <p class="section-label">The Philosophy</p>
+    <h2 class="section-heading">Calm tools for<br/>serious thinkers.</h2>
+    <p class="section-body">
+      DarkFury and other systems are developed under a single vision: software that
+      doesn't demand your attention, but earns it. Tools that get out of the way
+      and let you do your best work.
+    </p>
+    <hr class="divider"/>
+    <div class="stats-row">
+      <div class="stat-block">
+        <span class="stat-num">∞</span>
+        <p class="stat-label">Long-term thinking</p>
+      </div>
+      <div class="stat-block">
+        <span class="stat-num">0</span>
+        <p class="stat-label">Dark patterns</p>
+      </div>
+      <div class="stat-block">
+        <span class="stat-num">1</span>
+        <p class="stat-label">Clear vision</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <div class="cta-strip">
+    <div>
+      <h2>Want to work together?</h2>
+      <p>We take on select projects that align with our values. Let's talk.</p>
+    </div>
+    <a class="cta-btn" href="index.html#contact">Get in Touch →</a>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2024 NexoCorp · <a href="privacy.html">Privacy</a> · <a href="terms.html">Terms</a> · Built with clarity.</p>
   </footer>
-  <script src="script.js"></script>
+
+</div>
+
+<script>
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 10);
+  }, { passive: true });
+</script>
 </body>
 </html>
