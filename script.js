@@ -1,18 +1,38 @@
+document.documentElement.classList.add("js");
+
 document.addEventListener("DOMContentLoaded", () => {
   const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   const toggle = document.querySelector("[data-nav-toggle]");
   const links = document.querySelector("[data-nav-links]");
   if (toggle && links) {
-    toggle.addEventListener("click", () => {
-      const open = links.classList.toggle("is-open");
+    const label = toggle.querySelector(".nav-toggle-text");
+    const setOpen = (open) => {
+      links.classList.toggle("is-open", open);
       toggle.setAttribute("aria-expanded", open ? "true" : "false");
+      toggle.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+      if (label) label.textContent = open ? "Close" : "Menu";
+      document.body.classList.toggle("nav-open", open);
+    };
+    toggle.addEventListener("click", () => {
+      const open = !links.classList.contains("is-open");
+      setOpen(open);
+      if (open) {
+        const first = links.querySelector("a");
+        if (first) first.focus();
+      }
     });
     links.querySelectorAll("a").forEach((link) => {
-      link.addEventListener("click", () => {
-        links.classList.remove("is-open");
-        toggle.setAttribute("aria-expanded", "false");
-      });
+      link.addEventListener("click", () => setOpen(false));
+    });
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && links.classList.contains("is-open")) {
+        setOpen(false);
+        toggle.focus();
+      }
+    });
+    window.addEventListener("resize", () => {
+      if (window.innerWidth > 760) setOpen(false);
     });
   }
 
@@ -29,16 +49,32 @@ document.addEventListener("DOMContentLoaded", () => {
           (email ? " (" + email + ")" : "")
       );
       window.location.href =
-        "mailto:xrpbusinessx@gmail.com?subject=Project%20enquiry&body=" + body;
+        "mailto:xrpbusinessx@gmail.com?subject=" +
+        encodeURIComponent("XOPICX enquiry") +
+        "&body=" +
+        body;
     });
   });
 
-  if (reduce) return;
-
   const reveals = document.querySelectorAll(".reveal");
-  reveals.forEach((el, index) => {
-    el.style.animationDelay = Math.min(index * 0.08, 0.4) + "s";
-  });
+  if (reduce || !("IntersectionObserver" in window)) {
+    reveals.forEach((el) => el.classList.add("is-in"));
+  } else {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-in");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.16, rootMargin: "0px 0px -8% 0px" }
+    );
+    reveals.forEach((el) => observer.observe(el));
+  }
+
+  if (reduce) return;
 
   const drawings = document.querySelectorAll(".draw");
   if (drawings.length && "IntersectionObserver" in window) {
@@ -59,10 +95,10 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   const heroArt = document.querySelector("[data-parallax]");
-  if (heroArt) {
+  if (heroArt && window.innerWidth > 760) {
     const onScroll = () => {
-      const y = Math.min(window.scrollY, 480);
-      heroArt.style.transform = "translateY(" + y * 0.06 + "px)";
+      const y = Math.min(window.scrollY, 420);
+      heroArt.style.transform = "translateY(" + y * 0.045 + "px)";
     };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
