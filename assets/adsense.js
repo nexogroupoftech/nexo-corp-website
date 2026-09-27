@@ -6,8 +6,8 @@
     client: "ca-pub-672038811150334",
     slots: {}
   };
-  var config = window.NEXOCORP_ADSENSE_CONFIG =
-    Object.assign({}, defaults, window.NEXOCORP_ADSENSE_CONFIG || {});
+  var config = window.XOPICX_ADSENSE_CONFIG =
+    Object.assign({}, defaults, window.XOPICX_ADSENSE_CONFIG || {});
   config.slots = Object.assign({}, config.slots || {});
 
   var placements = [
@@ -16,12 +16,12 @@
   ];
 
   function addStyles() {
-    if (document.getElementById("nexo-adsense-styles")) return;
+    if (document.getElementById("xopicx-adsense-styles")) return;
     var style = document.createElement("style");
-    style.id = "nexo-adsense-styles";
+    style.id = "xopicx-adsense-styles";
     style.textContent =
-      ".nexo-adsense{width:100%;max-width:100%;min-width:0;overflow:hidden;margin:32px 0}" +
-      ".nexo-adsense ins{display:block;max-width:100%}";
+      ".xopicx-adsense{width:100%;max-width:100%;min-width:0;overflow:hidden;margin:32px 0}" +
+      ".xopicx-adsense ins{display:block;max-width:100%}";
     document.head.appendChild(style);
   }
 
@@ -29,7 +29,7 @@
     if (!config.enabled || !slotId) return null;
 
     var container = document.createElement("div");
-    container.className = "nexo-adsense";
+    container.className = "xopicx-adsense";
     container.dataset.adsensePlacement = placementName;
 
     var ad = document.createElement("ins");
@@ -67,7 +67,7 @@
     placements.forEach(mount);
   }
 
-  window.NexoCorpAdSense = {
+  window.XopicxAdSense = {
     config: config,
     create: create,
     mount: mount,
