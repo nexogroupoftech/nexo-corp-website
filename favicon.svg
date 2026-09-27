@@ -1,10 +1,10 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
   <rect width="32" height="32" fill="#111111"/>
-  <g fill="none" stroke="#F4F0E6" stroke-width="2.15" stroke-linecap="square">
-    <path d="M4.4 5 L11.05 11.65"/>
-    <path d="M20.95 20.35 L27.6 27"/>
-    <path d="M27.6 5 L20.95 11.65"/>
-    <path d="M11.05 20.35 L4.4 27"/>
-    <rect x="11.05" y="11.05" width="9.9" height="9.9"/>
+  <g fill="none" stroke="#F4F0E6" stroke-width="2.7" stroke-linecap="square">
+    <path d="M3.8 4.2 L11.7 12.1"/>
+    <path d="M20.3 19.9 L28.2 27.8"/>
+    <path d="M28.2 4.2 L20.3 12.1"/>
+    <path d="M11.7 19.9 L3.8 27.8"/>
+    <rect x="10.32" y="10.32" width="11.36" height="11.36"/>
   </g>
 </svg>
