@@ -1,3 +1,5 @@
+document.documentElement.classList.add("js");
+
 document.addEventListener("DOMContentLoaded", () => {
   const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
@@ -33,12 +35,25 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  if (reduce) return;
-
   const reveals = document.querySelectorAll(".reveal");
-  reveals.forEach((el, index) => {
-    el.style.animationDelay = Math.min(index * 0.08, 0.4) + "s";
-  });
+  if (reduce || !("IntersectionObserver" in window)) {
+    reveals.forEach((el) => el.classList.add("is-in"));
+  } else {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-in");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.2, rootMargin: "0px 0px -8% 0px" }
+    );
+    reveals.forEach((el) => observer.observe(el));
+  }
+
+  if (reduce) return;
 
   const drawings = document.querySelectorAll(".draw");
   if (drawings.length && "IntersectionObserver" in window) {
