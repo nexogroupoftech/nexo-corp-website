@@ -1,382 +1,218 @@
 <!DOCTYPE html>
-<html class="light" lang="en">
+<html lang="en">
 <head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Projects — NexoCorp</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<script id="tailwind-config">
-tailwind.config = {
-  darkMode:"class",
-  theme:{
-    extend:{
-      colors:{
-        "tertiary":"#954500","surface-container-highest":"#e2e2e2","tertiary-fixed-dim":"#ffb68b",
-        "on-surface":"#1a1c1c","primary":"#006a41","surface-container-lowest":"#ffffff",
-        "surface-container":"#eeeeee","surface":"#f9f9f9","surface-container-low":"#f3f3f3",
-        "surface-container-high":"#e8e8e8","on-primary-container":"#f6fff5","background":"#f9f9f9",
-        "primary-container":"#008653","on-background":"#1a1c1c","inverse-primary":"#6ddb9f",
-        "outline":"#6e7a70","tertiary-container":"#bb5800","on-tertiary":"#ffffff",
-        "primary-fixed":"#8af8ba","on-primary-fixed":"#002111","on-primary":"#ffffff",
-        "outline-variant":"#bdcabf","primary-fixed-dim":"#6ddb9f","surface-variant":"#e2e2e2",
-        "on-surface-variant":"#3e4a41","tertiary-fixed":"#ffdbc8","secondary":"#5f5e5e",
-      },
-      fontFamily:{
-        "headline":["Inter","system-ui","-apple-system","sans-serif"],
-        "body":["Inter","system-ui","-apple-system","sans-serif"],
-      },
-      borderRadius:{"DEFAULT":"1rem","lg":"2rem","xl":"3rem","full":"9999px"},
-    },
-  },
-}
-</script>
-<style>
-  .material-symbols-outlined{font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24;}
-  .fill-icon{font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24;}
-  .glass-nav{background:rgba(255,255,255,0.7);backdrop-filter:blur(24px);}
-  .card-hover{transition:transform 0.3s cubic-bezier(.22,.68,0,1.2),box-shadow 0.3s ease;}
-  .card-hover:hover{transform:translateY(-5px);box-shadow:0 24px 60px rgba(0,106,65,0.09);}
-  .section-label{font-size:0.68rem;letter-spacing:0.16em;text-transform:uppercase;font-weight:700;color:#006a41;}
-  .reveal{opacity:1;transform:translateY(0);transition:opacity 0.6s cubic-bezier(.22,.68,0,1.2),transform 0.6s cubic-bezier(.22,.68,0,1.2);}
-  .reveal.hidden-init{opacity:0;transform:translateY(28px);}
-  .reveal.visible{opacity:1;transform:translateY(0);}
-  .pulse{animation:pulse 2s ease-in-out infinite;}
-  @keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.3;}}
-  .progress-bar{height:3px;background:#e8e8e8;border-radius:99px;overflow:hidden;}
-  .progress-fill{height:100%;background:linear-gradient(90deg,#006a41,#6ddb9f);border-radius:99px;}
-</style>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Projects — NexoCorp</title>
+  <meta name="description" content="Projects from the NexoCorp studio: DarkFury, Kaizen, StackStruct, RootLab, and AI Tools Hub."/>
+  <meta name="theme-color" content="#F4F0E6"/>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg"/>
+  <link rel="stylesheet" href="style.css"/>
 </head>
-<body class="bg-surface text-on-surface font-body selection:bg-primary-fixed selection:text-on-primary-fixed">
-
-<!-- NAV — consistent across all pages: Home / About / Tools (active) / Founder / Contact -->
-<nav class="fixed top-0 w-full z-50 glass-nav shadow-[0px_24px_80px_rgba(26,28,28,0.06)] h-20">
-  <div class="flex justify-between items-center max-w-7xl mx-auto px-8 h-full">
-    <a href="index.html" class="text-xl font-black tracking-tighter text-on-surface">NexoCorp</a>
-    <div class="hidden md:flex items-center gap-10 font-medium tracking-tight text-sm">
-      <a class="text-secondary hover:text-primary transition-colors" href="index.html">Home</a>
-      <a class="text-secondary hover:text-primary transition-colors" href="about.html">About</a>
-      <a class="text-primary font-semibold border-b-2 border-primary pb-0.5" href="projects.html">Tools</a>
-      <a class="text-secondary hover:text-primary transition-colors" href="founder.html">Founder</a>
-      <a class="text-secondary hover:text-primary transition-colors" href="index.html#contact">Contact</a>
+<body>
+  <a class="skip" href="#content">Skip to content</a>
+  <header class="nav">
+    <div class="nav-inner">
+      <a class="brand" href="index.html">NexoCorp</a>
+      <button class="nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-controls="site-nav">Menu</button>
+      <ul class="nav-links" id="site-nav" data-nav-links>
+        <li><a href="projects.html" aria-current="page">Projects</a></li>
+        <li><a href="experiments.html">Experiments</a></li>
+        <li><a href="about.html">About</a></li>
+      </ul>
     </div>
-    <a href="mailto:xrpbusinessx@gmail.com" class="bg-tertiary hover:bg-tertiary-container text-on-tertiary px-6 py-2.5 rounded-full text-sm font-semibold tracking-wide transition-all duration-200 active:scale-95">
-      Get in Touch
-    </a>
-  </div>
-</nav>
+  </header>
 
-<main class="pt-20">
-
-  <!-- HERO -->
-  <section class="relative min-h-[50vh] flex flex-col justify-end px-8 pb-16 pt-36 overflow-hidden">
-    <div class="max-w-7xl mx-auto w-full reveal">
-      <p class="section-label mb-5">NexoCorp — Projects</p>
-      <h1 class="text-6xl md:text-8xl font-bold tracking-[-0.04em] text-on-surface leading-[1.0] mb-6">
-        Everything we've<br/><span class="text-primary">shipped & built.</span>
-      </h1>
-      <p class="text-xl text-secondary font-light max-w-xl leading-relaxed">
-        A collection of AI-powered tools and digital experiences crafted with precision.
-      </p>
-    </div>
-    <div class="absolute -top-20 -right-20 w-[500px] h-[500px] bg-primary/5 rounded-full blur-3xl pointer-events-none"></div>
-    <div class="absolute bottom-0 left-0 right-0 h-px bg-surface-container-high"></div>
-  </section>
-
-  <!-- STATS STRIP -->
-  <section class="bg-surface-container-low py-8">
-    <div class="max-w-7xl mx-auto px-8 flex flex-wrap gap-12 md:gap-20 items-center">
+  <main id="content">
+    <header class="shell page-intro">
+      <p class="meta">Index</p>
       <div>
-        <div class="text-3xl font-black text-primary tracking-tighter">4 <span class="text-lg font-bold">Live</span></div>
-        <div class="text-xs uppercase tracking-widest font-bold opacity-40 mt-1">Active Projects</div>
+        <h1>Projects</h1>
+        <p class="lede">Five pieces of work that left the notebook. Each one started as a question we could not find a good answer to.</p>
       </div>
+    </header>
+
+    <div class="shell" style="padding-bottom:4rem;">
+      <article class="story" id="darkfury">
+        <p class="story-index">01</p>
+        <div class="story-copy">
+          <h3>DarkFury</h3>
+          <p class="statement">Personal intelligence.</p>
+          <p>A focused system for serious thinkers. Memory, agents, and software that gets out of the way. It was among the first things the studio shipped, and it still sets the tone: calm, owned, and built to be used rather than demonstrated.</p>
+          <ul class="tags"><li>AI</li><li>Agents</li><li>Memory</li></ul>
+          <p class="muted">No public launch page yet. The note lives with the founder.</p>
+          <p style="margin-top:1rem;"><a class="text-link" href="founder.html">Founder note <span aria-hidden="true">→</span></a></p>
+        </div>
+        <div class="story-art">
+          <div class="art-frame" aria-hidden="true">
+            <svg viewBox="0 0 520 420" xmlns="http://www.w3.org/2000/svg">
+              <rect width="520" height="420" fill="#EBE6DA"/>
+              <circle cx="260" cy="210" r="150" fill="none" stroke="#111"/>
+              <circle cx="260" cy="210" r="100" fill="none" stroke="#52664F"/>
+              <circle cx="260" cy="210" r="48" fill="none" stroke="#111"/>
+              <path d="M260 50 L 400 300 H 120 Z" fill="none" stroke="#111" stroke-width="1.1"/>
+              <circle cx="260" cy="210" r="6" fill="#E87532"/>
+              <path d="M260 78 L 268 110 H 302 L 274 128 L 284 160 L 260 142 L 236 160 L 246 128 L 218 110 H 252 Z" fill="none" stroke="#52664F"/>
+            </svg>
+          </div>
+          <p class="fig"><span>Memory rings</span><span>Idea held in orbit</span></p>
+        </div>
+      </article>
+
+      <article class="story story--flip" id="kaizen">
+        <p class="story-index">02</p>
+        <div class="story-copy">
+          <h3>Kaizen</h3>
+          <p class="statement">Machine intelligence, built through experimentation.</p>
+          <p>NexoCorp’s first deployed AI product. A conversational workspace connected to a custom-trained model through a Hugging Face inference bridge. Fast, focused, and made for everyday use — including longer sessions of reasoning and code.</p>
+          <ul class="tags"><li>AI</li><li>Research</li><li>Models</li></ul>
+          <dl class="facts">
+            <div><dt>Platform</dt><dd>Vercel + Cloudflare Workers</dd></div>
+            <div><dt>Language</dt><dd>JavaScript</dd></div>
+            <div><dt>Bridge</dt><dd>Hugging Face inference</dd></div>
+            <div><dt>Status</dt><dd>Deployed</dd></div>
+          </dl>
+          <p style="margin-top:1.4rem;"><a class="text-link" href="https://kaizen-ai-eight.vercel.app/" target="_blank" rel="noopener noreferrer">Launch Kaizen <span aria-hidden="true">→</span></a></p>
+        </div>
+        <div class="story-art">
+          <div class="art-frame" aria-hidden="true">
+            <svg viewBox="0 0 520 420" xmlns="http://www.w3.org/2000/svg">
+              <rect width="520" height="420" fill="#EBE6DA"/>
+              <g transform="rotate(-20 270 210)"><ellipse class="orbit" cx="270" cy="210" rx="170" ry="70" fill="none" stroke="#52664F"/></g>
+              <path d="M110 300 L 190 220 H 110 Z" fill="none" stroke="#111"/>
+              <path d="M190 250 L 280 150 H 190 Z" fill="none" stroke="#111"/>
+              <path d="M280 190 L 390 70 H 280 Z" fill="none" stroke="#52664F"/>
+              <circle cx="190" cy="220" r="4" fill="#111"/>
+              <circle cx="280" cy="150" r="4" fill="#111"/>
+              <circle cx="390" cy="70" r="5" fill="#E87532"/>
+            </svg>
+          </div>
+          <p class="fig"><span>Iteration</span><span>Each triangle a pass</span></p>
+        </div>
+      </article>
+
+      <article class="story" id="stackstruct">
+        <p class="story-index">03</p>
+        <div class="story-copy">
+          <h3>StackStruct</h3>
+          <p class="statement">A sentence, returned as a structure.</p>
+          <p>Describe a project in plain English. Get a complete, production-ready folder structure. The tool exists to remove the blank page — more than twenty stack templates, across frameworks, with nothing to configure first.</p>
+          <ul class="tags"><li>AI</li><li>Systems</li><li>Tools</li></ul>
+          <dl class="facts">
+            <div><dt>Templates</dt><dd>20+</dd></div>
+            <div><dt>Output</dt><dd>A folder tree, ready to open</dd></div>
+            <div><dt>Scope</dt><dd>Any framework the prompt names</dd></div>
+            <div><dt>Status</dt><dd>Deployed</dd></div>
+          </dl>
+          <p style="margin-top:1.4rem;"><a class="text-link" href="https://stackstruct.vercel.app" target="_blank" rel="noopener noreferrer">Launch StackStruct <span aria-hidden="true">→</span></a></p>
+        </div>
+        <div class="story-art">
+          <div class="art-frame" aria-hidden="true">
+            <svg viewBox="0 0 520 420" xmlns="http://www.w3.org/2000/svg">
+              <rect width="520" height="420" fill="#EBE6DA"/>
+              <g stroke="#D8D2C4">
+                <path d="M40 70 H 480 M40 140 H 480 M40 210 H 480 M40 280 H 480 M40 350 H 480"/>
+                <path d="M90 40 V 390 M170 40 V 390 M250 40 V 390 M330 40 V 390 M410 40 V 390"/>
+              </g>
+              <path d="M140 310 L 260 80 L 380 310" fill="none" stroke="#111" stroke-width="1.3"/>
+              <rect x="190" y="200" width="60" height="90" fill="none" stroke="#52664F"/>
+              <rect x="260" y="160" width="80" height="130" fill="none" stroke="#52664F"/>
+              <circle cx="260" cy="80" r="4" fill="#E87532"/>
+            </svg>
+          </div>
+          <p class="fig"><span>Architecture</span><span>Grid, then a roof</span></p>
+        </div>
+      </article>
+
+      <article class="story story--flip" id="rootlab">
+        <p class="story-index">04</p>
+        <div class="story-copy">
+          <h3>RootLab</h3>
+          <p class="statement">Learn the way a root system learns soil.</p>
+          <p>Enter any topic, choose a difficulty, and RootLab writes a structured breakdown: foundations, core mechanics, branches, real-world applications, and follow-up questions. Powered by LLaMA 3.3 70B via Groq, on Vercel’s edge.</p>
+          <ul class="tags"><li>AI</li><li>Learning</li><li>Models</li></ul>
+          <dl class="facts">
+            <div><dt>Levels</dt><dd>Beginner, intermediate, advanced</dd></div>
+            <div><dt>Model</dt><dd>LLaMA 3.3 70B · Groq</dd></div>
+            <div><dt>Shape</dt><dd>Root, core, branches, fruit, questions</dd></div>
+            <div><dt>Status</dt><dd>Deployed</dd></div>
+          </dl>
+          <p style="margin-top:1.4rem;"><a class="text-link" href="https://rootlab-38er.vercel.app" target="_blank" rel="noopener noreferrer">Launch RootLab <span aria-hidden="true">→</span></a></p>
+        </div>
+        <div class="story-art">
+          <div class="art-frame" aria-hidden="true">
+            <svg viewBox="0 0 520 420" xmlns="http://www.w3.org/2000/svg">
+              <rect width="520" height="420" fill="#EBE6DA"/>
+              <path d="M40 220 H 480" stroke="#111"/>
+              <path d="M260 220 C 230 280, 160 300, 110 350" fill="none" stroke="#52664F" stroke-width="1.3"/>
+              <path d="M260 220 C 310 290, 370 300, 420 360" fill="none" stroke="#52664F" stroke-width="1.2"/>
+              <path d="M260 220 C 230 150, 150 140, 100 70" fill="none" stroke="#111"/>
+              <path d="M260 220 C 300 140, 380 120, 430 60" fill="none" stroke="#111"/>
+              <path d="M100 70 C 130 40, 160 90, 190 70 C 155 100, 120 90, 100 70 Z" fill="#52664F"/>
+              <path d="M430 60 C 470 30, 500 90, 520 64 C 485 96, 450 84, 430 60 Z" fill="#52664F"/>
+              <circle cx="260" cy="220" r="5" fill="#E87532"/>
+            </svg>
+          </div>
+          <p class="fig"><span>Growth</span><span>Above and below the line</span></p>
+        </div>
+      </article>
+
+      <article class="story" id="ai-tools-hub">
+        <p class="story-index">05</p>
+        <div class="story-copy">
+          <h3>AI Tools Hub</h3>
+          <p class="statement">A library of instruments, kept by hand.</p>
+          <p>A curated directory of AI platforms, organized by what they actually help you do. Handpicked, updated as the field moves, free to open, and deliberately without a login.</p>
+          <ul class="tags"><li>AI</li><li>Curation</li><li>Index</li></ul>
+          <dl class="facts">
+            <div><dt>Type</dt><dd>Curated directory</dd></div>
+            <div><dt>Access</dt><dd>Free · no login</dd></div>
+            <div><dt>Status</dt><dd>Live, and still growing</dd></div>
+          </dl>
+          <p style="margin-top:1.4rem;"><a class="text-link" href="https://nexocorp.online/ai-tools.html" target="_blank" rel="noopener noreferrer">Open the hub <span aria-hidden="true">→</span></a></p>
+        </div>
+        <div class="story-art">
+          <div class="art-frame" aria-hidden="true">
+            <svg viewBox="0 0 520 420" xmlns="http://www.w3.org/2000/svg">
+              <rect width="520" height="420" fill="#EBE6DA"/>
+              <g stroke="#D8D2C4">
+                <path d="M70 40 V 380 M150 40 V 380 M230 40 V 380 M310 40 V 380 M390 40 V 380 M470 40 V 380"/>
+                <path d="M40 90 H 490 M40 170 H 490 M40 250 H 490 M40 330 H 490"/>
+              </g>
+              <path d="M150 250 L 230 130 L 390 170 L 330 310 Z" fill="none" stroke="#111"/>
+              <circle cx="150" cy="250" r="6" fill="#111"/>
+              <circle cx="230" cy="130" r="5" fill="#52664F"/>
+              <circle cx="390" cy="170" r="6" fill="#111"/>
+              <circle cx="330" cy="310" r="5" fill="#E87532"/>
+            </svg>
+          </div>
+          <p class="fig"><span>Index</span><span>Nodes on a grid</span></p>
+        </div>
+      </article>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="shell footer-grid">
       <div>
-        <div class="text-3xl font-black text-tertiary tracking-tighter">1 <span class="text-lg font-bold">Soon</span></div>
-        <div class="text-xs uppercase tracking-widest font-bold opacity-40 mt-1">In Development</div>
+        <a class="brand" href="index.html">NexoCorp</a>
+        <p class="motto">Built from curiosity.</p>
       </div>
+      <nav aria-label="Footer">
+        <a href="projects.html">Projects</a>
+        <a href="experiments.html">Experiments</a>
+        <a href="about.html">About</a>
+      </nav>
       <div>
-        <div class="text-3xl font-black text-primary tracking-tighter">100<span class="text-lg font-bold">%</span></div>
-        <div class="text-xs uppercase tracking-widest font-bold opacity-40 mt-1">AI-Powered</div>
-      </div>
-    </div>
-  </section>
-
- <!-- 01 KAIZEN AI -->
-  <section class="py-24 px-8 max-w-7xl mx-auto reveal">
-    <div class="flex items-end justify-between mb-10 pb-6 border-b border-surface-container-high">
-      <div>
-        <p class="section-label mb-2">01 · AI Chatbot</p>
-        <h2 class="text-4xl md:text-5xl font-bold tracking-tight">Kaizen AI</h2>
-      </div>
-      <span class="text-xs font-bold tracking-widest uppercase py-1.5 px-4 rounded-full bg-primary-fixed/60 text-on-primary-fixed">● Live</span>
-    </div>
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-      <div class="bg-surface-container-lowest rounded-[20px] p-10 card-hover flex flex-col justify-between" style="min-height:420px;">
-        <div>
-          <div class="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center mb-6">
-            <span class="material-symbols-outlined text-primary">smart_toy</span>
-          </div>
-          <div class="flex gap-2 flex-wrap mb-5">
-            <span class="text-[10px] font-bold tracking-widest uppercase px-3 py-1 rounded-full bg-surface-container text-on-surface-variant">AI Chatbot</span>
-            <span class="text-[10px] font-bold tracking-widest uppercase px-3 py-1 rounded-full bg-surface-container text-on-surface-variant">JavaScript</span>
-            <span class="text-[10px] font-bold tracking-widest uppercase px-3 py-1 rounded-full bg-surface-container text-on-surface-variant">Hugging Face</span>
-          </div>
-          <p class="text-secondary leading-relaxed">NexoCorp's first deployed AI product. A conversational AI workspace connected directly to a custom-trained model through a Hugging Face inference bridge. Fast, focused, and built for everyday use.</p>
-          <div class="space-y-3 mt-6">
-            <div class="flex items-center gap-4"><span class="text-[10px] uppercase tracking-widest font-bold text-outline w-20">Platform</span><span class="text-sm text-secondary">Vercel + Cloudflare Workers</span></div>
-            <div class="flex items-center gap-4"><span class="text-[10px] uppercase tracking-widest font-bold text-outline w-20">Language</span><span class="text-sm text-secondary">JavaScript</span></div>
-            <div class="flex items-center gap-4"><span class="text-[10px] uppercase tracking-widest font-bold text-outline w-20">Status</span><span class="text-sm font-bold text-primary">● Deployed & Live</span></div>
-          </div>
-        </div>
-        <div class="flex gap-4 mt-8 flex-wrap">
-          <a href="https://kaizen-ai-eight.vercel.app/" target="_blank" class="bg-tertiary text-on-tertiary px-7 py-3 rounded-full text-sm font-bold hover:scale-105 transition-transform active:scale-95">Launch Kaizen AI</a>
-          <a href="mailto:xrpbusinessx@gmail.com" class="border border-outline-variant/30 text-on-surface px-7 py-3 rounded-full text-sm font-medium hover:bg-surface-container-low transition-colors">Contact Dev</a>
-        </div>
-      </div>
-      <div class="grid grid-cols-2 gap-4">
-        <div class="bg-surface-container-lowest rounded-[20px] p-8 card-hover">
-          <span class="material-symbols-outlined text-primary text-2xl mb-3 block">psychology</span>
-          <div class="font-bold text-base mb-2">Deep Reasoning</div>
-          <div class="text-secondary text-sm leading-relaxed">Multi-step problem solving across any domain</div>
-        </div>
-        <div class="bg-surface-container-lowest rounded-[20px] p-8 card-hover">
-          <span class="material-symbols-outlined text-primary text-2xl mb-3 block">bolt</span>
-          <div class="font-bold text-base mb-2">Fast Responses</div>
-          <div class="text-secondary text-sm leading-relaxed">Optimized inference pipeline</div>
-        </div>
-        <div class="bg-surface-container-lowest rounded-[20px] p-8 card-hover">
-          <span class="material-symbols-outlined text-primary text-2xl mb-3 block">code</span>
-          <div class="font-bold text-base mb-2">Code Generation</div>
-          <div class="text-secondary text-sm leading-relaxed">Any language, any framework</div>
-        </div>
-        <div class="bg-primary rounded-[20px] p-8 card-hover">
-          <span class="material-symbols-outlined text-white text-2xl mb-3 block">dark_mode</span>
-          <div class="font-bold text-base mb-2 text-white">Dark UI</div>
-          <div class="text-primary-fixed/70 text-sm leading-relaxed">Built for long focused sessions</div>
+        <a href="mailto:xrpbusinessx@gmail.com">xrpbusinessx@gmail.com</a>
+        <div class="legal-links">
+          <a href="privacy.html">Privacy</a>
+          <a href="terms.html">Terms</a>
+          <a href="founder.html">Founder</a>
         </div>
       </div>
     </div>
-  </section>
-
-  <!-- 02 STACKSTRUCT -->
-  <section class="py-24 px-8 bg-surface-container-low reveal">
-    <div class="max-w-7xl mx-auto">
-      <div class="flex items-end justify-between mb-10 pb-6 border-b border-surface-container-high">
-        <div>
-          <p class="section-label mb-2">02 · Developer Tool</p>
-          <h2 class="text-4xl md:text-5xl font-bold tracking-tight">StackStruct</h2>
-        </div>
-        <span class="text-xs font-bold tracking-widest uppercase py-1.5 px-4 rounded-full bg-primary-fixed/60 text-on-primary-fixed">● Live</span>
-      </div>
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
-        <div class="bg-on-surface rounded-[20px] p-8 card-hover" style="min-height:380px;">
-          <div class="flex items-center gap-2 mb-5">
-            <div class="w-3 h-3 rounded-full bg-red-400"></div>
-            <div class="w-3 h-3 rounded-full bg-yellow-400"></div>
-            <div class="w-3 h-3 rounded-full bg-green-400"></div>
-            <span class="text-[10px] font-mono text-white/30 ml-2 tracking-wider">stackstruct.vercel.app</span>
-          </div>
-          <div class="bg-white/5 rounded-xl p-4 mb-5">
-            <p class="text-[10px] uppercase tracking-widest font-bold text-primary-fixed/50 mb-2">// Prompt</p>
-            <p class="text-white/80 font-light italic text-sm leading-relaxed">"Create a full-stack SaaS with React, FastAPI, PostgreSQL, Docker"</p>
-          </div>
-          <div class="font-mono text-sm leading-loose text-white/70">
-            <div class="text-yellow-400">📁 my-saas-app/ <span class="text-primary-fixed text-[10px] border border-primary-fixed/30 px-1.5 py-0.5 ml-2">GENERATED</span></div>
-            <div class="ml-4 text-white/50">└─ <span class="text-yellow-400">📁 frontend/</span></div>
-            <div class="ml-8">├─ 📄 <span class="text-blue-300">App.jsx</span></div>
-            <div class="ml-8">└─ 📄 <span class="text-yellow-300">package.json</span></div>
-            <div class="ml-4 text-white/50">└─ <span class="text-yellow-400">📁 backend/</span></div>
-            <div class="ml-8">├─ 📄 <span class="text-blue-400">main.py</span></div>
-            <div class="ml-8">├─ 📄 <span class="text-blue-400">models.py</span></div>
-            <div class="ml-8">└─ 📄 <span class="text-orange-400">.env.example</span></div>
-            <div class="ml-4 text-white/50">└─ 📄 docker-compose.yml</div>
-          </div>
-        </div>
-        <div class="flex flex-col justify-between" style="min-height:380px;">
-          <div>
-            <div class="flex gap-2 flex-wrap mb-5">
-              <span class="text-[10px] font-bold tracking-widest uppercase px-3 py-1 rounded-full bg-surface-container text-on-surface-variant">Dev Tool</span>
-              <span class="text-[10px] font-bold tracking-widest uppercase px-3 py-1 rounded-full bg-surface-container text-on-surface-variant">AI-Powered</span>
-            </div>
-            <p class="text-secondary leading-relaxed mb-8">Describe your project in plain English. Get a complete, production-ready folder structure in seconds. Eliminates the blank-slate problem for every developer.</p>
-            <div class="grid grid-cols-2 gap-3 mb-8">
-              <div class="bg-surface-container-lowest rounded-[16px] p-5 card-hover"><div class="text-3xl font-black text-primary tracking-tighter">20<span class="text-lg">+</span></div><div class="text-[10px] uppercase tracking-widest font-bold opacity-40 mt-1">Stack Templates</div></div>
-              <div class="bg-surface-container-lowest rounded-[16px] p-5 card-hover"><div class="text-3xl font-black text-primary tracking-tighter">1<span class="text-lg">s</span></div><div class="text-[10px] uppercase tracking-widest font-bold opacity-40 mt-1">Generation Time</div></div>
-              <div class="bg-surface-container-lowest rounded-[16px] p-5 card-hover"><div class="text-3xl font-black text-primary tracking-tighter">Any</div><div class="text-[10px] uppercase tracking-widest font-bold opacity-40 mt-1">Framework</div></div>
-              <div class="bg-surface-container-lowest rounded-[16px] p-5 card-hover"><div class="text-3xl font-black text-primary tracking-tighter">0</div><div class="text-[10px] uppercase tracking-widest font-bold opacity-40 mt-1">Config Needed</div></div>
-            </div>
-          </div>
-          <div class="flex gap-4 flex-wrap">
-            <a href="https://stackstruct.vercel.app" target="_blank" class="bg-tertiary text-on-tertiary px-7 py-3 rounded-full text-sm font-bold hover:scale-105 transition-transform active:scale-95">Launch StackStruct</a>
-            <a href="mailto:xrpbusinessx@gmail.com" class="border border-outline-variant/30 text-on-surface px-7 py-3 rounded-full text-sm font-medium hover:bg-surface-container transition-colors">Contact Dev</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- 03 ROOTLAB -->
-  <section class="py-24 px-8 max-w-7xl mx-auto reveal">
-    <div class="flex items-end justify-between mb-10 pb-6 border-b border-surface-container-high">
-      <div>
-        <p class="section-label mb-2">03 · Learning Engine</p>
-        <h2 class="text-4xl md:text-5xl font-bold tracking-tight">RootLab</h2>
-      </div>
-      <span class="text-xs font-bold tracking-widest uppercase py-1.5 px-4 rounded-full bg-primary-fixed/60 text-on-primary-fixed">● Live</span>
-    </div>
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
-      <div class="flex flex-col justify-between" style="min-height:400px;">
-        <div>
-          <div class="flex gap-2 flex-wrap mb-5">
-            <span class="text-[10px] font-bold tracking-widest uppercase px-3 py-1 rounded-full bg-surface-container text-on-surface-variant">AI Learning</span>
-            <span class="text-[10px] font-bold tracking-widest uppercase px-3 py-1 rounded-full bg-surface-container text-on-surface-variant">Next.js</span>
-            <span class="text-[10px] font-bold tracking-widest uppercase px-3 py-1 rounded-full bg-surface-container text-on-surface-variant">LLaMA · Groq</span>
-          </div>
-          <p class="text-secondary leading-relaxed mb-6">Enter any topic, choose your difficulty, and RootLab generates a structured 5-section breakdown — foundations, core mechanics, branches, real-world applications, and follow-up questions. Powered by LLaMA 3.3 via Groq.</p>
-          <div class="space-y-3 mb-8">
-            <div class="flex items-center gap-4"><span class="text-[10px] uppercase tracking-widest font-bold text-outline w-20">Platform</span><span class="text-sm text-secondary">Vercel · Edge</span></div>
-            <div class="flex items-center gap-4"><span class="text-[10px] uppercase tracking-widest font-bold text-outline w-20">AI Model</span><span class="text-sm text-secondary">LLaMA 3.3 70B · Groq</span></div>
-            <div class="flex items-center gap-4"><span class="text-[10px] uppercase tracking-widest font-bold text-outline w-20">Levels</span><span class="text-sm text-secondary">Beginner · Intermediate · Advanced</span></div>
-            <div class="flex items-center gap-4"><span class="text-[10px] uppercase tracking-widest font-bold text-outline w-20">Status</span><span class="text-sm font-bold text-primary">● Deployed & Live</span></div>
-          </div>
-        </div>
-        <div class="flex gap-4 flex-wrap">
-          <a href="https://rootlab-38er.vercel.app" target="_blank" class="bg-tertiary text-on-tertiary px-7 py-3 rounded-full text-sm font-bold hover:scale-105 transition-transform active:scale-95">Launch RootLab</a>
-          <a href="mailto:xrpbusinessx@gmail.com" class="border border-outline-variant/30 text-on-surface px-7 py-3 rounded-full text-sm font-medium hover:bg-surface-container-low transition-colors">Contact Dev</a>
-        </div>
-      </div>
-      <div class="grid grid-cols-2 gap-4">
-        <div class="bg-surface-container-lowest rounded-[20px] p-8 card-hover"><div class="text-2xl mb-3">🌱</div><div class="font-bold text-base mb-2">Root</div><div class="text-secondary text-sm leading-relaxed">Foundational explanation of any topic</div></div>
-        <div class="bg-surface-container-lowest rounded-[20px] p-8 card-hover"><div class="text-2xl mb-3">🧠</div><div class="font-bold text-base mb-2">Core</div><div class="text-secondary text-sm leading-relaxed">Mechanisms + ASCII diagrams</div></div>
-        <div class="bg-surface-container-lowest rounded-[20px] p-8 card-hover"><div class="text-2xl mb-3">🌿</div><div class="font-bold text-base mb-2">Branches</div><div class="text-secondary text-sm leading-relaxed">5 deep related subtopics</div></div>
-        <div class="bg-primary rounded-[20px] p-8 card-hover"><div class="text-2xl mb-3">🍎</div><div class="font-bold text-base mb-2 text-white">Fruit</div><div class="text-primary-fixed/70 text-sm leading-relaxed">Real-world applications</div></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- 04 AI TOOLS HUB -->
-  <section class="py-24 px-8 bg-surface-container-low reveal">
-    <div class="max-w-7xl mx-auto">
-      <div class="flex items-end justify-between mb-10 pb-6 border-b border-surface-container-high">
-        <div>
-          <p class="section-label mb-2">04 · AI Directory</p>
-          <h2 class="text-4xl md:text-5xl font-bold tracking-tight">AI Tools Hub</h2>
-        </div>
-        <span class="text-xs font-bold tracking-widest uppercase py-1.5 px-4 rounded-full bg-primary-fixed/60 text-on-primary-fixed">● Live</span>
-      </div>
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        <div class="bg-surface-container-lowest rounded-[20px] p-10 card-hover flex flex-col justify-between" style="min-height:380px;">
-          <div>
-            <div class="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center mb-6">
-              <span class="material-symbols-outlined text-primary">auto_awesome</span>
-            </div>
-            <p class="text-secondary leading-relaxed mb-6">A curated intelligence library of AI platforms reshaping how the world thinks, creates, and builds — handpicked and organized by capability. Free, no login, always updated.</p>
-            <div class="space-y-3">
-              <div class="flex items-center gap-4"><span class="text-[10px] uppercase tracking-widest font-bold text-outline w-20">Type</span><span class="text-sm text-secondary">Curated Directory</span></div>
-              <div class="flex items-center gap-4"><span class="text-[10px] uppercase tracking-widest font-bold text-outline w-20">Access</span><span class="text-sm text-secondary">Free · No Login</span></div>
-              <div class="flex items-center gap-4"><span class="text-[10px] uppercase tracking-widest font-bold text-outline w-20">Status</span><span class="text-sm font-bold text-primary">● Live & Growing</span></div>
-            </div>
-          </div>
-          <div class="flex gap-4 mt-8 flex-wrap">
-            <a href="https://nexocorp.online/ai-tools.html" target="_blank" class="bg-tertiary text-on-tertiary px-7 py-3 rounded-full text-sm font-bold hover:scale-105 transition-transform active:scale-95">Explore Hub</a>
-            <a href="mailto:xrpbusinessx@gmail.com" class="border border-outline-variant/30 text-on-surface px-7 py-3 rounded-full text-sm font-medium hover:bg-surface-container transition-colors">Contact Dev</a>
-          </div>
-        </div>
-        <div class="grid grid-cols-2 gap-4">
-          <div class="bg-surface-container-lowest rounded-[20px] p-8 card-hover"><div class="text-2xl mb-3">🔍</div><div class="font-bold text-base mb-2">Curated Tools</div><div class="text-secondary text-sm leading-relaxed">Handpicked by NexoCorp</div></div>
-          <div class="bg-surface-container-lowest rounded-[20px] p-8 card-hover"><div class="text-2xl mb-3">📂</div><div class="font-bold text-base mb-2">By Category</div><div class="text-secondary text-sm leading-relaxed">Organized by capability</div></div>
-          <div class="bg-surface-container-lowest rounded-[20px] p-8 card-hover"><div class="text-2xl mb-3">🔄</div><div class="font-bold text-base mb-2">Always Updated</div><div class="text-secondary text-sm leading-relaxed">New tools added regularly</div></div>
-          <div class="bg-primary rounded-[20px] p-8 card-hover"><div class="text-2xl mb-3">⚡</div><div class="font-bold text-base mb-2 text-white">Free Access</div><div class="text-primary-fixed/70 text-sm leading-relaxed">No login, no paywall</div></div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- 05 MYLAND -->
-  <section class="py-24 px-8 pb-36 reveal">
-    <div class="max-w-7xl mx-auto">
-      <div class="flex items-end justify-between mb-10 pb-6 border-b border-surface-container-high">
-        <div>
-          <p class="section-label mb-2">05 · In Production</p>
-          <h2 class="text-4xl md:text-5xl font-bold tracking-tight">MyLand</h2>
-        </div>
-        <span class="text-xs font-bold tracking-widest uppercase py-1.5 px-4 rounded-full bg-tertiary-fixed text-tertiary">&#x23F3; 7–14 Days</span>
-      </div>
-      <div class="bg-tertiary rounded-[24px] p-12 md:p-16 relative overflow-hidden card-hover">
-        <div class="absolute inset-0 opacity-10 pointer-events-none">
-          <div class="w-full h-full" style="background-image:radial-gradient(#fff 1px,transparent 1px);background-size:36px 36px;"></div>
-        </div>
-        <div class="relative z-10 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-          <div>
-            <div class="inline-flex items-center gap-2 mb-6">
-              <span class="w-2 h-2 rounded-full bg-tertiary-fixed pulse inline-block"></span>
-              <span class="text-[10px] font-bold tracking-widest uppercase text-tertiary-fixed/70">Active Development</span>
-            </div>
-            <h3 class="text-4xl md:text-5xl font-bold text-on-tertiary tracking-tight mb-4 leading-tight">Something new<br/>is coming.</h3>
-            <p class="text-on-tertiary/70 text-lg leading-relaxed mb-8 max-w-md">MyLand is NexoCorp's next product — in its final production stage. Dropping in 7 to 14 days. Details revealed at launch.</p>
-            <a href="mailto:xrpbusinessx@gmail.com" class="inline-flex items-center gap-2 bg-white text-tertiary px-8 py-4 rounded-full text-sm font-bold hover:scale-105 transition-transform shadow-xl">
-              Stay Updated
-            </a>
-          </div>
-          <div class="space-y-5">
-            <div>
-              <div class="flex justify-between mb-2">
-                <span class="text-[10px] uppercase tracking-widest font-bold text-on-tertiary/50">Production Progress</span>
-                <span class="text-[10px] uppercase tracking-widest font-bold text-tertiary-fixed">~85%</span>
-              </div>
-              <div class="progress-bar"><div class="progress-fill" style="width:85%;"></div></div>
-            </div>
-            <div class="grid grid-cols-2 gap-4">
-              <div class="bg-white/10 rounded-[16px] p-6">
-                <div class="text-3xl font-black text-tertiary-fixed tracking-tighter">7–14</div>
-                <div class="text-[10px] uppercase tracking-widest font-bold text-on-tertiary/50 mt-1">Days Remaining</div>
-              </div>
-              <div class="bg-white/10 rounded-[16px] p-6">
-                <div class="text-3xl font-black text-tertiary-fixed tracking-tighter">&#x1F512;</div>
-                <div class="text-[10px] uppercase tracking-widest font-bold text-on-tertiary/50 mt-1">Details Hidden</div>
-              </div>
-            </div>
-            <div class="bg-white/10 rounded-[16px] p-5 flex items-center gap-4">
-              <span class="material-symbols-outlined text-tertiary-fixed fill-icon">rocket_launch</span>
-              <div>
-                <div class="text-sm font-bold text-on-tertiary">Launch incoming</div>
-                <div class="text-[10px] uppercase tracking-widest font-bold text-on-tertiary/50">Built by Dev · NexoCorp</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-</main>
-
-<!-- FOOTER -->
-<footer class="w-full py-12 bg-zinc-50 border-t border-zinc-200/40">
-  <div class="flex flex-col md:flex-row justify-between items-center max-w-7xl mx-auto px-8 gap-4">
-    <div class="flex flex-col gap-2">
-      <div class="text-lg font-black text-zinc-900">NexoCorp</div>
-      <p class="text-sm tracking-wide uppercase font-light text-zinc-500">© 2026 NexoCorp · Founded by Dev</p>
-    </div>
-    <a href="index.html" class="text-sm font-bold tracking-wide uppercase text-zinc-500 hover:text-primary transition-colors">← Back to Home</a>
-    <div class="flex gap-8">
-      <a href="privacy.html" class="text-sm tracking-wide uppercase font-light text-zinc-500 hover:text-orange-500 transition-all">Privacy</a>
-      <a href="terms.html" class="text-sm tracking-wide uppercase font-light text-zinc-500 hover:text-orange-500 transition-all">Terms</a>
-    </div>
-  </div>
-</footer>
-
-<script>
-  const reveals = document.querySelectorAll('.reveal');
-  reveals.forEach(el => el.classList.add('hidden-init'));
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if(e.isIntersecting){e.target.classList.remove('hidden-init');e.target.classList.add('visible');}
-    });
-  },{threshold:0.05});
-  reveals.forEach(el => observer.observe(el));
-  setTimeout(()=>{reveals[0]?.classList.remove('hidden-init');reveals[0]?.classList.add('visible');},50);
-</script>
+  </footer>
+  <script src="script.js"></script>
 </body>
 </html>
