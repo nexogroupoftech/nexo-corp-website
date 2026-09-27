@@ -153,23 +153,110 @@ a:hover {
 .brand {
   display: inline-flex;
   align-items: center;
-  gap: 0.45rem;
   font-weight: 600;
   letter-spacing: 0.16em;
   text-decoration: none;
   font-size: 0.92rem;
 }
 
-.brand::after {
-  content: "";
-  width: 0.42rem;
-  height: 0.42rem;
-  background: var(--orange);
+.brand:hover {
+  color: var(--ink);
+}
+
+/* Responsive wordmark. The two outer marks are the same X; the
+   middle letters compress into the joint, then the marks overlap. */
+.brand-lock {
+  --mark-ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --mark-time: 640ms;
+  letter-spacing: 0;
+  align-self: stretch;
+  flex: none;
+  user-select: none;
+  color: var(--ink);
+}
+
+.brand-lock:hover {
+  color: var(--ink);
+}
+
+.mark {
+  display: inline-flex;
+  align-items: center;
+  height: 1.15rem;
+  gap: 0.1rem;
+}
+
+.glyph-x,
+.glyph-x-end svg {
+  width: 1.15rem;
+  height: 1.15rem;
+  max-width: none;
+  display: block;
   flex: none;
 }
 
-.brand:hover {
-  color: var(--ink);
+.glyph-x-end {
+  position: relative;
+  width: 1.15rem;
+  height: 1.15rem;
+  flex: none;
+}
+
+.glyph-x-end svg {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.glyph-mid {
+  display: block;
+  overflow: hidden;
+  width: 0.68em;
+  font-size: 0.98rem;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  text-align: center;
+  transform-origin: 50% 55%;
+  white-space: nowrap;
+}
+
+.glyph-mid.is-i {
+  width: 0.28em;
+}
+
+.brand-lock.is-live .mark,
+.brand-lock.is-live .glyph-mid,
+.brand-lock.is-live .glyph-x-end {
+  transition:
+    gap var(--mark-time) var(--mark-ease),
+    width var(--mark-time) var(--mark-ease),
+    transform var(--mark-time) var(--mark-ease),
+    opacity 480ms var(--mark-ease),
+    letter-spacing var(--mark-time) var(--mark-ease);
+}
+
+.brand-lock.is-live.is-compact .glyph-mid {
+  transition-delay: 0ms, 0ms, 0ms, 150ms, 0ms;
+}
+
+.brand-lock.is-live:not(.is-compact) .glyph-mid {
+  transition-delay: 80ms, 80ms, 80ms, 0ms, 40ms;
+}
+
+.brand-lock.is-compact .mark {
+  gap: 0;
+}
+
+.brand-lock.is-compact .glyph-mid {
+  width: 0;
+  opacity: 0;
+  letter-spacing: -0.16em;
+  transform: scaleX(0.08) scaleY(0.4);
+}
+
+.brand-lock.is-compact .glyph-x-end {
+  width: 0;
 }
 
 .nav-links {
@@ -1224,6 +1311,21 @@ textarea:focus {
 }
 
 @media (max-width: 760px) {
+  .brand-lock .mark {
+    gap: 0;
+  }
+
+  .brand-lock .glyph-mid {
+    width: 0;
+    opacity: 0;
+    letter-spacing: -0.16em;
+    transform: scaleX(0.08) scaleY(0.4);
+  }
+
+  .brand-lock .glyph-x-end {
+    width: 0;
+  }
+
   .nav-toggle {
     display: inline-flex;
   }
@@ -1354,7 +1456,11 @@ textarea:focus {
 
   .nav-links,
   .nav-toggle-icon::before,
-  .nav-toggle-icon::after {
+  .nav-toggle-icon::after,
+  .brand-lock,
+  .brand-lock .mark,
+  .brand-lock .glyph-mid,
+  .brand-lock .glyph-x-end {
     animation: none !important;
     transition: none !important;
   }
