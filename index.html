@@ -4,13 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script src="./support.js"></script>
-<meta name="google-adsense-account" content="ca-pub-672038811150334">
 <link rel="canonical" href="https://xopicx.online/">
 <meta property="og:title" content="XOPICX — Technology beyond the obvious.">
 <meta property="og:description" content="An independent technology studio exploring what software can become.">
 <meta property="og:image" content="https://xopicx.online/assets/og.png">
 <meta property="og:url" content="https://xopicx.online/">
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-672038811150334" crossorigin="anonymous"></script>
 </head>
 <body>
 <x-dc>
@@ -495,12 +493,25 @@ input,textarea,button{font:inherit;color:inherit}
         <p style="font-size:1.2rem;line-height:1.5;color:#2b2a27;max-width:28rem">An agent, a product, or a technical idea that does not have a category yet. We read everything.</p>
         <div style="display:flex;flex-direction:column;gap:6px;font-family:'Martian Mono',monospace;font-size:12px;letter-spacing:.04em"><a href="mailto:xrpbusinessx@gmail.com" style="color:#141413" style-hover="color:#B85E32">xrpbusinessx@gmail.com</a><span style="color:#4a4740">India · Remote worldwide</span></div>
       </div>
+      <sc-if value="{{ formOpen }}" hint-placeholder-val="{{ true }}">
       <form onSubmit="{{ submit }}" style="display:grid;gap:22px;align-content:start;background:#E8E1D5;padding:clamp(1.5rem,3.5vw,2.75rem)">
+        <input type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
         <label style="display:grid;gap:8px;font-family:'Martian Mono',monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#4a4740">Name<input name="name" type="text" autocomplete="name" style="font-family:'Newsreader',serif;font-size:1.15rem;letter-spacing:0;text-transform:none;background:transparent;border:0;border-bottom:1px solid #141413;border-radius:0;padding:8px 0;color:#141413;outline:none" style-focus="border-bottom:2px solid #B85E32"></label>
         <label style="display:grid;gap:8px;font-family:'Martian Mono',monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#4a4740">Email<input name="email" type="email" autocomplete="email" style="font-family:'Newsreader',serif;font-size:1.15rem;letter-spacing:0;text-transform:none;background:transparent;border:0;border-bottom:1px solid #141413;border-radius:0;padding:8px 0;color:#141413;outline:none" style-focus="border-bottom:2px solid #B85E32"></label>
         <label style="display:grid;gap:8px;font-family:'Martian Mono',monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#4a4740">Message<textarea name="message" required="" style="font-family:'Newsreader',serif;font-size:1.15rem;letter-spacing:0;text-transform:none;background:transparent;border:0;border-bottom:1px solid #141413;border-radius:0;padding:8px 0;min-height:7rem;resize:vertical;color:#141413;outline:none" style-focus="border-bottom:2px solid #B85E32"></textarea></label>
-        <button type="submit" style="justify-self:start;display:inline-flex;gap:14px;align-items:center;background:#141413;color:#FAF9F5;border:0;border-radius:0;padding:16px 22px;min-height:44px;font-family:'Martian Mono',monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;cursor:pointer" style-hover="background:#B85E32">Send message <span aria-hidden="true">→</span></button>
+        <button type="submit" style="justify-self:start;display:inline-flex;gap:14px;align-items:center;background:#141413;color:#FAF9F5;border:0;border-radius:0;padding:16px 22px;min-height:44px;font-family:'Martian Mono',monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;cursor:pointer" style-hover="background:#B85E32" disabled="{{ sending }}" aria-busy="{{ sending }}">{{ sendLabel }} <span aria-hidden="true">→</span></button>
+        <sc-if value="{{ formError }}" hint-placeholder-val="{{ false }}">
+          <p role="alert" style="font-size:1rem;line-height:1.5;color:#7F3026;margin:0">That didn't go through. <button type="button" onClick="{{ mailFallback }}" style="background:none;border:0;padding:0;font:inherit;color:#141413;text-decoration:underline;cursor:pointer">Send it by email instead</button>, or write to xrpbusinessx@gmail.com.</p>
+        </sc-if>
       </form>
+      </sc-if>
+      <sc-if value="{{ formSent }}" hint-placeholder-val="{{ false }}">
+        <div role="status" style="display:grid;gap:18px;align-content:center;background:#E8E1D5;padding:clamp(1.5rem,3.5vw,2.75rem)">
+          <p style="font-family:'Martian Mono',monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#B85E32;margin:0">Received</p>
+          <p style="font-size:1.6rem;line-height:1.25;margin:0">Thank you. Your message is with the studio — expect a reply by email.</p>
+          <button type="button" onClick="{{ resetForm }}" style="justify-self:start;background:none;border:0;border-bottom:1px solid #141413;padding:4px 0;font-family:'Martian Mono',monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;cursor:pointer;color:#141413">Send another</button>
+        </div>
+      </sc-if>
     </div>
   </section>
 </sc-if>
@@ -534,7 +545,7 @@ input,textarea,button{font:inherit;color:inherit}
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;grain&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Texture &amp; motion&quot;},&quot;motion&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Texture &amp; motion&quot;},&quot;introLoader&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Texture &amp; motion&quot;}}">
 class Component extends DCLogic {
-  state = { page: 'home', menuOpen: false, w: typeof window !== 'undefined' ? window.innerWidth : 1280, fading: false, jointRot: 0, loader: 'on' };
+  state = { page: 'home', menuOpen: false, w: typeof window !== 'undefined' ? window.innerWidth : 1280, fading: false, jointRot: 0, loader: 'on', form: 'idle' };
 
   componentDidMount() {
     this.reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -657,7 +668,7 @@ class Component extends DCLogic {
   h(page, anchor) { return (e) => { if (e) e.preventDefault(); this.go(page, anchor); }; }
 
   renderVals() {
-    const { page, w, menuOpen, fading, jointRot, loader } = this.state;
+    const { page, w, menuOpen, fading, jointRot, loader, form } = this.state;
     const compact = !!this.state.compact && !menuOpen;
     const narrow = w < 860;
     const mid = w < 1080;
@@ -747,13 +758,28 @@ class Component extends DCLogic {
         { status: 'In progress', dot: '#AAA69D', title: 'AI Workflow Suite', body: 'Custom automation pipelines that take repetitive decisions off the table and leave the judgment with a person.' },
         { status: 'Coming soon', dot: '#B85E32', title: 'Product Studio', body: 'Design and engineering for founders who want to move carefully, and still move.' },
       ],
+      formOpen: form !== 'sent', formSent: form === 'sent', formError: form === 'error',
+      sending: form === 'sending', sendLabel: form === 'sending' ? 'Sending…' : 'Send message',
+      resetForm: () => this.setState({ form: 'idle' }),
       submit: (e) => {
         e.preventDefault();
+        if (this.state.form === 'sending') return;
         const d = new FormData(e.target);
-        const name = String(d.get('name') || '').trim(), email = String(d.get('email') || '').trim(), msg = String(d.get('message') || '').trim();
-        const body = encodeURIComponent(msg + (name ? '\n\n— ' + name : '') + (email ? ' (' + email + ')' : ''));
-        window.location.href = 'mailto:xrpbusinessx@gmail.com?subject=' + encodeURIComponent('XOPICX enquiry') + '&body=' + body;
+        if (String(d.get('_honey') || '')) return;
+        const name = String(d.get('name') || '').trim(), email = String(d.get('email') || '').trim(), message = String(d.get('message') || '').trim();
+        if (!message) return;
+        this.mailto = 'mailto:xrpbusinessx@gmail.com?subject=' + encodeURIComponent('XOPICX enquiry') + '&body=' + encodeURIComponent(message + (name ? '\n\n— ' + name : '') + (email ? ' (' + email + ')' : ''));
+        this.setState({ form: 'sending' });
+        fetch('https://formsubmit.co/ajax/xrpbusinessx@gmail.com', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+          body: JSON.stringify({ name, email, message, _subject: 'XOPICX enquiry' + (name ? ' from ' + name : ''), _replyto: email, _template: 'table' }),
+        })
+          .then((r) => r.json().then((j) => ({ ok: r.ok, j })))
+          .then(({ ok, j }) => this.setState({ form: ok && (j.success === true || j.success === 'true') ? 'sent' : 'error' }))
+          .catch(() => this.setState({ form: 'error' }));
       },
+      mailFallback: () => { window.location.href = this.mailto || 'mailto:xrpbusinessx@gmail.com'; },
     };
   }
 }
