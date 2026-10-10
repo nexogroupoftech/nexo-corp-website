@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Page not found — XOPICX</title>
+  <meta name="robots" content="noindex"/>
+  <script>
+    // Old or mistyped links (e.g. /index.html/ from a link-in-bio) go to the homepage, keeping ?utm_ params.
+    (function () {
+      var p = location.pathname;
+      if (/^\/index\.html\/?/i.test(p) || /^\/index\/?$/i.test(p)) {
+        location.replace("/" + location.search + location.hash);
+        return;
+      }
+      // Old multi-page URLs now live as sections of the one-page site.
+      var map = { "/projects.html": "#work", "/experiments.html": "#lab", "/about.html": "#studio", "/founder.html": "#founder" };
+      if (map[p.toLowerCase()]) location.replace("/" + location.search + map[p.toLowerCase()]);
+    })();
+  </script>
+  <style>
+    body { margin: 0; min-height: 100vh; display: grid; place-items: center; background: #0b0b0d; color: #edeae3;
+           font-family: system-ui, -apple-system, "Segoe UI", sans-serif; text-align: center; padding: 1rem; }
+    h1 { font-size: clamp(3rem, 12vw, 6rem); margin: 0; letter-spacing: -0.05em; }
+    p { color: #b9b6ae; }
+    a { color: #ff6a1a; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>404</h1>
+    <p>This page doesn't exist.</p>
+    <p><a href="/">Go to the XOPICX homepage →</a></p>
+  </main>
+</body>
+</html>
