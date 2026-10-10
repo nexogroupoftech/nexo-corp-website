@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<title>XOPICX — Technology beyond the obvious.</title>
+<meta name="description" content="XOPICX is an independent technology studio exploring what software can become. AI, agents, experimental tools, and products.">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;700;800;900&amp;family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&amp;family=Martian+Mono:wght@400;500&amp;display=swap">
+<script src="./image-slot.js"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box}
+html{overflow-x:clip}
+body{margin:0;background:#FAF9F5;color:#141413;font-family:"Newsreader",Georgia,serif;font-size:1.125rem;line-height:1.6;overflow-x:clip;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+a{color:inherit;text-decoration-thickness:1px;text-underline-offset:.22em}
+a:hover{color:#B85E32}
+:focus-visible{outline:2px solid #B85E32;outline-offset:3px}
+::selection{background:#B85E32;color:#FAF9F5}
+h1,h2,h3,p{margin:0}
+input,textarea,button{font:inherit;color:inherit}
+@media (prefers-reduced-motion: reduce){*{transition:none !important;animation:none !important}}
+</style>
+</helmet>
+<div style="position:relative;min-height:100vh">
+<sc-if value="{{ grain }}" hint-placeholder-val="{{ true }}">
+  <div aria-hidden="true" style="position:fixed;inset:0;pointer-events:none;z-index:90;opacity:.35;background-image:url(assets/grain.png);background-size:180px 180px;mix-blend-mode:multiply"></div>
+</sc-if>
+<sc-if value="{{ showLoader }}" hint-placeholder-val="{{ false }}">
+  <div aria-hidden="true" style="position:fixed;inset:0;z-index:100;background:#141413;display:grid;place-items:center;transition:transform 700ms cubic-bezier(.7,0,.2,1);transform:{{ loaderTransform }}">
+    <div style="display:grid;justify-items:center;gap:22px">
+      <svg viewBox="0 0 32 32" style="width:64px;height:64px;color:#FAF9F5;overflow:visible"><g fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="square"><path data-draw="" d="M3.8 4.2 L11.7 12.1"></path><path data-draw="" d="M20.3 19.9 L28.2 27.8"></path><path data-draw="" d="M28.2 4.2 L20.3 12.1"></path><path data-draw="" d="M11.7 19.9 L3.8 27.8"></path></g><rect x="10.32" y="10.32" width="11.36" height="11.36" fill="#B85E32"></rect></svg>
+      <span style="font-family:'Martian Mono',monospace;font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:#E8E1D5">XOPICX — loading</span>
+    </div>
+  </div>
+</sc-if>
+
+<a href="#main" style="position:absolute;left:16px;top:-60px;background:#141413;color:#FAF9F5;padding:8px 12px;z-index:120;font-family:'Martian Mono',monospace;font-size:12px" style-focus="top:12px">Skip to content</a>
+
+<header style="position:sticky;top:0;z-index:60;background:rgba(250,249,245,.94);backdrop-filter:blur(6px);border-bottom:1px solid rgba(20,20,19,.12)">
+  <nav aria-label="Primary" style="width:min(1240px, calc(100% - 2 * clamp(1.25rem,4vw,3.5rem)));margin:0 auto;height:64px;display:flex;align-items:center;justify-content:space-between;gap:24px">
+    <a href="#home" onClick="{{ goHome }}" aria-label="XOPICX home" style="display:flex;align-items:center;min-height:44px;text-decoration:none;color:#141413;flex:none">
+      <svg viewBox="0 0 32 32" aria-hidden="true" style="width:22px;height:22px;flex:none;display:block"><g fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="square"><path d="M3.8 4.2 L11.7 12.1 M20.3 19.9 L28.2 27.8 M28.2 4.2 L20.3 12.1 M11.7 19.9 L3.8 27.8"></path></g><rect x="10.32" y="10.32" width="11.36" height="11.36" fill="none" stroke="#B85E32" stroke-width="2.6"></rect></svg>
+      <span aria-hidden="true" style="display:block;overflow:hidden;white-space:nowrap;font-family:'Hanken Grotesk',sans-serif;font-weight:800;font-size:17px;line-height:22px;letter-spacing:.06em;transition:max-width 300ms cubic-bezier(.2,0,0,1), opacity 240ms ease, transform 300ms cubic-bezier(.2,0,0,1);max-width:{{ wordMax }};opacity:{{ wordOpacity }};transform:translateX({{ wordShift }}px)"><span style="display:inline-block;padding-left:4px">OPICX</span></span>
+    </a>
+    <sc-if value="{{ wide }}" hint-placeholder-val="{{ true }}">
+      <ul style="display:flex;align-items:center;gap:30px;list-style:none;margin:0;padding:0">
+        <sc-for list="{{ navItems }}" as="n" hint-placeholder-count="4">
+          <li><a href="#{{ n.id }}" onClick="{{ n.go }}" aria-current="{{ n.current }}" style="display:flex;align-items:center;gap:8px;text-decoration:none;font-family:'Martian Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#141413;padding:6px 0" style-hover="color:#B85E32"><span aria-hidden="true" style="width:6px;height:6px;background:#B85E32;transition:opacity 300ms, transform 300ms;opacity:{{ n.dot }};transform:scale({{ n.dot }})"></span>{{ n.label }}</a></li>
+        </sc-for>
+        <li><a href="#contact" onClick="{{ goContact }}" style="text-decoration:none;font-family:'Martian Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#FAF9F5;background:#141413;padding:10px 14px;display:block" style-hover="background:#B85E32;color:#FAF9F5">Write</a></li>
+      </ul>
+    </sc-if>
+    <sc-if value="{{ narrow }}" hint-placeholder-val="{{ false }}">
+      <button type="button" onClick="{{ toggleMenu }}" aria-expanded="{{ menuOpenStr }}" aria-controls="mobile-menu" style="display:flex;align-items:center;gap:10px;background:none;border:0;padding:12px 0;min-height:44px;cursor:pointer;font-family:'Martian Mono',monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase">
+        <span aria-hidden="true" style="width:14px;height:14px;border:1.5px solid #141413;transition:transform 400ms cubic-bezier(.16,1,.3,1), background 300ms;transform:rotate({{ menuRot }}deg);background:{{ menuSq }}"></span>{{ menuLabel }}
+      </button>
+    </sc-if>
+  </nav>
+</header>
+
+<sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
+  <div id="mobile-menu" style="position:fixed;inset:64px 0 0 0;z-index:55;background:#FAF9F5;display:flex;flex-direction:column;justify-content:space-between;padding:32px clamp(1.25rem,4vw,3.5rem) 40px">
+    <ul style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:4px">
+      <sc-for list="{{ navItems }}" as="n" hint-placeholder-count="4">
+        <li><a href="#{{ n.id }}" onClick="{{ n.go }}" style="display:flex;align-items:baseline;gap:14px;text-decoration:none;font-family:'Hanken Grotesk',sans-serif;font-weight:800;font-size:clamp(2.6rem,12vw,4rem);letter-spacing:-.04em;line-height:1.05;padding:4px 0"><span style="font-family:'Martian Mono',monospace;font-size:11px;font-weight:400;letter-spacing:.14em;color:#7F3026">{{ n.num }}</span>{{ n.label }}</a></li>
+      </sc-for>
+      <li><a href="#contact" onClick="{{ goContact }}" style="display:flex;align-items:baseline;gap:14px;text-decoration:none;font-family:'Hanken Grotesk',sans-serif;font-weight:800;font-size:clamp(2.6rem,12vw,4rem);letter-spacing:-.04em;line-height:1.05;padding:4px 0;color:#B85E32"><span style="font-family:'Martian Mono',monospace;font-size:11px;font-weight:400;letter-spacing:.14em;color:#7F3026">05</span>Write</a></li>
+    </ul>
+    <p style="font-style:italic;font-size:1.25rem;color:#4a4740">Technology beyond the obvious.</p>
+  </div>
+</sc-if>
+
+<main id="main" style="transition:opacity 220ms ease, transform 220ms ease;opacity:{{ mainOpacity }};transform:translateY({{ mainShift }}px)">
+
+<sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
+  <section data-screen-label="Home — Hero" style="width:min(1240px, calc(100% - 2 * clamp(1.25rem,4vw,3.5rem)));margin:0 auto;padding:clamp(2.5rem,6vh,4.5rem) 0 clamp(3rem,7vh,5rem);display:grid;grid-template-columns:{{ heroCols }};gap:clamp(2rem,4vw,4rem);align-items:end">
+    <div style="display:flex;flex-direction:column;gap:28px;min-width:0">
+      <div data-reveal="" style="display:flex;flex-wrap:wrap;gap:8px 28px;font-family:'Martian Mono',monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#7F3026"><span>Independent technology studio</span><span style="color:#4a4740">Est. 2024 · India</span></div>
+      <h1 data-reveal="" style="font-family:'Hanken Grotesk',sans-serif;font-weight:800;font-size:{{ heroSize }};line-height:.9;letter-spacing:-.05em;text-wrap:balance">Technology<br>beyond the<br><span style="font-family:'Newsreader',serif;font-style:italic;font-weight:400;letter-spacing:-.035em;color:#B85E32">obvious.</span></h1>
+      <p data-reveal="" style="font-size:clamp(1.15rem,1.5vw,1.35rem);line-height:1.5;max-width:34rem;color:#2b2a27;text-wrap:pretty">XOPICX explores unusual technical ideas and builds them into software, AI systems, agents, and tools. Independent, research-driven, and small enough to own the work.</p>
+      <div data-reveal="" style="display:flex;flex-wrap:wrap;align-items:center;gap:14px 28px">
+        <a href="#work" onClick="{{ goWorkAnchor }}" style="display:inline-flex;align-items:center;gap:14px;text-decoration:none;background:#141413;color:#FAF9F5;padding:16px 22px;font-family:'Martian Mono',monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase" style-hover="background:#B85E32;color:#FAF9F5">Explore the work <span aria-hidden="true">→</span></a>
+        <a href="#lab" onClick="{{ goLab }}" style="font-family:'Martian Mono',monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;text-decoration:none;border-bottom:1px solid #141413;padding:6px 0" style-hover="color:#B85E32;border-color:#B85E32">Open the lab</a>
+      </div>
+    </div>
+    <figure data-reveal="" style="margin:0;min-width:0">
+      <div style="position:relative;aspect-ratio:4/5;width:100%">
+        <div data-depth="-0.03" style="position:absolute;right:0;top:0;width:52%;aspect-ratio:1;border-radius:50%;background:#B85E32 url(assets/grain.png);background-size:160px;background-blend-mode:multiply"></div>
+        <div data-depth="0.015" style="position:absolute;left:4%;right:6%;top:12%;bottom:5%;background:#E8E1D5 url(assets/grain.png);background-size:180px;background-blend-mode:multiply;clip-path:polygon(0 3%,7% .6%,14% 2.6%,23% .2%,31% 2.2%,40% 0,49% 1.8%,58% .3%,68% 2.4%,77% .5%,88% 2%,100% .4%,100% 100%,0 100%);box-shadow:0 1px 0 rgba(20,20,19,.1)"></div>
+        <div data-depth="0.035" style="position:absolute;left:13%;top:20%;width:46%;height:62%;border-radius:999px 999px 0 0;overflow:hidden;background:#D9CBB0">
+          <svg viewBox="0 0 300 500" preserveAspectRatio="xMidYMid slice" aria-hidden="true" style="position:absolute;inset:0;width:100%;height:100%">
+            <path d="M-20 330 C 80 300, 200 320, 330 380 L330 520 L-20 520 Z" fill="#858366"></path>
+            <g fill="none" stroke="#141413" stroke-width="2.4" stroke-linecap="round"><path d="M-20 400 C 90 380, 200 395, 330 450"></path><path d="M-20 418 C 90 398, 200 413, 330 468"></path><path d="M-20 436 C 90 416, 200 431, 330 486"></path></g>
+            <g>
+              <animateTransform attributeName="transform" type="translate" values="0 -8;0 4;0 -8" dur="4.8s" repeatCount="indefinite" calcMode="spline" keySplines=".45 0 .55 1;.45 0 .55 1"></animateTransform>
+              <path d="M112 -20 C 118 80, 128 170, 146 240 C 150 280, 160 320, 168 352 C 172 370, 196 372, 198 352 C 200 320, 204 280, 206 246 C 206 170, 200 80, 196 -20 Z" fill="#B85E32"></path>
+              <g fill="none" stroke="#141413" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M112 -20 C 118 80, 128 170, 146 240 C 150 280, 160 320, 168 352 C 172 370, 196 372, 198 352 C 200 320, 204 280, 206 246 C 206 170, 200 80, 196 -20"></path><path d="M172 340 C 180 348, 190 348, 196 338" stroke-width="2"></path></g>
+              <g fill="none" stroke="#141413" stroke-width="1.4" stroke-linecap="round" opacity=".85"><path d="M130 40 L150 10 M134 80 L170 30 M140 120 L186 60 M146 160 L196 100 M152 200 L200 140 M158 240 L202 184 M166 286 L202 236 M174 326 L198 290"></path><path d="M150 236 C 168 246, 186 246, 204 236"></path><path d="M156 280 C 170 288, 186 288, 202 280"></path></g>
+            </g>
+            <g fill="none" stroke="#141413" stroke-width="1.6"><circle cx="184" cy="372" r="6"><animate attributeName="r" values="6;46" dur="4.8s" repeatCount="indefinite"></animate><animate attributeName="opacity" values="0;0;.9;0" keyTimes="0;.45;.5;1" dur="4.8s" repeatCount="indefinite"></animate></circle></g>
+          </svg>
+          <div style="position:absolute;inset:0;background:url(assets/grain.png);background-size:160px;mix-blend-mode:multiply;opacity:.7"></div>
+        </div>
+        <div data-depth="0.05" style="position:absolute;right:9%;bottom:9%;width:30%;height:17%;background:#7F3026;transform:rotate(-7deg);mix-blend-mode:multiply"></div>
+        <div style="position:absolute;left:0;bottom:5%;width:24%;aspect-ratio:2/1;border-radius:999px 999px 0 0;background:#858366"></div>
+        <svg data-depth="0.02" viewBox="0 0 100 100" aria-hidden="true" style="position:absolute;left:17%;top:22%;width:70%;overflow:visible;mix-blend-mode:multiply"><g transform="translate(1.1 .8)" fill="none" stroke="#B85E32" stroke-width="2.6" stroke-linecap="square" opacity=".85"><path d="M6 6 L36 36 M64 64 L94 94 M94 6 L64 36 M36 64 L6 94"></path><rect x="36" y="36" width="28" height="28"></rect></g></svg>
+        <svg data-depth="0.02" viewBox="0 0 100 100" aria-hidden="true" style="position:absolute;left:17%;top:22%;width:70%;overflow:visible"><g fill="none" stroke="#141413" stroke-width="2.6" stroke-linecap="square"><path d="M6 6 L36 36 M64 64 L94 94 M94 6 L64 36 M36 64 L6 94"></path></g></svg>
+        <div data-depth="0.02" style="position:absolute;left:42.2%;top:42.16%;width:19.6%;aspect-ratio:1;border:2.6px solid #141413;background:#FAF9F5;overflow:hidden">
+          <svg viewBox="0 0 100 100" aria-hidden="true" style="width:100%;height:100%;display:block">
+            <rect width="100" height="100" fill="#141413"></rect>
+            <path d="M8 50 Q50 14 92 50 Q50 86 8 50 Z" fill="#FAF9F5"></path>
+            <g><animateTransform attributeName="transform" type="translate" values="-9 0;-9 0;8 -2;8 -2;0 3;0 3;-9 0" keyTimes="0;.2;.3;.55;.65;.85;1" dur="7s" repeatCount="indefinite"></animateTransform><circle cx="50" cy="50" r="17" fill="#B85E32"></circle><circle cx="50" cy="50" r="7.5" fill="#141413"></circle><circle cx="54" cy="45" r="2.4" fill="#FAF9F5"></circle></g>
+            <path fill="#E8E1D5" stroke="#141413" stroke-width="3" stroke-linejoin="round" d="M8 50 Q50 14 92 50 Q50 14 8 50 Z"><animate attributeName="d" values="M8 50 Q50 14 92 50 Q50 14 8 50 Z;M8 50 Q50 14 92 50 Q50 14 8 50 Z;M8 50 Q50 14 92 50 Q50 90 8 50 Z;M8 50 Q50 14 92 50 Q50 14 8 50 Z;M8 50 Q50 14 92 50 Q50 14 8 50 Z" keyTimes="0;.62;.66;.7;1" dur="7s" repeatCount="indefinite"></animate></path>
+            <path d="M8 50 Q50 86 92 50" fill="none" stroke="#141413" stroke-width="3"></path>
+            <g stroke="#FAF9F5" stroke-width="2.2" stroke-linecap="round"><path d="M24 30 L18 20 M40 22 L37 11 M60 22 L63 11 M76 30 L82 20"></path></g>
+          </svg>
+        </div>
+        <svg viewBox="0 0 400 500" aria-hidden="true" style="position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none"><path data-draw="" d="M318 34 C 360 120, 392 210, 330 300 S 170 410, 96 470" fill="none" stroke="#141413" stroke-width="1.1" stroke-linecap="round"></path><path d="M60 88 c 30 -14 58 -10 84 4" fill="none" stroke="#141413" stroke-width="1" stroke-linecap="round" stroke-dasharray="2 4"></path></svg>
+      </div>
+      <figcaption style="display:flex;justify-content:space-between;gap:16px;margin-top:14px;font-family:'Martian Mono',monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#4a4740"><span>Plate 01</span><span>Looking through the obvious</span></figcaption>
+    </figure>
+  </section>
+
+  <section style="border-top:1px solid rgba(20,20,19,.14);border-bottom:1px solid rgba(20,20,19,.14)">
+    <ul aria-label="Fields of work" style="width:min(1240px, calc(100% - 2 * clamp(1.25rem,4vw,3.5rem)));margin:0 auto;list-style:none;padding:18px 0;display:flex;flex-wrap:wrap;gap:10px 0;font-family:'Martian Mono',monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase">
+      <sc-for list="{{ disciplines }}" as="d" hint-placeholder-count="6">
+        <li style="display:flex;align-items:center;gap:14px;padding-right:22px"><svg viewBox="0 0 10 10" aria-hidden="true" style="width:8px;height:8px"><path d="M1 1 L9 9 M9 1 L1 9" stroke="#B85E32" stroke-width="1.6"></path></svg>{{ d }}</li>
+      </sc-for>
+    </ul>
+  </section>
+
+  <section id="field" data-screen-label="Home — Field" style="width:min(1240px, calc(100% - 2 * clamp(1.25rem,4vw,3.5rem)));margin:0 auto;padding:clamp(5rem,11vw,9rem) 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,18rem),1fr));gap:32px clamp(2rem,5vw,5rem)">
+    <p data-reveal="" style="font-family:'Martian Mono',monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#7F3026">01 — Field</p>
+    <div style="grid-column:span 2;min-width:0;display:flex;flex-direction:column;gap:28px;max-width:52rem">
+      <h2 data-reveal="" style="font-family:'Hanken Grotesk',sans-serif;font-weight:800;font-size:clamp(2.2rem,4.6vw,4rem);line-height:1;letter-spacing:-.045em;text-wrap:balance">Questions first. Products when they are ready.</h2>
+      <p data-reveal="" style="font-size:clamp(1.2rem,1.7vw,1.5rem);line-height:1.45;color:#2b2a27;text-wrap:pretty">The studio holds two kinds of work at once: open technical studies, and systems precise enough to ship. A question is not a product. It becomes one when the idea can stand on its own.</p>
+      <p data-reveal="" style="color:#4a4740;max-width:38rem">AI, software, agents, and the tools around them are the material. The point is to build something unusual that still earns its place in daily use.</p>
+    </div>
+  </section>
+
+  <section id="work" data-screen-label="Home — Work" style="border-top:1px solid rgba(20,20,19,.14)">
+    <div style="width:min(1240px, calc(100% - 2 * clamp(1.25rem,4vw,3.5rem)));margin:0 auto;padding:clamp(4rem,8vw,6.5rem) 0 0;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:end;gap:20px">
+      <div style="display:flex;flex-direction:column;gap:18px">
+        <p style="font-family:'Martian Mono',monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#7F3026">02 — Work</p>
+        <h2 data-reveal="" style="font-family:'Hanken Grotesk',sans-serif;font-weight:800;font-size:clamp(2.2rem,4.6vw,4rem);line-height:1;letter-spacing:-.045em">Things that left the lab.</h2>
+      </div>
+      <a href="#work" onClick="{{ goWork }}" style="font-family:'Martian Mono',monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;text-decoration:none;border-bottom:1px solid #141413;padding:6px 0" style-hover="color:#B85E32;border-color:#B85E32">Full index →</a>
+    </div>
+
+    <article data-reveal="" style="width:min(1240px, calc(100% - 2 * clamp(1.25rem,4vw,3.5rem)));margin:0 auto;padding:clamp(3rem,6vw,5rem) 0;display:grid;grid-template-columns:{{ featureCols }};gap:clamp(2rem,5vw,5rem);align-items:center">
+      <div style="position:relative;aspect-ratio:5/4;background:#E8E1D5 url(assets/grain.png);background-size:180px;background-blend-mode:multiply;overflow:hidden">
+        <div style="position:absolute;left:8%;bottom:10%;width:20%;height:18%;background:#141413"></div>
+        <div style="position:absolute;left:28%;bottom:10%;width:20%;height:36%;background:#858366"></div>
+        <div style="position:absolute;left:48%;bottom:10%;width:20%;height:54%;background:#AAA69D"></div>
+        <div style="position:absolute;left:68%;bottom:10%;width:20%;height:72%;background:#B85E32"></div>
+        <div data-depth="0.03" style="position:absolute;left:12%;top:12%;width:44%;height:40%;box-shadow:6px 6px 0 #141413;overflow:hidden;background:#B85E32">
+          <svg viewBox="0 0 220 160" preserveAspectRatio="xMidYMid slice" aria-hidden="true" style="position:absolute;inset:0;width:100%;height:100%">
+            <polygon points="84,58 110,44 200,112 150,146" fill="#FAF9F5"><animate attributeName="opacity" values="1;.86;1;1;.92;1" keyTimes="0;.08;.14;.6;.64;1" dur="5s" repeatCount="indefinite"></animate></polygon>
+            <rect x="142" y="36" width="56" height="102" fill="#FAF9F5" stroke="#141413" stroke-width="3.2"></rect>
+            <path d="M142 36 L198 36 L198 112 Z" fill="#B85E32" opacity=".0"></path>
+            <g fill="none" stroke="#141413" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round">
+              <path pathLength="1" stroke-dasharray="1" stroke-dashoffset="1" d="M154 66 c2 9 5 9 7 0 c2 9 5 9 7 0 c2 9 5 9 7 0"><animate attributeName="stroke-dashoffset" values="1;0;0;1" keyTimes="0;.3;.85;1" dur="5s" repeatCount="indefinite"></animate></path>
+              <path pathLength="1" stroke-dasharray="1" stroke-dashoffset="1" d="M154 90 c2 9 5 9 7 0 c2 9 5 9 7 0 c2 9 5 9 7 0"><animate attributeName="stroke-dashoffset" values="1;1;0;0;1" keyTimes="0;.3;.6;.85;1" dur="5s" repeatCount="indefinite"></animate></path>
+              <path d="M26 140 Q52 116 78 140 Z" fill="#FAF9F5"></path>
+              <path d="M52 128 C 36 96, 46 62, 78 52"></path>
+              <path d="M70 58 C 66 36, 98 22, 112 42 Z" fill="#FAF9F5"></path>
+              <path d="M84 30 c2 -6 10 -8 14 -2"></path>
+            </g>
+          </svg>
+          <div style="position:absolute;inset:0;background:url(assets/grain.png);background-size:150px;mix-blend-mode:multiply;opacity:.6"></div>
+        </div>
+        <svg viewBox="0 0 500 400" aria-hidden="true" style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none"><path data-draw="" d="M70 300 C 140 250, 190 230, 250 190 S 360 110, 400 70" fill="none" stroke="#141413" stroke-width="1.2" stroke-linecap="round"></path><path d="M388 66 L402 68 L396 82" fill="none" stroke="#141413" stroke-width="1.2"></path></svg>
+        <span style="position:absolute;right:4%;top:5%;font-family:'Martian Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase">Each step a pass</span>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:20px;min-width:0">
+        <div style="display:flex;justify-content:space-between;gap:16px;font-family:'Martian Mono',monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase"><span>01 · AI · Research · Models</span><span style="display:flex;align-items:center;gap:8px;color:#7F3026"><span style="width:7px;height:7px;background:#B85E32"></span>Deployed</span></div>
+        <h3 style="font-family:'Hanken Grotesk',sans-serif;font-weight:800;font-size:clamp(3rem,6.5vw,5.6rem);line-height:.9;letter-spacing:-.055em">Kaizen</h3>
+        <p style="font-style:italic;font-size:clamp(1.35rem,2vw,1.7rem);line-height:1.25;max-width:22ch">Machine intelligence, built through experimentation.</p>
+        <p style="color:#2b2a27;max-width:40ch">A conversational workspace connected to a model trained in the studio, reached through a Hugging Face inference bridge. The first product put in front of people.</p>
+        <a href="https://kaizen-ai-eight.vercel.app/" target="_blank" rel="noopener noreferrer" style="align-self:flex-start;display:inline-flex;gap:14px;text-decoration:none;background:#141413;color:#FAF9F5;padding:16px 22px;font-family:'Martian Mono',monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;margin-top:6px" style-hover="background:#B85E32;color:#FAF9F5">Launch Kaizen <span aria-hidden="true">↗</span></a>
+      </div>
+    </article>
+
+    <article data-reveal="" style="width:min(1240px, calc(100% - 2 * clamp(1.25rem,4vw,3.5rem)));margin:0 auto;padding:clamp(3rem,6vw,5rem) 0 clamp(5rem,9vw,7rem);border-top:1px solid rgba(20,20,19,.14);display:grid;grid-template-columns:{{ featureColsRev }};gap:clamp(2rem,5vw,5rem);align-items:center">
+      <div style="display:flex;flex-direction:column;gap:20px;min-width:0;order:{{ hubTextOrder }}">
+        <div style="display:flex;justify-content:space-between;gap:16px;font-family:'Martian Mono',monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase"><span>02 · AI · Curation · Index</span><span style="display:flex;align-items:center;gap:8px;color:#4f4e3b"><span style="width:7px;height:7px;background:#858366"></span>Live, still growing</span></div>
+        <h3 style="font-family:'Hanken Grotesk',sans-serif;font-weight:800;font-size:clamp(3rem,6.5vw,5.6rem);line-height:.9;letter-spacing:-.055em">AI Tools Hub</h3>
+        <p style="font-style:italic;font-size:clamp(1.35rem,2vw,1.7rem);line-height:1.25;max-width:22ch">A library of instruments, kept by hand.</p>
+        <p style="color:#2b2a27;max-width:40ch">Platforms we think are changing how people think, make, and build. Organized by capability. Free to browse. No account.</p>
+        <a href="#work" onClick="{{ goWorkHub }}" style="align-self:flex-start;font-family:'Martian Mono',monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;text-decoration:none;border-bottom:1px solid #141413;padding:6px 0;margin-top:6px" style-hover="color:#B85E32;border-color:#B85E32">Read about the hub →</a>
+      </div>
+      <div style="position:relative;aspect-ratio:5/4;background:#141413;padding:9%;display:grid;grid-template-columns:repeat(4,1fr);grid-template-rows:repeat(3,1fr);gap:4%;order:{{ hubArtOrder }}">
+        <sc-for list="{{ hubTiles }}" as="t" hint-placeholder-count="12">
+          <div style="position:relative;background:{{ t.bg }};display:flex;align-items:flex-end;padding:6px;overflow:hidden"><sc-if value="{{ t.img }}" hint-placeholder-val="{{ false }}"><svg viewBox="0 0 60 50" preserveAspectRatio="xMidYMid slice" aria-hidden="true" style="position:absolute;inset:0;width:100%;height:100%"><defs><linearGradient id="hubg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#B85E32"></stop><stop offset="1" stop-color="#7F3026"></stop></linearGradient></defs><rect width="60" height="50" fill="url(#hubg)"></rect><path d="M-4 40 Q30 26 64 34" stroke="#E8E1D5" stroke-width="5" fill="none" opacity=".55"></path><g fill="#FAF9F5"><circle cx="10" cy="10" r="1"><animate attributeName="opacity" values="0;1;0" dur="2.2s" repeatCount="indefinite"></animate></circle><circle cx="28" cy="16" r=".8"><animate attributeName="opacity" values="1;0;1" dur="1.7s" repeatCount="indefinite"></animate></circle><circle cx="46" cy="8" r="1.1"><animate attributeName="opacity" values="0;1;0" dur="2.9s" repeatCount="indefinite"></animate></circle><circle cx="52" cy="22" r=".7"><animate attributeName="opacity" values="1;0;1" dur="2.4s" repeatCount="indefinite"></animate></circle><circle cx="18" cy="26" r=".7"><animate attributeName="opacity" values="0;1;0" dur="1.9s" repeatCount="indefinite"></animate></circle></g></svg><div style="position:absolute;inset:0;background:url(assets/grain.png);background-size:90px;mix-blend-mode:multiply"></div></sc-if><span style="position:relative;font-family:'Martian Mono',monospace;font-size:9px;letter-spacing:.1em;color:{{ t.fg }}">{{ t.n }}</span></div>
+        </sc-for>
+        <svg viewBox="0 0 500 400" aria-hidden="true" style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none"><path data-draw="" d="M330 200 C 300 160, 380 140, 420 170 S 440 260, 380 262 S 300 240, 322 196" fill="none" stroke="#FAF9F5" stroke-width="1.2" stroke-linecap="round"></path></svg>
+      </div>
+    </article>
+  </section>
+
+  <section id="lab-band" data-screen-label="Home — Lab" style="background:#141413;color:#FAF9F5;padding:clamp(5rem,10vw,8rem) 0">
+    <div style="width:min(1240px, calc(100% - 2 * clamp(1.25rem,4vw,3.5rem)));margin:0 auto">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,20rem),1fr));gap:24px clamp(2rem,5vw,5rem);align-items:end;margin-bottom:clamp(2.5rem,5vw,4rem)">
+        <div style="display:flex;flex-direction:column;gap:18px">
+          <p style="font-family:'Martian Mono',monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#E8E1D5">03 — Lab</p>
+          <h2 data-reveal="" style="font-family:'Hanken Grotesk',sans-serif;font-weight:800;font-size:clamp(2.2rem,4.6vw,4rem);line-height:1;letter-spacing:-.045em">Where the unusual work starts.</h2>
+        </div>
+        <p data-reveal="" style="font-size:1.25rem;line-height:1.5;color:#E8E1D5;max-width:32rem">Prototypes, systems, and research that are unfinished on purpose. The lab is a different room from the work.</p>
+      </div>
+      <ol style="list-style:none;margin:0;padding:0;border-top:1px solid rgba(250,249,245,.2)">
+        <sc-for list="{{ lab }}" as="l" hint-placeholder-count="4">
+          <li data-reveal="" style="border-bottom:1px solid rgba(250,249,245,.2)">
+            <a href="#lab" onClick="{{ l.go }}" style="display:grid;grid-template-columns:{{ ledgerCols }};gap:10px 32px;padding:28px 0;text-decoration:none;color:#FAF9F5;align-items:baseline" style-hover="color:#E8E1D5;padding-left:12px">
+              <span style="font-family:'Martian Mono',monospace;font-size:11px;letter-spacing:.14em;color:#E8E1D5">{{ l.id }}</span>
+              <span style="font-family:'Hanken Grotesk',sans-serif;font-weight:700;font-size:clamp(1.5rem,2.4vw,2rem);letter-spacing:-.03em;line-height:1.1">{{ l.title }}</span>
+              <span style="font-size:1.05rem;line-height:1.5;color:#d9d4c8">{{ l.short }}</span>
+              <span style="font-family:'Martian Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#E8E1D5;display:flex;align-items:center;gap:8px"><span style="width:7px;height:7px;background:{{ l.dot }}"></span>{{ l.tag }}</span>
+            </a>
+          </li>
+        </sc-for>
+      </ol>
+    </div>
+  </section>
+
+  <section data-screen-label="Home — Position" style="width:min(1240px, calc(100% - 2 * clamp(1.25rem,4vw,3.5rem)));margin:0 auto;padding:clamp(5rem,11vw,9rem) 0;display:grid;grid-template-columns:{{ positionCols }};gap:clamp(2.5rem,6vw,6rem);align-items:center">
+    <div style="position:relative;aspect-ratio:1;max-width:420px;width:100%">
+      <div style="position:absolute;left:0;bottom:0;width:100%;height:50%;border-radius:0 0 999px 999px;background:#858366 url(assets/grain.png);background-size:160px;background-blend-mode:multiply"></div>
+      <div data-depth="0.03" style="position:absolute;left:14%;top:4%;width:72%;aspect-ratio:1;border-radius:50%;overflow:hidden;background:#E8E1D5">
+        <svg viewBox="0 0 200 200" aria-hidden="true" style="position:absolute;inset:0;width:100%;height:100%">
+          <g stroke="#FAF9F5" stroke-width="3" stroke-linecap="round">
+            <path d="M118 86 L150 50 M118 86 L168 78 M118 86 L160 116 M118 86 L126 130 M118 86 L84 66 M118 86 L80 104"><animate attributeName="opacity" values=".55;1;.55" dur="3.2s" repeatCount="indefinite"></animate></path>
+          </g>
+          <g fill="#FAF9F5">
+            <circle cx="150" cy="50" r="7"><animate attributeName="r" values="7;9;7" dur="3.2s" begin="0s" repeatCount="indefinite"></animate></circle>
+            <circle cx="168" cy="78" r="6"><animate attributeName="r" values="6;8;6" dur="3.2s" begin=".5s" repeatCount="indefinite"></animate></circle>
+            <circle cx="160" cy="116" r="7"><animate attributeName="r" values="7;9;7" dur="3.2s" begin="1s" repeatCount="indefinite"></animate></circle>
+            <circle cx="126" cy="130" r="6"><animate attributeName="r" values="6;8;6" dur="3.2s" begin="1.5s" repeatCount="indefinite"></animate></circle>
+            <circle cx="84" cy="66" r="7"><animate attributeName="r" values="7;9;7" dur="3.2s" begin="2s" repeatCount="indefinite"></animate></circle>
+            <circle cx="80" cy="104" r="6"><animate attributeName="r" values="6;8;6" dur="3.2s" begin="2.5s" repeatCount="indefinite"></animate></circle>
+          </g>
+          <circle cx="118" cy="86" r="15" fill="#B85E32"><animate attributeName="r" values="14;17;14" dur="3.2s" repeatCount="indefinite"></animate></circle>
+          <g fill="none" stroke="#141413" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M128 30 C 96 22, 70 40, 70 70 C 70 82, 64 90, 58 98 C 55 103, 62 106, 66 107 C 64 114, 66 118, 70 120 C 66 126, 70 130, 74 132 C 72 142, 78 150, 92 148 C 104 146, 104 160, 100 176"></path>
+            <path d="M74 150 C 90 140, 118 140, 124 148 C 128 154, 112 158, 90 158 M92 158 C 112 160, 126 162, 124 170 C 122 176, 100 174, 86 170 M88 170 C 104 174, 114 180, 108 186 C 102 190, 86 186, 78 180"></path>
+          </g>
+        </svg>
+        <div style="position:absolute;inset:0;background:url(assets/grain.png);background-size:150px;mix-blend-mode:multiply;opacity:.6"></div>
+      </div>
+      <svg viewBox="0 0 100 100" aria-hidden="true" style="position:absolute;right:-4%;top:-2%;width:22%;overflow:visible"><path d="M6 6 L36 36 M64 64 L94 94 M94 6 L64 36 M36 64 L6 94" stroke="#141413" stroke-width="4" fill="none"></path><rect x="36" y="36" width="28" height="28" fill="#B85E32"></rect></svg>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:28px">
+      <p style="font-family:'Martian Mono',monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#7F3026">04 — Position</p>
+      <blockquote data-reveal="" style="margin:0;font-size:clamp(2.6rem,6vw,5.2rem);line-height:1;letter-spacing:-.03em;text-wrap:balance">We build things we <em style="color:#B85E32">wish existed.</em></blockquote>
+      <p data-reveal="" style="color:#2b2a27;max-width:36rem;font-size:1.2rem;line-height:1.55">Most software is loud, bloated, and built to be demonstrated. XOPICX would rather make a smaller thing that holds up. Curiosity is the brief. Restraint is how the work stays honest.</p>
+    </div>
+  </section>
+
+  <section id="services" data-screen-label="Home — Studio work" style="border-top:1px solid rgba(20,20,19,.14)">
+    <div style="width:min(1240px, calc(100% - 2 * clamp(1.25rem,4vw,3.5rem)));margin:0 auto;padding:clamp(4rem,8vw,6.5rem) 0;display:flex;flex-direction:column;gap:clamp(2.5rem,5vw,4rem)">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,20rem),1fr));gap:24px clamp(2rem,5vw,5rem);align-items:end">
+        <div style="display:flex;flex-direction:column;gap:18px">
+          <p style="font-family:'Martian Mono',monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#7F3026">05 — Studio work</p>
+          <h2 data-reveal="" style="font-family:'Hanken Grotesk',sans-serif;font-weight:800;font-size:clamp(2.2rem,4.6vw,4rem);line-height:1;letter-spacing:-.045em">Agents, when a product is not the point.</h2>
+        </div>
+        <p data-reveal="" style="font-size:1.2rem;line-height:1.5;color:#2b2a27;max-width:32rem">Beyond our own tools, we build automation agents for businesses — systems that hold a conversation and close the gap between a message and a result.</p>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,17rem),1fr));gap:0 clamp(1.5rem,3vw,3rem)">
+        <sc-for list="{{ services }}" as="s" hint-placeholder-count="3">
+          <div data-reveal="" style="border-top:2px solid #141413;padding:22px 0 30px;display:flex;flex-direction:column;gap:12px">
+            <span style="font-family:'Martian Mono',monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#7F3026">{{ s.n }}</span>
+            <h3 style="font-family:'Hanken Grotesk',sans-serif;font-weight:800;font-size:2rem;letter-spacing:-.04em;line-height:1">{{ s.name }}</h3>
+            <p style="font-style:italic;font-size:1.2rem;line-height:1.3">{{ s.statement }}</p>
+            <p style="color:#4a4740;font-size:1.05rem">{{ s.short }}</p>
+            <a href="{{ s.mail }}" style="align-self:flex-start;font-family:'Martian Mono',monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;text-decoration:none;border-bottom:1px solid #141413;padding:6px 0;margin-top:auto" style-hover="color:#B85E32;border-color:#B85E32">Enquire →</a>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <section id="future" data-screen-label="Home — Unreleased" style="background:#E8E1D5">
+    <div style="width:min(1240px, calc(100% - 2 * clamp(1.25rem,4vw,3.5rem)));margin:0 auto;padding:clamp(4.5rem,9vw,7rem) 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,22rem),1fr));gap:clamp(2.5rem,6vw,6rem);align-items:center">
+      <div style="display:flex;flex-direction:column;gap:22px">
+        <p style="font-family:'Martian Mono',monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#7F3026">06 — Unreleased</p>
+        <h2 data-reveal="" style="font-family:'Hanken Grotesk',sans-serif;font-weight:800;font-size:clamp(2.2rem,4.6vw,4rem);line-height:1;letter-spacing:-.045em">Something is taking shape.</h2>
+        <p data-reveal="" style="font-size:1.2rem;line-height:1.5;color:#2b2a27;max-width:30rem">A few studies are still in the dark. That is intentional. When one of them is ready to be named, it will stand with the work.</p>
+      </div>
+      <div style="position:relative;aspect-ratio:7/5;background:#FAF9F5;border:1px solid rgba(20,20,19,.2);display:grid;place-items:center;overflow:hidden">
+        <div style="width:52%;height:66%;border:1.5px solid #141413;border-bottom:0;border-radius:999px 999px 0 0;align-self:end;display:grid;place-items:center">
+          <div style="width:46%;height:56%;border:1.5px solid #858366;border-bottom:0;border-radius:999px 999px 0 0;align-self:end;display:grid;place-items:center">
+            <div data-depth="-0.04" style="width:26px;height:26px;background:#B85E32"></div>
+          </div>
+        </div>
+        <span style="position:absolute;right:7%;top:12%;transform:rotate(-8deg);border:1.5px solid #7F3026;color:#7F3026;padding:8px 12px;font-family:'Martian Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase">Not for release</span>
+        <span style="position:absolute;left:5%;bottom:5%;font-family:'Martian Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#4a4740">EX 04 · Frame, undescribed</span>
+      </div>
+    </div>
+  </section>
+</sc-if>
+
+<sc-if value="{{ isWork }}" hint-placeholder-val="{{ false }}">
+  <header data-screen-label="Work — Intro" style="width:min(1240px, calc(100% - 2 * clamp(1.25rem,4vw,3.5rem)));margin:0 auto;padding:clamp(3.5rem,8vw,6.5rem) 0 clamp(2rem,4vw,3rem);display:flex;flex-direction:column;gap:24px">
+    <p data-reveal="" style="font-family:'Martian Mono',monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#7F3026">Index — 02 entries</p>
+    <h1 data-reveal="" style="font-family:'Hanken Grotesk',sans-serif;font-weight:800;font-size:clamp(4rem,13vw,11rem);line-height:.82;letter-spacing:-.06em">Work<span style="color:#B85E32">.</span></h1>
+    <p data-reveal="" style="font-size:clamp(1.2rem,1.7vw,1.5rem);line-height:1.45;max-width:36rem;color:#2b2a27">Two pieces that left the lab. Each one started as a technical question the studio could not find a good answer to.</p>
+  </header>
+  <sc-for list="{{ work }}" as="w" hint-placeholder-count="2">
+    <article id="{{ w.slug }}" data-reveal="" style="border-top:1px solid rgba(20,20,19,.14)">
+      <div style="width:min(1240px, calc(100% - 2 * clamp(1.25rem,4vw,3.5rem)));margin:0 auto;padding:clamp(3rem,6vw,5rem) 0;display:grid;grid-template-columns:{{ featureCols }};gap:clamp(2rem,5vw,5rem)">
+        <div style="display:flex;flex-direction:column;gap:20px;min-width:0">
+          <span style="font-family:'Hanken Grotesk',sans-serif;font-weight:800;font-size:clamp(5rem,10vw,9rem);line-height:.8;letter-spacing:-.06em;color:{{ w.numColor }}">{{ w.n }}</span>
+          <h2 style="font-family:'Hanken Grotesk',sans-serif;font-weight:800;font-size:clamp(2.6rem,5vw,4.4rem);line-height:.92;letter-spacing:-.05em">{{ w.name }}</h2>
+          <p style="font-style:italic;font-size:clamp(1.35rem,2vw,1.7rem);line-height:1.25;max-width:22ch">{{ w.statement }}</p>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:24px;min-width:0">
+          <p style="font-size:1.2rem;line-height:1.55;color:#2b2a27;max-width:40rem">{{ w.long }}</p>
+          <dl style="margin:0;display:grid;border-top:1px solid rgba(20,20,19,.2)">
+            <sc-for list="{{ w.facts }}" as="f" hint-placeholder-count="5">
+              <div style="display:grid;grid-template-columns:minmax(6rem,9rem) 1fr;gap:16px;padding:12px 0;border-bottom:1px solid rgba(20,20,19,.12)"><dt style="font-family:'Martian Mono',monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#4a4740;padding-top:4px">{{ f.k }}</dt><dd style="margin:0;font-size:1.05rem">{{ f.v }}</dd></div>
+            </sc-for>
+          </dl>
+          <a href="{{ w.href }}" target="{{ w.target }}" rel="noopener noreferrer" onClick="{{ w.click }}" style="align-self:flex-start;display:inline-flex;gap:14px;text-decoration:none;background:#141413;color:#FAF9F5;padding:16px 22px;font-family:'Martian Mono',monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase" style-hover="background:#B85E32;color:#FAF9F5">{{ w.cta }} <span aria-hidden="true">{{ w.arrow }}</span></a>
+        </div>
+      </div>
+    </article>
+  </sc-for>
+</sc-if>
+
+<sc-if value="{{ isLab }}" hint-placeholder-val="{{ false }}">
+  <div style="background:#141413;color:#FAF9F5">
+    <header data-screen-label="Lab — Intro" style="width:min(1240px, calc(100% - 2 * clamp(1.25rem,4vw,3.5rem)));margin:0 auto;padding:clamp(3.5rem,8vw,6.5rem) 0 clamp(2.5rem,5vw,4rem);display:flex;flex-direction:column;gap:24px">
+      <p data-reveal="" style="font-family:'Martian Mono',monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#E8E1D5">Lab — unfinished on purpose</p>
+      <h1 data-reveal="" style="font-family:'Hanken Grotesk',sans-serif;font-weight:800;font-size:clamp(3.4rem,11vw,9.5rem);line-height:.84;letter-spacing:-.06em">Experi&shy;ments</h1>
+      <p data-reveal="" style="font-size:clamp(1.2rem,1.7vw,1.5rem);line-height:1.45;max-width:38rem;color:#E8E1D5">Prototypes, systems, and research — unfinished on purpose. These are the technical explorations behind the products, and a few that have not earned a public name yet.</p>
+    </header>
+    <div style="width:min(1240px, calc(100% - 2 * clamp(1.25rem,4vw,3.5rem)));margin:0 auto;padding-bottom:clamp(4rem,8vw,6rem)">
+      <sc-for list="{{ lab }}" as="l" hint-placeholder-count="4">
+        <article id="{{ l.slug }}" data-reveal="" style="border-top:1px solid rgba(250,249,245,.2);padding:clamp(2.2rem,4vw,3.2rem) 0;display:grid;grid-template-columns:{{ labCols }};gap:16px clamp(1.5rem,4vw,4rem)">
+          <div style="display:flex;flex-direction:column;gap:8px;font-family:'Martian Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#E8E1D5">
+            <span style="font-size:13px;color:#FAF9F5">{{ l.id }}</span><span>{{ l.kind }}</span><span style="display:flex;align-items:center;gap:8px"><span style="width:7px;height:7px;background:{{ l.dot }}"></span>{{ l.tag }}</span>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:14px;min-width:0">
+            <h2 style="font-family:'Hanken Grotesk',sans-serif;font-weight:800;font-size:clamp(2rem,3.6vw,3rem);letter-spacing:-.045em;line-height:1">{{ l.title }}</h2>
+            <p style="font-style:italic;font-size:1.4rem;line-height:1.3;color:#E8E1D5">{{ l.statement }}</p>
+          </div>
+          <p style="font-size:1.1rem;line-height:1.6;color:#d9d4c8;max-width:40rem">{{ l.long }}</p>
+        </article>
+      </sc-for>
+    </div>
+  </div>
+</sc-if>
+
+<sc-if value="{{ isStudio }}" hint-placeholder-val="{{ false }}">
+  <header data-screen-label="Studio — Intro" style="width:min(1240px, calc(100% - 2 * clamp(1.25rem,4vw,3.5rem)));margin:0 auto;padding:clamp(3.5rem,8vw,6.5rem) 0 clamp(3rem,6vw,5rem);display:flex;flex-direction:column;gap:26px">
+    <p data-reveal="" style="font-family:'Martian Mono',monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#7F3026">Studio — Est. 2024</p>
+    <h1 data-reveal="" style="font-family:'Hanken Grotesk',sans-serif;font-weight:800;font-size:clamp(2.6rem,6.4vw,6rem);line-height:.95;letter-spacing:-.05em;max-width:15ch;text-wrap:balance">An independent technology studio exploring what software <span style="font-family:'Newsreader',serif;font-style:italic;font-weight:400;color:#B85E32">can become.</span></h1>
+    <p data-reveal="" style="font-size:clamp(1.2rem,1.7vw,1.5rem);line-height:1.45;max-width:34rem;color:#2b2a27">XOPICX builds software, AI, agents, and experimental tools. The studio stays small enough to own them.</p>
+  </header>
+  <section style="border-top:1px solid rgba(20,20,19,.14)">
+    <div style="width:min(1240px, calc(100% - 2 * clamp(1.25rem,4vw,3.5rem)));margin:0 auto;padding:clamp(4rem,8vw,6.5rem) 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,22rem),1fr));gap:clamp(2.5rem,6vw,6rem);align-items:center">
+      <div style="display:flex;flex-direction:column;gap:22px">
+        <p style="font-family:'Martian Mono',monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#7F3026">The studio</p>
+        <h2 data-reveal="" style="font-family:'Hanken Grotesk',sans-serif;font-weight:800;font-size:clamp(2rem,3.8vw,3.2rem);line-height:1;letter-spacing:-.045em">Technology that respects attention.</h2>
+        <p data-reveal="" style="color:#2b2a27">XOPICX was founded with a clear intent: build technology that respects intelligence, time, and long-term thinking. The studio operates with restraint, focus, and personal ownership. There is no rush to scale — only a commitment to quality and clarity.</p>
+        <p data-reveal="" style="color:#2b2a27">It did not start with a business plan. It started with a frustration — that most software is bloated, unintelligent, and built for demos rather than real use. Devk set out to work on that, one product at a time.</p>
+      </div>
+      <figure style="margin:0">
+        <div style="position:relative;aspect-ratio:1;background:#E8E1D5 url(assets/grain.png);background-size:180px;background-blend-mode:multiply;overflow:hidden">
+          <svg viewBox="0 0 300 300" aria-hidden="true" style="position:absolute;left:12%;top:12%;width:76%;height:76%">
+            <g fill="none" stroke="#141413" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"><path d="M30 34 V70 H70 V34 M50 34 V70"></path></g>
+            <g fill="#141413"><circle cx="30" cy="27" r="7"><animate attributeName="cy" values="27;21;27" dur="2.4s" repeatCount="indefinite"></animate></circle><circle cx="50" cy="27" r="7"><animate attributeName="cy" values="27;21;27" dur="2.4s" begin=".3s" repeatCount="indefinite"></animate></circle><circle cx="70" cy="27" r="7"><animate attributeName="cy" values="27;21;27" dur="2.4s" begin=".6s" repeatCount="indefinite"></animate></circle></g>
+            <path fill="#141413" d="M115 30 l10 6 l10 -6 l10 6 l10 -6 l10 6 l10 -6 l10 6 V70 l-10 -6 l-10 6 l-10 -6 l-10 6 l-10 -6 l-10 6 l-10 -6 Z"></path>
+            <path fill="#141413" d="M215 28 h20 v14 h30 v-14 h20 v44 h-20 v-14 h-30 v14 h-20 Z"></path>
+            <path d="M25 125 L50 162 L75 125" fill="none" stroke="#141413" stroke-width="6" stroke-linejoin="round"></path>
+            <g fill="#141413"><circle cx="25" cy="125" r="8"></circle><circle cx="75" cy="125" r="8"></circle><circle cx="50" cy="162" r="8"></circle></g>
+            <circle r="6" fill="#B85E32"><animateMotion dur="3s" repeatCount="indefinite" path="M25 125 L50 162 L75 125 L50 162 Z"></animateMotion></circle>
+            <g fill="none" stroke="#141413" stroke-width="5" stroke-linecap="round"><path d="M120 176 V152 A30 30 0 0 1 180 152 V176"><animate attributeName="opacity" values="1;.25;1" dur="2.4s" begin=".8s" repeatCount="indefinite"></animate></path><path d="M131 176 V152 A19 19 0 0 1 169 152 V176"><animate attributeName="opacity" values="1;.25;1" dur="2.4s" begin=".4s" repeatCount="indefinite"></animate></path><path d="M142 176 V152 A8 8 0 0 1 158 152 V176"><animate attributeName="opacity" values="1;.25;1" dur="2.4s" repeatCount="indefinite"></animate></path></g>
+            <rect x="226" y="126" width="48" height="48" fill="none" stroke="#141413" stroke-width="6"></rect>
+            <g fill="#141413"><circle cx="226" cy="126" r="8"></circle><circle cx="274" cy="126" r="8"></circle><circle cx="226" cy="174" r="8"></circle><circle cx="274" cy="174" r="8"></circle></g>
+            <path d="M25 225 L75 275 M75 225 L25 275" stroke="#141413" stroke-width="6"></path>
+            <g fill="#141413"><circle cx="25" cy="225" r="7"></circle><circle cx="75" cy="225" r="7"></circle><circle cx="25" cy="275" r="7"></circle><circle cx="75" cy="275" r="7"></circle><circle cx="50" cy="250" r="9"><animate attributeName="r" values="9;13;9" dur="2s" repeatCount="indefinite"></animate></circle></g>
+            <g fill="none" stroke="#141413" stroke-width="4"><circle cx="128" cy="228" r="9"></circle><circle cx="150" cy="228" r="9"></circle><circle cx="172" cy="228" r="9"></circle><circle cx="128" cy="250" r="9"></circle><circle cx="150" cy="250" r="9" fill="#B85E32"><animate attributeName="fill-opacity" values="0;1;0" dur="3s" repeatCount="indefinite"></animate></circle><circle cx="172" cy="250" r="9"></circle><circle cx="128" cy="272" r="9"></circle><circle cx="150" cy="272" r="9"></circle><circle cx="172" cy="272" r="9"></circle></g>
+            <g fill="#858366"><animateTransform attributeName="transform" type="rotate" from="0 250 250" to="90 250 250" dur="6s" repeatCount="indefinite"></animateTransform><circle cx="236" cy="236" r="15"></circle><circle cx="264" cy="236" r="15"></circle><circle cx="236" cy="264" r="15"></circle><circle cx="264" cy="264" r="15"></circle><rect x="236" y="236" width="28" height="28"></rect></g>
+          </svg>
+        </div>
+        <figcaption style="display:flex;justify-content:space-between;margin-top:14px;font-family:'Martian Mono',monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#4a4740"><span>Plate 06</span><span>The studio mark</span></figcaption>
+      </figure>
+    </div>
+  </section>
+  <section style="border-top:1px solid rgba(20,20,19,.14)">
+    <div style="width:min(1240px, calc(100% - 2 * clamp(1.25rem,4vw,3.5rem)));margin:0 auto;padding:clamp(4rem,8vw,6.5rem) 0;display:flex;flex-direction:column;gap:clamp(2rem,4vw,3rem)">
+      <div style="display:flex;flex-direction:column;gap:18px"><p style="font-family:'Martian Mono',monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#7F3026">Record</p><h2 style="font-family:'Hanken Grotesk',sans-serif;font-weight:800;font-size:clamp(2rem,3.8vw,3.2rem);line-height:1;letter-spacing:-.045em">How the studio got here.</h2></div>
+      <ol style="list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,14rem),1fr));gap:0 24px">
+        <sc-for list="{{ record }}" as="r" hint-placeholder-count="4">
+          <li data-reveal="" style="border-top:2px solid #141413;padding:18px 0 28px;display:flex;flex-direction:column;gap:10px;position:relative">
+            <span style="position:absolute;left:0;top:-6px;width:10px;height:10px;background:{{ r.dot }}"></span>
+            <span style="font-family:'Martian Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#7F3026;padding-top:6px">{{ r.when }}</span>
+            <h3 style="font-family:'Hanken Grotesk',sans-serif;font-weight:700;font-size:1.4rem;letter-spacing:-.025em">{{ r.title }}</h3>
+            <p style="color:#4a4740;font-size:1.02rem">{{ r.body }}</p>
+          </li>
+        </sc-for>
+      </ol>
+    </div>
+  </section>
+  <section style="border-top:1px solid rgba(20,20,19,.14)">
+    <div style="width:min(1240px, calc(100% - 2 * clamp(1.25rem,4vw,3.5rem)));margin:0 auto;padding:clamp(4rem,8vw,6.5rem) 0;display:flex;flex-direction:column;gap:clamp(2rem,4vw,3rem)">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,20rem),1fr));gap:24px clamp(2rem,5vw,5rem);align-items:end">
+        <div style="display:flex;flex-direction:column;gap:18px"><p style="font-family:'Martian Mono',monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#7F3026">Studio work</p><h2 style="font-family:'Hanken Grotesk',sans-serif;font-weight:800;font-size:clamp(2rem,3.8vw,3.2rem);line-height:1;letter-spacing:-.045em">Agents, when a product is not the point.</h2></div>
+        <p style="font-size:1.2rem;line-height:1.5;color:#2b2a27;max-width:32rem">Beyond our own tools, we build automation agents for businesses — systems that hold a conversation and close the gap between a message and a result.</p>
+      </div>
+      <sc-for list="{{ services }}" as="s" hint-placeholder-count="3">
+        <article data-reveal="" style="border-top:1px solid rgba(20,20,19,.2);padding:28px 0;display:grid;grid-template-columns:{{ serviceCols }};gap:14px clamp(1.5rem,4vw,4rem);align-items:start">
+          <div style="display:flex;flex-direction:column;gap:10px"><span style="font-family:'Martian Mono',monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#7F3026">{{ s.n }}</span><h3 style="font-family:'Hanken Grotesk',sans-serif;font-weight:800;font-size:2.2rem;letter-spacing:-.04em;line-height:1">{{ s.longName }}</h3><p style="font-style:italic;font-size:1.2rem">{{ s.statement }}</p></div>
+          <div style="display:flex;flex-direction:column;gap:16px"><p style="color:#2b2a27">{{ s.long }}</p>
+            <div style="display:flex;flex-wrap:wrap;align-items:center;gap:10px 22px;font-family:'Martian Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#4a4740"><sc-for list="{{ s.tags }}" as="tg" hint-placeholder-count="3"><span>× {{ tg }}</span></sc-for><a href="{{ s.mail }}" style="margin-left:auto;font-size:11px;color:#141413;text-decoration:none;border-bottom:1px solid #141413;padding:6px 0" style-hover="color:#B85E32;border-color:#B85E32">Enquire →</a></div>
+          </div>
+        </article>
+      </sc-for>
+    </div>
+  </section>
+  <section style="background:#E8E1D5">
+    <div style="width:min(1240px, calc(100% - 2 * clamp(1.25rem,4vw,3.5rem)));margin:0 auto;padding:clamp(4.5rem,9vw,7rem) 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,22rem),1fr));gap:28px clamp(2rem,6vw,6rem);align-items:end">
+      <blockquote style="margin:0;font-size:clamp(2.4rem,5.4vw,4.6rem);line-height:1.02;letter-spacing:-.03em">Calm tools for <em style="color:#7F3026">serious thinkers.</em></blockquote>
+      <div style="display:flex;flex-direction:column;gap:18px"><p style="font-family:'Martian Mono',monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#7F3026">Philosophy</p><p style="color:#2b2a27">The systems we build share one aim: software that does not demand your attention, but earns it. What we leave out matters as much as what we build.</p><a href="#founder" onClick="{{ goFounder }}" style="align-self:flex-start;font-family:'Martian Mono',monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;text-decoration:none;border-bottom:1px solid #141413;padding:6px 0" style-hover="color:#B85E32;border-color:#B85E32">The founder →</a></div>
+    </div>
+  </section>
+</sc-if>
+
+<sc-if value="{{ isFounder }}" hint-placeholder-val="{{ false }}">
+  <section data-screen-label="Founder — Hero" style="display:grid;grid-template-columns:{{ founderCols }};border-bottom:1px solid rgba(20,20,19,.14)">
+    <div style="background:#141413;color:#FAF9F5;padding:clamp(2.5rem,6vw,5rem) clamp(1.25rem,5vw,4.5rem);display:flex;flex-direction:column;justify-content:space-between;gap:56px;min-height:min(80vh,720px)">
+      <div style="display:flex;flex-direction:column;gap:20px"><p style="font-family:'Martian Mono',monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#E8E1D5">Founder and builder</p><h1 data-reveal="" style="font-family:'Hanken Grotesk',sans-serif;font-weight:800;font-size:clamp(5rem,12vw,10rem);line-height:.8;letter-spacing:-.06em">Devk</h1></div>
+      <blockquote data-reveal="" style="margin:0;font-style:italic;font-size:clamp(1.35rem,2.2vw,1.75rem);line-height:1.3;max-width:20ch;display:flex;gap:16px"><span aria-hidden="true" style="flex:none;width:12px;height:12px;background:#B85E32;margin-top:12px"></span>Calm tools for serious thinkers. That is the only brief I have ever needed.</blockquote>
+    </div>
+    <div style="padding:clamp(2.5rem,6vw,5rem) clamp(1.25rem,5vw,4.5rem);display:flex;flex-direction:column;justify-content:center;gap:22px">
+      <p style="font-family:'Martian Mono',monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#7F3026">The person behind the studio</p>
+      <h2 data-reveal="" style="font-family:'Hanken Grotesk',sans-serif;font-weight:800;font-size:clamp(2rem,3.6vw,3rem);line-height:1.02;letter-spacing:-.045em;max-width:18ch">A self-driven builder, occupied with what should exist next.</h2>
+      <p data-reveal="" style="color:#2b2a27;max-width:38rem">XOPICX was founded with a clear intent: build technology that respects intelligence, time, and long-term thinking. The studio operates with restraint, focus, and personal ownership.</p>
+      <p data-reveal="" style="color:#2b2a27;max-width:38rem">I care about AI, automation, and tools that genuinely help people — not tools that only impress in a demo. There is no rush to scale. There is a commitment to quality and clarity.</p>
+      <ul style="list-style:none;margin:8px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:8px 22px;font-family:'Martian Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#4a4740"><sc-for list="{{ founderTags }}" as="ft" hint-placeholder-count="6"><li>× {{ ft }}</li></sc-for></ul>
+    </div>
+  </section>
+  <section style="width:min(1240px, calc(100% - 2 * clamp(1.25rem,4vw,3.5rem)));margin:0 auto;padding:clamp(4rem,8vw,6.5rem) 0;display:flex;flex-direction:column;gap:clamp(2rem,4vw,3rem)">
+    <div style="display:flex;flex-direction:column;gap:18px"><p style="font-family:'Martian Mono',monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#7F3026">Method</p><h2 style="font-family:'Hanken Grotesk',sans-serif;font-weight:800;font-size:clamp(2rem,3.8vw,3.2rem);line-height:1;letter-spacing:-.045em">Principles behind the decisions.</h2></div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,19rem),1fr));gap:0 clamp(1.5rem,3vw,3rem)">
+      <sc-for list="{{ principles }}" as="p" hint-placeholder-count="6">
+        <article data-reveal="" style="border-top:1px solid rgba(20,20,19,.2);padding:22px 0 30px;display:flex;flex-direction:column;gap:10px">
+          <span style="font-family:'Martian Mono',monospace;font-size:11px;letter-spacing:.16em;color:#7F3026">{{ p.n }}</span>
+          <h3 style="font-family:'Hanken Grotesk',sans-serif;font-weight:700;font-size:1.45rem;letter-spacing:-.025em;line-height:1.1">{{ p.title }}</h3>
+          <p style="color:#4a4740;font-size:1.05rem">{{ p.body }}</p>
+        </article>
+      </sc-for>
+    </div>
+  </section>
+  <section style="background:#E8E1D5">
+    <div style="width:min(1240px, calc(100% - 2 * clamp(1.25rem,4vw,3.5rem)));margin:0 auto;padding:clamp(4.5rem,9vw,7rem) 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,22rem),1fr));gap:28px clamp(2rem,6vw,6rem);align-items:end">
+      <blockquote style="margin:0;font-size:clamp(2rem,4.4vw,3.8rem);line-height:1.05;letter-spacing:-.03em;text-wrap:balance">Software that gets out of the way, respects your time, and does what it says.</blockquote>
+      <p style="color:#4a4740">Devk, founder of XOPICX. The systems sit under that sentence. Nothing more than they claim. Nothing less.</p>
+    </div>
+  </section>
+  <section style="width:min(1240px, calc(100% - 2 * clamp(1.25rem,4vw,3.5rem)));margin:0 auto;padding:clamp(4rem,8vw,6.5rem) 0;display:flex;flex-direction:column;gap:clamp(2rem,4vw,3rem)">
+    <div style="display:flex;flex-direction:column;gap:18px"><p style="font-family:'Martian Mono',monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#7F3026">From the bench</p><h2 style="font-family:'Hanken Grotesk',sans-serif;font-weight:800;font-size:clamp(2rem,3.8vw,3.2rem);line-height:1;letter-spacing:-.045em">What the studio is carrying.</h2></div>
+    <ul style="list-style:none;margin:0;padding:0">
+      <sc-for list="{{ bench }}" as="b" hint-placeholder-count="3">
+        <li data-reveal="" style="border-top:1px solid rgba(20,20,19,.2);padding:24px 0;display:grid;grid-template-columns:{{ benchCols }};gap:8px 32px;align-items:baseline">
+          <span style="font-family:'Martian Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#7F3026;display:flex;align-items:center;gap:8px"><span style="width:7px;height:7px;background:{{ b.dot }}"></span>{{ b.status }}</span>
+          <h3 style="font-family:'Hanken Grotesk',sans-serif;font-weight:700;font-size:1.5rem;letter-spacing:-.025em">{{ b.title }}</h3>
+          <p style="color:#4a4740">{{ b.body }}</p>
+        </li>
+      </sc-for>
+    </ul>
+  </section>
+</sc-if>
+
+<sc-if value="{{ showContact }}" hint-placeholder-val="{{ true }}">
+  <section id="contact" data-screen-label="Contact" style="width:min(1240px, calc(100% - 2 * clamp(1.25rem,4vw,3.5rem)));margin:0 auto;padding:clamp(4.5rem,9vw,7rem) 0">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,22rem),1fr));gap:clamp(2rem,5vw,5rem);padding-top:28px;border-top:2px solid #141413">
+      <div style="display:flex;flex-direction:column;gap:22px">
+        <p style="font-family:'Martian Mono',monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#7F3026">Write</p>
+        <h2 data-reveal="" style="font-family:'Hanken Grotesk',sans-serif;font-weight:800;font-size:clamp(2.4rem,5vw,4.4rem);line-height:.95;letter-spacing:-.05em">Tell us what you are trying to make.</h2>
+        <p style="font-size:1.2rem;line-height:1.5;color:#2b2a27;max-width:28rem">An agent, a product, or a technical idea that does not have a category yet. We read everything.</p>
+        <div style="display:flex;flex-direction:column;gap:6px;font-family:'Martian Mono',monospace;font-size:12px;letter-spacing:.04em"><a href="mailto:xrpbusinessx@gmail.com" style="color:#141413" style-hover="color:#B85E32">xrpbusinessx@gmail.com</a><span style="color:#4a4740">India · Remote worldwide</span></div>
+      </div>
+      <form onSubmit="{{ submit }}" style="display:grid;gap:22px;align-content:start;background:#E8E1D5;padding:clamp(1.5rem,3.5vw,2.75rem)">
+        <label style="display:grid;gap:8px;font-family:'Martian Mono',monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#4a4740">Name<input name="name" type="text" autocomplete="name" style="font-family:'Newsreader',serif;font-size:1.15rem;letter-spacing:0;text-transform:none;background:transparent;border:0;border-bottom:1px solid #141413;border-radius:0;padding:8px 0;color:#141413;outline:none" style-focus="border-bottom:2px solid #B85E32"></label>
+        <label style="display:grid;gap:8px;font-family:'Martian Mono',monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#4a4740">Email<input name="email" type="email" autocomplete="email" style="font-family:'Newsreader',serif;font-size:1.15rem;letter-spacing:0;text-transform:none;background:transparent;border:0;border-bottom:1px solid #141413;border-radius:0;padding:8px 0;color:#141413;outline:none" style-focus="border-bottom:2px solid #B85E32"></label>
+        <label style="display:grid;gap:8px;font-family:'Martian Mono',monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#4a4740">Message<textarea name="message" required="" style="font-family:'Newsreader',serif;font-size:1.15rem;letter-spacing:0;text-transform:none;background:transparent;border:0;border-bottom:1px solid #141413;border-radius:0;padding:8px 0;min-height:7rem;resize:vertical;color:#141413;outline:none" style-focus="border-bottom:2px solid #B85E32"></textarea></label>
+        <button type="submit" style="justify-self:start;display:inline-flex;gap:14px;align-items:center;background:#141413;color:#FAF9F5;border:0;border-radius:0;padding:16px 22px;min-height:44px;font-family:'Martian Mono',monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;cursor:pointer" style-hover="background:#B85E32">Send message <span aria-hidden="true">→</span></button>
+      </form>
+    </div>
+  </section>
+</sc-if>
+</main>
+
+<footer style="background:#141413;color:#FAF9F5;overflow:hidden">
+  <div style="width:min(1240px, calc(100% - 2 * clamp(1.25rem,4vw,3.5rem)));margin:0 auto;padding:clamp(3.5rem,7vw,5.5rem) 0 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,13rem),1fr));gap:40px 32px">
+    <div style="display:flex;flex-direction:column;gap:18px">
+      <svg viewBox="0 0 32 32" aria-hidden="true" style="width:40px;height:40px"><g fill="none" stroke="#FAF9F5" stroke-width="2.4" stroke-linecap="square"><path d="M3.8 4.2 L11.7 12.1 M20.3 19.9 L28.2 27.8 M28.2 4.2 L20.3 12.1 M11.7 19.9 L3.8 27.8"></path></g><rect x="10.32" y="10.32" width="11.36" height="11.36" fill="#B85E32"></rect></svg>
+      <p style="font-style:italic;font-size:1.4rem;line-height:1.2;max-width:14ch">Technology beyond the obvious.</p>
+    </div>
+    <nav aria-label="Footer" style="display:flex;flex-direction:column;gap:10px">
+      <span style="font-family:'Martian Mono',monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#AAA69D;margin-bottom:6px">Index</span>
+      <sc-for list="{{ navItems }}" as="n" hint-placeholder-count="4"><a href="#{{ n.id }}" onClick="{{ n.go }}" style="text-decoration:none;font-family:'Hanken Grotesk',sans-serif;font-weight:500;font-size:1.05rem" style-hover="color:#E8E1D5;text-decoration:underline">{{ n.label }}</a></sc-for>
+    </nav>
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <span style="font-family:'Martian Mono',monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#AAA69D;margin-bottom:6px">Contact</span>
+      <a href="mailto:xrpbusinessx@gmail.com" style="font-family:'Hanken Grotesk',sans-serif;font-weight:500;font-size:1.05rem;text-decoration:none" style-hover="color:#E8E1D5;text-decoration:underline">xrpbusinessx@gmail.com</a>
+      <span style="color:#E8E1D5;font-size:1rem">India · Remote worldwide</span>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <span style="font-family:'Martian Mono',monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#AAA69D;margin-bottom:6px">Legal</span>
+      <a href="privacy.html" style="font-family:'Hanken Grotesk',sans-serif;font-weight:500;font-size:1.05rem;text-decoration:none" style-hover="color:#E8E1D5;text-decoration:underline">Privacy</a>
+      <a href="terms.html" style="font-family:'Hanken Grotesk',sans-serif;font-weight:500;font-size:1.05rem;text-decoration:none" style-hover="color:#E8E1D5;text-decoration:underline">Terms</a>
+    </div>
+  </div>
+  <div aria-hidden="true" style="width:min(1240px, calc(100% - 2 * clamp(1.25rem,4vw,3.5rem)));margin:clamp(3rem,6vw,5rem) auto 0;display:flex;justify-content:space-between;gap:16px;font-family:'Martian Mono',monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#AAA69D;padding-bottom:18px;border-bottom:1px solid rgba(250,249,245,.18)"><span>© 2024–2026 XOPICX</span><span>ZOH-piks</span></div>
+  <div aria-hidden="true" style="font-family:'Hanken Grotesk',sans-serif;font-weight:900;font-size:27vw;line-height:.72;letter-spacing:-.07em;color:#E8E1D5;text-align:center;margin-top:3vw;margin-bottom:-4.2vw;white-space:nowrap;user-select:none">XOPICX</div>
+</footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;grain&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Texture &amp; motion&quot;},&quot;motion&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Texture &amp; motion&quot;},&quot;introLoader&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Texture &amp; motion&quot;}}">
+class Component extends DCLogic {
+  state = { page: 'home', menuOpen: false, w: typeof window !== 'undefined' ? window.innerWidth : 1280, fading: false, jointRot: 0, loader: 'on' };
+
+  componentDidMount() {
+    this.reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const h = (location.hash || '').slice(1);
+    if (['work', 'lab', 'studio', 'founder'].includes(h)) this.setState({ page: h });
+    this.onResize = () => this.setState({ w: window.innerWidth, menuOpen: window.innerWidth >= 860 ? false : this.state.menuOpen });
+    this.onKey = (e) => { if (e.key === 'Escape' && this.state.menuOpen) this.setState({ menuOpen: false }); };
+    this.lastY = window.scrollY; this.ticking = false;
+    this.onScroll = () => {
+      if (this.ticking) return;
+      this.ticking = true;
+      requestAnimationFrame(() => {
+        this.ticking = false;
+        this.parallax();
+        const y = Math.max(0, window.scrollY), dy = y - this.lastY;
+        let next = this.state.compact;
+        if (y <= 24) next = false;
+        else if (dy > 8 && y > 80) next = true;
+        else if (dy < -8) next = false;
+        if (Math.abs(dy) > 8 || y <= 24) this.lastY = y;
+        if (next !== this.state.compact) this.setState({ compact: next });
+      });
+    };
+    window.addEventListener('resize', this.onResize);
+    window.addEventListener('keydown', this.onKey);
+    window.addEventListener('scroll', this.onScroll, { passive: true });
+    const showLoader = (this.props.introLoader ?? true) && !this.reduce;
+    if (showLoader) {
+      setTimeout(() => this.drawPaths(document.querySelectorAll('[aria-hidden] svg [data-draw]')), 30);
+      setTimeout(() => this.setState({ loader: 'out' }), 950);
+      setTimeout(() => { this.setState({ loader: 'gone' }); this.setupReveal(); }, 1650);
+    } else {
+      this.setState({ loader: 'gone' });
+      setTimeout(() => this.setupReveal(), 30);
+    }
+  }
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.onResize);
+    window.removeEventListener('keydown', this.onKey);
+    window.removeEventListener('scroll', this.onScroll);
+    if (this.io) this.io.disconnect();
+  }
+  motionOn() { return (this.props.motion ?? true) && !this.reduce; }
+
+  drawPaths(nodes) {
+    nodes.forEach((p, i) => {
+      if (p.dataset.drawn) return;
+      p.dataset.drawn = '1';
+      if (!this.motionOn() || !p.getTotalLength) return;
+      const L = p.getTotalLength();
+      p.style.strokeDasharray = L; p.style.strokeDashoffset = L;
+      p.getBoundingClientRect();
+      p.style.transition = `stroke-dashoffset 1600ms cubic-bezier(.65,0,.35,1) ${i * 90}ms`;
+      requestAnimationFrame(() => { p.style.strokeDashoffset = 0; });
+    });
+  }
+
+  setupReveal() {
+    if (this.io) this.io.disconnect();
+    document.querySelectorAll('svg').forEach(s => { if (!s.pauseAnimations) return; this.motionOn() ? s.unpauseAnimations() : s.pauseAnimations(); });
+    const els = document.querySelectorAll('[data-reveal]:not([data-seen])');
+    const draws = document.querySelectorAll('main [data-draw]:not([data-drawn])');
+    if (!this.motionOn() || !('IntersectionObserver' in window)) {
+      els.forEach(el => el.setAttribute('data-seen', '1'));
+      return;
+    }
+    const groups = new Map();
+    els.forEach(el => {
+      el.setAttribute('data-seen', '1');
+      el.style.opacity = '0'; el.style.transform = 'translateY(18px)';
+      el.style.transition = 'opacity 800ms cubic-bezier(.16,1,.3,1), transform 900ms cubic-bezier(.16,1,.3,1)';
+    });
+    this.io = new IntersectionObserver((entries) => {
+      let k = 0;
+      entries.forEach(en => {
+        if (!en.isIntersecting) return;
+        const el = en.target;
+        this.io.unobserve(el);
+        if (el.tagName === 'path') { this.drawPaths([el]); return; }
+        el.style.transitionDelay = (k++ * 80) + 'ms';
+        el.style.opacity = '1'; el.style.transform = 'none';
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -6% 0px' });
+    els.forEach(el => this.io.observe(el));
+    draws.forEach(p => {
+      if (!this.motionOn()) return;
+      const L = p.getTotalLength(); p.style.strokeDasharray = L; p.style.strokeDashoffset = L;
+      this.io.observe(p);
+    });
+    this.parallax();
+  }
+
+  parallax() {
+    if (!this.motionOn() || window.innerWidth < 860) return;
+    const y = Math.min(window.scrollY, 1400);
+    document.querySelectorAll('[data-depth]').forEach(el => {
+      const d = parseFloat(el.dataset.depth) || 0;
+      const r = el.getBoundingClientRect();
+      const off = (r.top + r.height / 2 - window.innerHeight / 2);
+      el.style.translate = `0 ${(-off * d).toFixed(1)}px`;
+    });
+  }
+
+  go(page, anchor) {
+    const finish = () => {
+      if (!anchor) { this.lastY = 0; this.setState({ compact: false }); }
+      if (anchor) {
+        const el = document.getElementById(anchor);
+        if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 64, behavior: this.motionOn() ? 'smooth' : 'auto' });
+      } else window.scrollTo({ top: 0 });
+    };
+    try { history.replaceState(null, '', '#' + page); } catch (e) {}
+    if (page === this.state.page) { this.setState({ menuOpen: false }); finish(); return; }
+    const delay = this.motionOn() ? 220 : 0;
+    this.setState(s => ({ fading: true, menuOpen: false, jointRot: s.jointRot + 90 }));
+    setTimeout(() => {
+      this.setState({ page, fading: false }, () => { finish(); setTimeout(() => this.setupReveal(), 20); });
+    }, delay);
+  }
+  h(page, anchor) { return (e) => { if (e) e.preventDefault(); this.go(page, anchor); }; }
+
+  renderVals() {
+    const { page, w, menuOpen, fading, jointRot, loader } = this.state;
+    const compact = !!this.state.compact && !menuOpen;
+    const narrow = w < 860;
+    const mid = w < 1080;
+    const navDefs = [
+      { id: 'home', label: 'Home', num: '01' },
+      { id: 'work', label: 'Work', num: '02' },
+      { id: 'lab', label: 'Lab', num: '03' },
+      { id: 'studio', label: 'Studio', num: '04' },
+    ];
+    const navItems = navDefs.filter(n => narrow || n.id !== 'home').concat(narrow ? [] : [{ id: 'founder', label: 'Founder', num: '05' }]).map(n => ({
+      ...n, go: this.h(n.id), current: page === n.id ? 'page' : undefined, dot: page === n.id ? 1 : 0,
+    }));
+    if (narrow) navItems.push({ id: 'founder', label: 'Founder', num: '05', go: this.h('founder'), dot: 0 });
+    const mail = (s) => 'mailto:xrpbusinessx@gmail.com?subject=' + encodeURIComponent(s);
+    const labRaw = [
+      { id: 'EX 01', slug: 'ex-01', kind: 'Prototype', tag: 'Model', dot: '#B85E32', title: 'Inference bridge', short: 'Kaizen’s first path to a model: a thin bridge to Hugging Face, built so a conversation could leave the notebook.', statement: 'A conversation needs a way out of the notebook.', long: 'Before Kaizen had a name people could open, it was a bridge: prompts leaving the studio, a custom-trained model answering through Hugging Face. The interesting part was not the interface. It was whether the loop felt trustworthy. See also — Kaizen, now deployed.' },
+      { id: 'EX 02', slug: 'ex-02', kind: 'Concept', tag: 'Agents', dot: '#858366', title: 'A conversation that works', short: 'Agents tried where people already talk — Instagram, WhatsApp, and a few custom paths — and taught to hand the thread back.', statement: 'Agents, tried in the places people already talk.', long: 'Instagram direct messages, WhatsApp business lines, and a few custom paths — email, Telegram, Discord. The experiment is whether an agent can sound like the person it represents, and stop when it should hand the thread back.' },
+      { id: 'EX 03', slug: 'ex-03', kind: 'In progress', tag: 'Pipelines', dot: '#AAA69D', title: 'Workflow studies', short: 'Pipelines still open on the bench: remove a repeated decision, and leave the judgment with a person.', statement: 'Repetition is a design problem.', long: 'A suite of pipelines is still open on the bench: work that removes a repeated decision and leaves the judgment with a person. Not a product page. A direction.' },
+      { id: 'EX 04', slug: 'ex-04', kind: 'Sealed', tag: 'Withheld', dot: '#7F3026', title: 'Withheld study', short: 'Something is in production. It is not being described yet. Curiosity is part of the work.', statement: 'Something is taking shape.', long: 'A study is in production. Naming it here would turn curiosity into a countdown. When it is ready, it will stand with the other projects. Until then, the frame stays empty on purpose.' },
+    ];
+    const lab = labRaw.map(l => ({ ...l, go: this.h('lab', l.slug) }));
+    const tileBg = ['#E8E1D5', '#E8E1D5', '#AAA69D', '#E8E1D5', '#858366', '#E8E1D5', '#E8E1D5', '#B85E32', '#E8E1D5', '#AAA69D', '#E8E1D5', '#E8E1D5'];
+    const hubTiles = tileBg.map((bg, i) => ({ bg, img: i === 5, n: String(i + 1).padStart(2, '0'), fg: bg === '#B85E32' || bg === '#858366' ? '#FAF9F5' : '#141413' }));
+    const work = [
+      { slug: 'kaizen', n: '01', numColor: '#B85E32', name: 'Kaizen', statement: 'Machine intelligence, built through experimentation.', long: 'The studio’s first deployed AI product. A conversational workspace connected to a custom-trained model through a Hugging Face inference bridge. Fast, focused, and made for everyday use — including longer sessions of reasoning and code.', facts: [{ k: 'Category', v: 'AI · Research · Models' }, { k: 'Platform', v: 'Vercel + Cloudflare Workers' }, { k: 'Language', v: 'JavaScript' }, { k: 'Bridge', v: 'Hugging Face inference' }, { k: 'Status', v: 'Deployed' }, { k: 'Link', v: 'kaizen-ai-eight.vercel.app' }], href: 'https://kaizen-ai-eight.vercel.app/', target: '_blank', cta: 'Launch Kaizen', arrow: '↗', click: undefined },
+      { slug: 'ai-tools-hub', n: '02', numColor: '#858366', name: 'AI Tools Hub', statement: 'A library of instruments, kept by hand.', long: 'A curated directory of AI platforms, organized by what they actually help you do. Handpicked, updated as the field moves, free to open, and deliberately without a login. The directory is kept with the studio; a separate public page is not part of this site.', facts: [{ k: 'Category', v: 'AI · Curation · Index' }, { k: 'Type', v: 'Curated directory' }, { k: 'Access', v: 'Free · no login' }, { k: 'Status', v: 'Live, and still growing' }], href: '#contact', target: '_self', cta: 'Write the studio', arrow: '→', click: (e) => { e.preventDefault(); const el = document.getElementById('contact'); if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 64, behavior: 'smooth' }); } },
+    ];
+    const services = [
+      { n: '01', name: 'Instagram', longName: 'Instagram', statement: 'An agent in the messages you already receive.', short: 'Agents that reply, qualify, and keep a conversation in your voice.', long: 'Replies to direct messages with context, moderates comments, qualifies leads, answers story mentions, and keeps your tone. Built to run when you are not looking at the phone.', tags: ['DMs', 'Comments', 'Leads'], mail: mail('Instagram agent') },
+      { n: '02', name: 'WhatsApp', longName: 'WhatsApp', statement: 'A business number that can answer.', short: 'An agent on a business number — questions, bookings, follow-ups.', long: 'An agent on WhatsApp Business: questions, appointments, order status, follow-ups, and a handoff to a person when the conversation needs one. More than one language, when the work requires it.', tags: ['Messages', 'Bookings', 'Follow-up'], mail: mail('WhatsApp agent') },
+      { n: '03', name: 'Custom', longName: 'Other agents', statement: 'A workflow, drawn to the job.', short: 'Email, Telegram, Discord, and workflows built for a specific job.', long: 'Email outreach, Telegram and Discord bots, CRM upkeep, lead qualification, and orchestration across tools. If it is a repeated conversation or a repeated decision, we can study it.', tags: ['Email', 'Community', 'Custom'], mail: mail('Custom agent') },
+    ];
+    const contactScroll = (e) => {
+      if (e) e.preventDefault();
+      if (page === 'home' || page === 'studio') this.go(page, 'contact'); else this.go('home', 'contact');
+    };
+    return {
+      grain: this.props.grain ?? true,
+      showLoader: loader !== 'gone',
+      loaderTransform: loader === 'out' ? 'translateY(-100%)' : 'none',
+      wide: !narrow, narrow, menuOpen,
+      menuOpenStr: menuOpen ? 'true' : 'false',
+      menuLabel: menuOpen ? 'Close' : 'Menu',
+      menuRot: menuOpen ? 45 : 0,
+      menuSq: menuOpen ? '#B85E32' : 'transparent',
+      toggleMenu: () => this.setState(s => ({ menuOpen: !s.menuOpen })),
+      jointRot,
+      wordMax: compact ? '0px' : '90px', wordOpacity: compact ? 0 : 1, wordShift: compact ? -6 : 0,
+      navItems,
+      goHome: this.h('home'), goWork: this.h('work'), goLab: this.h('lab'), goFounder: this.h('founder'),
+      goWorkHub: this.h('work', 'ai-tools-hub'),
+      goWorkAnchor: this.h('home', 'work'),
+      goContact: contactScroll,
+      mainOpacity: fading ? 0 : 1, mainShift: fading ? 8 : 0,
+      isHome: page === 'home', isWork: page === 'work', isLab: page === 'lab', isStudio: page === 'studio', isFounder: page === 'founder',
+      showContact: page === 'home' || page === 'studio',
+      heroCols: mid ? '1fr' : 'minmax(0,1.25fr) minmax(0,1fr)',
+      heroSize: mid ? 'clamp(3rem, 13.5vw, 8rem)' : 'clamp(4.5rem, 7.4vw, 7.6rem)',
+      featureCols: narrow ? '1fr' : 'minmax(0,1.1fr) minmax(0,1fr)',
+      featureColsRev: narrow ? '1fr' : 'minmax(0,1fr) minmax(0,1.1fr)',
+      hubTextOrder: narrow ? 2 : 1, hubArtOrder: narrow ? 1 : 2,
+      ledgerCols: narrow ? '1fr' : '6rem minmax(0,1fr) minmax(0,1.3fr) 8rem',
+      labCols: narrow ? '1fr' : '10rem minmax(0,1fr) minmax(0,1.1fr)',
+      positionCols: narrow ? '1fr' : 'minmax(0,.8fr) minmax(0,1.2fr)',
+      serviceCols: narrow ? '1fr' : 'minmax(0,1fr) minmax(0,1.3fr)',
+      founderCols: narrow ? '1fr' : 'minmax(0,.85fr) minmax(0,1.15fr)',
+      benchCols: narrow ? '1fr' : '10rem minmax(0,1fr) minmax(0,1.4fr)',
+      disciplines: ['AI', 'Software', 'Agents', 'Experimental tools', 'Technical ideas', 'Products'],
+      lab, hubTiles, work, services,
+      record: [
+        { when: 'Early 2024', title: 'The idea', body: 'Started exploring how AI could be the foundation of a product rather than an add-on. First prototypes built in isolation.', dot: '#AAA69D' },
+        { when: 'Mid 2024', title: 'XOPICX founded', body: 'Established as an independent studio with a singular focus: calm tools for serious thinkers.', dot: '#858366' },
+        { when: 'Late 2024', title: 'First products', body: 'Early community tools shipped. Real users, real feedback, real improvements.', dot: '#7F3026' },
+        { when: '2025 →', title: 'The set of work', body: 'Kaizen and the AI Tools Hub left the lab. The set is still growing, slowly.', dot: '#B85E32' },
+      ],
+      founderTags: ['AI and models', 'Product', 'Full stack', 'Automation', 'Systems', 'Community'],
+      principles: [
+        { n: '01', title: 'Restraint over feature-creep', body: 'Every feature earns its place. Shipping less, and making it count, is harder than adding — and often more valuable.' },
+        { n: '02', title: 'Intelligence over automation', body: 'AI should sharpen a decision, not replace the thinking. The tools should make you more capable, not more dependent.' },
+        { n: '03', title: 'Long-term over short-term', body: 'No growth tricks, no dark patterns, no traps for attention. Built for the person who will still be here in three years.' },
+        { n: '04', title: 'Ownership over delegation', body: 'A small studio, high accountability. I would rather own a thing end to end than spread the responsibility until it disappears.' },
+        { n: '05', title: 'Clarity over cleverness', body: 'Code, design, and sentences that a person can follow. If it is clever for its own sake, it gets cut.' },
+        { n: '06', title: 'Calm over urgency', body: 'The best products do not demand attention. They earn it. Designed for focus, not for a habit.' },
+      ],
+      bench: [
+        { status: 'Live', dot: '#858366', title: 'XOPICX Community', body: 'A gathering place for builders and founders who care about doing the work properly.' },
+        { status: 'In progress', dot: '#AAA69D', title: 'AI Workflow Suite', body: 'Custom automation pipelines that take repetitive decisions off the table and leave the judgment with a person.' },
+        { status: 'Coming soon', dot: '#B85E32', title: 'Product Studio', body: 'Design and engineering for founders who want to move carefully, and still move.' },
+      ],
+      submit: (e) => {
+        e.preventDefault();
+        const d = new FormData(e.target);
+        const name = String(d.get('name') || '').trim(), email = String(d.get('email') || '').trim(), msg = String(d.get('message') || '').trim();
+        const body = encodeURIComponent(msg + (name ? '\n\n— ' + name : '') + (email ? ' (' + email + ')' : ''));
+        window.location.href = 'mailto:xrpbusinessx@gmail.com?subject=' + encodeURIComponent('XOPICX enquiry') + '&body=' + body;
+      },
+    };
+  }
+}
+</script>
+</body>
+</html>
