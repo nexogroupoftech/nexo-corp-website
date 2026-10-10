@@ -1,15 +1,21 @@
-repo: nexogroupoftech/kaizen-ai
+repo: nexogroupoftech/nexo-corp-website
 branch: main
 
 ## Last sync
-date: 2026-10-10T14:06:12Z
+date: 2026-10-10T07:14:50Z
 
 ### Updated in this project
-- Redesigned chat page (index.html): editorial light/dark theme, suggestion chips, auto-growing composer
-- v2: settings sheet (theme, text size, Enter to send, routing details, motion), About sheet, message actions, shortcuts, hidden attachments path
-- Same /api/chat contract; replies rendered with textContent and safe mailto links
+- Recreated current homepage as reference
+- Full redesign: Home, Work, Lab, Studio, Founder in one prototype
+- New type system (Hanken Grotesk / Newsreader / Martian Mono) and collage art direction
 
 ## Screen map
 | Screen | Repo files |
 |---|---|
-| index.html (chat) | index.html, api/chat.js |
+| Current Home.dc.html | index.html, style.css, script.js |
+| XOPICX.dc.html — Home | index.html, style.css, script.js |
+| XOPICX.dc.html — Work | projects.html |
+| XOPICX.dc.html — Lab | experiments.html |
+| XOPICX.dc.html — Studio | about.html |
+| XOPICX.dc.html — Founder | founder.html |
+| Mark / favicon | favicon.svg |
