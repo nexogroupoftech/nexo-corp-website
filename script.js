@@ -3,31 +3,32 @@ document.documentElement.classList.add("js");
 document.addEventListener("DOMContentLoaded", () => {
   const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const brand = document.querySelector("[data-brand]");
-  const brandQuery = window.matchMedia("(max-width: 760px)");
-  let brandCompact = null;
-
-  const syncBrand = () => {
-    if (!brand) return;
-    const narrow = brandQuery.matches;
-    const tracksScroll = brand.hasAttribute("data-brand-scroll");
-    let next = narrow;
-    if (tracksScroll && !narrow) {
-      const y = window.scrollY;
-      const held = brandCompact === null ? brand.classList.contains("is-compact") : brandCompact;
-      next = held ? y > 28 : y > 96;
-    }
-    if (next === brandCompact) return;
-    brandCompact = next;
-    brand.classList.toggle("is-compact", next);
-  };
-
-  syncBrand();
-  requestAnimationFrame(() => {
-    if (brand) brand.classList.add("is-live");
-  });
   if (brand) {
-    window.addEventListener("scroll", syncBrand, { passive: true });
-    brandQuery.addEventListener("change", syncBrand);
+    let lastY = window.scrollY;
+    let ticking = false;
+    let compact = false;
+    const setCompact = (value) => {
+      if (value === compact) return;
+      compact = value;
+      brand.classList.toggle("is-compact", value);
+    };
+    const updateBrand = () => {
+      ticking = false;
+      const y = Math.max(0, window.scrollY);
+      const dy = y - lastY;
+      if (y <= 24) setCompact(false);
+      else if (dy > 8 && y > 80) setCompact(true);
+      else if (dy < -8) setCompact(false);
+      if (Math.abs(dy) > 8 || y <= 24) lastY = y;
+    };
+    const onBrandScroll = () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(updateBrand);
+    };
+    window.addEventListener("scroll", onBrandScroll, { passive: true });
+    window.addEventListener("pagehide", () => window.removeEventListener("scroll", onBrandScroll));
+    updateBrand();
   }
 
   const toggle = document.querySelector("[data-nav-toggle]");
@@ -60,7 +61,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
     window.addEventListener("resize", () => {
       if (window.innerWidth > 760) setOpen(false);
-      syncBrand();
     });
   }
 
