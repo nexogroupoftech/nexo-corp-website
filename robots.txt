@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://xopicx.online/sitemap.xml
